@@ -1,0 +1,87 @@
+/* 로그인 */
+:root {
+  --main-color: #000;
+  --point-color: rgb(26, 129, 0);
+  --sub-color: #fff;
+  --back-color: rgba(250, 247, 243, 0.959);
+  --white-font: rgb(253, 245, 245);
+  --gray-font: rgb(155, 153, 151);
+}
+
+@font-face {
+  font-family: "MabinogiClassicR";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/MabinogiClassicR.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GilbeotRainbow";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2112@1.0/GilbeotRainbow.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  background-color: var(--back-color);
+}
+ol,
+ul {
+  list-style: none;
+}
+.header {
+  margin-top: 108px;
+  padding-bottom: 48px;
+  box-sizing: border-box;
+}
+.header_inner {
+  text-align: center;
+  font-size: 3em;
+  font-family: "MabinogiClassicR";
+}
+.wrap {
+  position: relative;
+  height: 100%;
+  letter-spacing: -0.5px;
+}
+
+.container_inner {
+  padding: 20px 28px;
+}
+.login_wrap {
+  width: 100%;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+.btn_login {
+  display: block;
+  width: 100%;
+  padding: 13px 0 13px;
+  border-radius: 6px;
+  border: solid 1px rgba(0, 0, 0, 0.15);
+  background-color: var(--point-color);
+  box-sizing: border-box;
+}
+.btn_login:first-child {
+  margin-bottom: 5px;
+}
+
+.btn_text {
+  font-size: 14px;
+  color: var(--white-font);
+}
+
+.footer {
+  display: inline-block;
+  position: relative;
+  padding: 63px 0 32px;
+  box-sizing: border-box;
+}
+.footer_inner {
+  text-align: center;
+}
+.footer .text {
+  font-size: 11px;
+  line-height: 15px;
+  color: var(--gray-font);
+}
