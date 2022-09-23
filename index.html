@@ -1,3 +1,4 @@
+<!-- 리액트 적용 -->
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -10,44 +11,115 @@
 </head>
 
 <body>
-  <!--    로그인    -->
-  <div id='wrap' class='wrap'>
-    <header class='header'>
-      <div class='header_inner'>
-        혈당당
-      </div>
-    </header>
-    <div id='container' class='container'>
-      <div id='container_inner' class='container_inner'>
-        <div class='login_wrap'>
-          <form action='./pages/login.js'>
-            <!-- <p>아이디 : <input type='text' name='id'></p>
-          <p>비밀번호 : <input type='password' name='pwd'></p> -->
-            <div id='social_login_wrap'>
-              <button type='submit' class='btn_login' id='login.google'>
-                <span class='btn_text'>구글로 로그인</span>
-              </button>
-              <button type='submit' class='btn_login' id='login.kakao'>
-                <span class='btn_text'>카카오로 로그인</span>
-              </button>
-            </div>
+  <div id="app">
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
-          </form>
+    react.ver
+    <!--    로그인    -->
+    <div id='wrap' class='wrap'>
+      <!-- <header class='header'>
+        <div class='header_inner'>
+          혈당당
+        </div>
+      </header>
+      <div id='container' class='container'>
+        <div id='container_inner' class='container_inner'>
+          <div class='login_wrap'>
+            <form action='./pages/login.js'>
+          //<p>아이디 : <input type='text' name='id'></p>
+          //<p>비밀번호 : <input type='password' name='pwd'></p>
+              <div id='social_login_wrap'>
+                <button type='submit' class='btn_login' id='login.google'>
+                  <span class='btn_text'>구글로 로그인</span>
+                </button>
+                <button type='submit' class='btn_login' id='login.kakao'>
+                  <span class='btn_text'>카카오로 로그인</span>
+                </button>
+              </div>
+
+            </form>
+          </div>
         </div>
       </div>
+      <div class='footer'>
+        <div class='footer_inner'>
+          <ul class='footer_info'>
+            <li><span class='text'>사업자 정보 Sajang | 이메일 jaong@ja.com</span></li>
+            <li><span class='text'>로그인 페이지 입니다롱</span></li>
+          </ul>
+
+        </div>
+      </div> -->
     </div>
-    <div class='footer'>
-      <div class='footer_inner'>
-        <ul class='footer_info'>
-          <li><span class='text'>사업자 정보 Sajang | 이메일 jaong@ja.com</span></li>
-          <li><span class='text'>로그인 페이지 입니다롱</span></li>
-        </ul>
-
-      </div>
-
-    </div>
 
 
+    <script type="text/babel">
+      // const item = 'hi js';
+      // let $header_inner = document.querySelector('div.header_inner');
+      // $header_inner.innerHTML = item;
+
+      // const reactItem = (<li>hi React</li>);
+      // ReactDOM.render(reactItem, $header_inner);
+      const Header = (props) => {
+        return (
+          <header className='header'>
+            <div className='header_inner'>
+              {props.children}
+            </div>
+          </header>
+
+        )
+      }
+
+      const LoginButton = (props) => {
+        return (
+          <button type='submit' className='btn_login' id={props.id}>
+            <span className='btn_text'>{props.children}</span>
+          </button>
+        )
+
+
+      }
+      const LoginContainer = () => {
+        return (
+          <div id='container' className='container'>
+            <div id='container_inner' className='container_inner'>
+              <div className='login_wrap'>
+                <form action='./pages/login.js'>
+                  <div id='social_login_wrap'>
+                    <LoginButton id='login.google'>구글로 로그인</LoginButton>
+                    <LoginButton id='login.kakao'>카카오로 로그인</LoginButton>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        )
+      }
+      const Footer = () => {
+        return (
+          <div className='footer'>
+            <div className='footer_inner'>
+              <ul className='footer_info'>
+                <li><span className='text'>사업자 정보 Sajang | 이메일 jaong@ja.com</span></li>
+                <li><span className='text'>로그인 페이지 입니다롱</span></li>
+              </ul>
+            </div>
+          </div>
+        )
+      }
+      const app = (
+        <div>
+          <Header>혈당당</Header>
+          <LoginContainer />
+          <Footer />
+        </div>
+      )
+      let $wrap = document.querySelector('div.wrap');
+      ReactDOM.render(app, $wrap)
+    </script>
   </div>
 
 </body>
