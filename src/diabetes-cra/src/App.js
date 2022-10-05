@@ -1,7 +1,7 @@
 import React from "react";
 import {Routes, Route} from "react-router-dom";
-import LoginPage from "./pages/login.js";
-import MainPage from "./pages/main.js";
+import LoginPage from "./pages/login";
+import MainPage from "./pages/main";
 
 function App() {
   let container = {
@@ -14,7 +14,7 @@ function App() {
     <div style={container}>
       <div>hi</div>
       <Routes>
-        <Route exact path="/login" element={<LoginPage />}></Route>
+        <Route index element={<LoginPage />}></Route>
         {/* component => element (최신 문법) 근데 아직도 해결 안됨 */}
         <Route path="/main" element={<MainPage />}></Route>
       </Routes>
