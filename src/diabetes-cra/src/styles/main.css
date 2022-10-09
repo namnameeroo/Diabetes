@@ -41,7 +41,7 @@ ul {
 .wrap {
   position: relative;
   height: 100%;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.2px;
 }
 
 .container_inner {
@@ -72,16 +72,25 @@ ul {
 }
 
 .footer {
-  display: inline-block;
+  /* display: inline-block; */
   position: relative;
   padding: 63px 0 32px;
-  box-sizing: border-box;
+  text-align: center;
 }
 .footer_inner {
-  text-align: center;
+  /* text-align: center; */
+  box-sizing: border-box;
 }
 .footer .text {
   font-size: 11px;
   line-height: 15px;
   color: var(--gray-font);
+}
+
+/* 
+* ul 사용자 에이전트에서 자동으로 40px 들어가서 
+* 제거해버림
+*/
+.footer ul {
+  padding-left: 0;
 }
