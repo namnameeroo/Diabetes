@@ -17,6 +17,8 @@ const InputCell = (props) => {
     </div>
   );
 };
+
+// prettier-ignore
 const MainContainer = () => {
   return (
     <div id="container" className="container">
@@ -24,22 +26,38 @@ const MainContainer = () => {
         <div className="main_wrap table_wrap">
           <table className="simple_font">
             <tr>
-              <td>음식명</td>
-              <td>
-                <InputCell />
-              </td>
+              <td>제품명</td>
+              <td><InputCell /></td>
             </tr>
             <tr>
-              <td>칼로리</td>
-              <td>
-                <InputCell />
-              </td>
+              <td>업체명</td>
+              <td><InputCell /></td>
             </tr>
             <tr>
-              <td>섭취량</td>
-              <td>
-                <InputCell />
-              </td>
+              <td>총량</td>
+              <td><InputCell /></td>
+            </tr>
+            {/* 
+            단위들 스팬에 넣고... 공백 맞추기!
+            */}
+            <tr>
+              <td>섭취량<span>(%)</span></td>
+              <td><InputCell /></td>
+            </tr>
+            <tr>
+              <td>칼로리&nbsp; &nbsp; &nbsp;(g)</td><td><InputCell /></td>
+            </tr>
+            <tr>
+              <td>탄수화물 (g)</td><td><InputCell /></td>
+            </tr>
+            <tr>
+              <td>단백질&nbsp; &nbsp; &nbsp;(g)</td><td><InputCell /></td>
+            </tr>
+            <tr>
+              <td>지방&nbsp; &nbsp; &nbsp; &nbsp; (g)</td><td><InputCell /></td>
+            </tr>
+            <tr>
+              <td>식이섬유 (g)</td><td><InputCell /></td>
             </tr>
           </table>
         </div>
