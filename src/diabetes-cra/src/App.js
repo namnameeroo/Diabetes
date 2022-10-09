@@ -14,9 +14,10 @@ function App() {
     <div style={container}>
       <div>hi</div>
       <Routes>
-        <Route index element={<LoginPage />}></Route>
+        <Route path="/login" element={<LoginPage />} />
+        {/* <Route index element={<LoginPage />}></Route> */}
         {/* component => element (최신 문법) 근데 아직도 해결 안됨 */}
-        <Route path="/main" element={<MainPage />}></Route>
+        <Route path="/main" element={<MainPage />} />
       </Routes>
     </div>
     // <div className="App">
