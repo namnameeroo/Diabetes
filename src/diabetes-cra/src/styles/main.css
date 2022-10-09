@@ -20,6 +20,21 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+.special_font {
+  font-family: "MabinogiClassicR";
+}
+
+.simple_font {
+  font-family: "Pretendard-Regular";
+  color: rgb(29, 26, 26);
+}
 
 body {
   background-color: var(--back-color);
@@ -38,9 +53,21 @@ ul {
   font-size: 3em;
   font-family: "MabinogiClassicR";
 }
+
+.page_title {
+  margin-top: 58px;
+  padding-bottom: 15px;
+  box-sizing: border-box;
+}
+.page_title_inner {
+  text-align: center;
+  font-size: 2em;
+  font-family: "MabinogiClassicR";
+}
 .wrap {
   position: relative;
-  height: 100%;
+  min-height: 100%;
+  /* 일단 푸터떄문에 height 말구 min-height 사용 */
   letter-spacing: -0.2px;
 }
 
@@ -69,4 +96,41 @@ ul {
 .btn_text {
   font-size: 14px;
   color: var(--white-font);
+}
+
+.input_text {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 3em;
+  margin: 0 8px;
+  padding: 5px 39px 5px 11px;
+  border: solid 1px #dadada;
+  background: #fff;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+.table_container {
+  /* background: rgb(255 250 250); */
+  background: rgb(255, 252, 252);
+}
+
+.table_wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+table {
+  /* background: rgb(255, 250, 250); */
+  padding: 0 20px;
+  text-align: left;
+  border-spacing: 0 10px;
+}
+
+table td {
+  padding-right: 10px;
+}
+
+table td:nth-child(2) {
+  flex-grow: 1;
 }

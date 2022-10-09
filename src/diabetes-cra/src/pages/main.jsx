@@ -9,7 +9,44 @@ const PageTitle = (props) => {
     </h3>
   );
 };
-const MainContainer = () => {};
+
+const InputCell = (props) => {
+  return (
+    <div className="input_item" id="input_item_id">
+      <input type="text" id={props.id} placeholder={props.placeholder} class="input_text"></input>
+    </div>
+  );
+};
+const MainContainer = () => {
+  return (
+    <div id="container" className="container">
+      <div id="container_inner" className="container_inner table_container">
+        <div className="main_wrap table_wrap">
+          <table className="simple_font">
+            <tr>
+              <td>음식명</td>
+              <td>
+                <InputCell />
+              </td>
+            </tr>
+            <tr>
+              <td>칼로리</td>
+              <td>
+                <InputCell />
+              </td>
+            </tr>
+            <tr>
+              <td>섭취량</td>
+              <td>
+                <InputCell />
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 function MainPage() {
   return (
