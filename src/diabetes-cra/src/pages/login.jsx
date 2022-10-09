@@ -1,8 +1,8 @@
 import React from "react";
-import {useState} from "react";
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+// import {useState} from "react";
+// import {BrowserRouter, Routes, Route} from "react-router-dom";
 import "../styles/main.css";
-import MainPage from "./main";
+import Footer from "../components/footer";
 
 const Header = (props) => {
   return (
@@ -45,22 +45,6 @@ const LoginContainer = () => {
             </div>
           </form>
         </div>
-      </div>
-    </div>
-  );
-};
-const Footer = () => {
-  return (
-    <div className="footer">
-      <div className="footer_inner">
-        <ul className="footer_info">
-          <li>
-            <span className="text">사업자 정보 Sajang | 이메일 jaong@ja.com</span>
-          </li>
-          <li>
-            <span className="text">로그인 페이지 입니다롱</span>
-          </li>
-        </ul>
       </div>
     </div>
   );
