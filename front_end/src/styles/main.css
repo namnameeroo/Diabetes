@@ -61,7 +61,7 @@ ul {
 }
 .page_title_inner {
   text-align: center;
-  font-size: 2em;
+  font-size: 1.5em;
   font-family: "MabinogiClassicR";
 }
 .wrap {
@@ -81,6 +81,22 @@ ul {
 }
 
 .btn_login {
+  display: block;
+  width: 100%;
+  padding: 13px 0 13px;
+  border-radius: 6px;
+  border: solid 1px rgba(0, 0, 0, 0.15);
+  background-color: var(--point-color);
+  box-sizing: border-box;
+}
+
+.submit_wrap {
+  width: 100%;
+  padding: 20px 0;
+  box-sizing: border-box;
+}
+
+.btn_submit {
   display: block;
   width: 100%;
   padding: 13px 0 13px;
@@ -123,6 +139,7 @@ ul {
 table {
   /* background: rgb(255, 250, 250); */
   /* padding: 0 20px; */
+  font-size: 14px;
   text-align: left;
   border-spacing: 0 10px;
 }
