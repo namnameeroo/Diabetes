@@ -12,8 +12,8 @@ import java.util.UUID;
 @Configuration
 public class JpaConfig {
     //TODO 회원 아이디 입력으로 수정
-    @Bean
-    public AuditorAware<String> auditorProvider() {
-        return () -> Optional.of(UUID.randomUUID().toString());
-    }
+//    @Bean
+//    public AuditorAware<String> auditorProvider() {
+//        return () -> Optional.of(UUID.randomUUID().toString());
+//    }
 }
