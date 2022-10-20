@@ -12,7 +12,7 @@ const Header = (props) => {
   );
 };
 
-// // 로그인 후 이동 안되는중!
+// 로그인 후 이동 안되는중!
 // const AuthSubmit = () => {
 //   const [User, Valid] = useState("");
 //   console.log("goto main");
