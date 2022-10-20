@@ -1,12 +1,18 @@
 /* 로그인 */
 :root {
   --main-color: #000;
-  --point-color: rgb(26, 129, 0);
-  --sub-color: #fff;
+  /* --point-color: rgb(26, 129, 0); */
+  /* --sub-color: #fff; */
+  --point-color: #a62219;
+  --sub-color: #401301;
   --back-color: rgba(250, 247, 243, 0.959);
+  --white-color: rgb(251, 251, 251);
   --white-font: rgb(253, 245, 245);
   --gray-font: rgb(155, 153, 151);
 }
+
+/* #401301
+#a62219 */
 
 @font-face {
   font-family: "MabinogiClassicR";
