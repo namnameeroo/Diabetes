@@ -1,7 +1,7 @@
-package com.diabetes.foodInfo;
+package com.diabetes.food;
 
 import com.diabetes.common.domain.BaseTimeEntity;
-import com.diabetes.foodInfo.dto.FoodDto;
+import com.diabetes.food.dto.FoodDto;
 import com.diabetes.user.domain.User;
 import lombok.*;
 
@@ -14,11 +14,11 @@ import javax.persistence.*;
 @Entity
 public class Food extends BaseTimeEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "MEMBER_ID")
+    @JoinColumn(name = "USER_ID")
     private User user;
 
     private String name;
@@ -37,7 +37,7 @@ public class Food extends BaseTimeEntity {
     public FoodDto toDto() {
         return FoodDto.builder()
                 .id(this.id)
-                //.userId()
+                //.userId() TODO 응답값에 유저 아이디 정보를 담아줘야 하는지???
                 .name(this.name)
                 .provider(this.provider)
                 .entireWeight(this.entireWeight)
@@ -56,15 +56,15 @@ public class Food extends BaseTimeEntity {
 //        this.id = dto.getId();
 //        this.name = dto.getName();
 //        this.provider = dto.getProvider();
-        this.entireWeight = dto.getEntireWeight();
-        this.calories = dto.getCalories();
-        this.carbohydrate = dto.getCarbohydrate();
-        this.protein = dto.getProtein();
-        this.fat = dto.getFat();
-        this.intake = dto.getIntake();
-        this.remains = dto.getRemains();
-        this.gl = dto.getGl();
-        this.result = dto.getResult();
+        this.entireWeight = dto.getEntireWeight()==null ? this.entireWeight : dto.getEntireWeight();
+        this.calories = dto.getCalories()==null ? this.calories : dto.getCalories();
+        this.carbohydrate = dto.getCarbohydrate()==null ? this.carbohydrate : dto.getCarbohydrate();
+        this.protein = dto.getProtein()==null ? this.protein : dto.getProtein();
+        this.fat = dto.getFat()==null ? this.fat : dto.getFat();
+        this.intake = dto.getIntake()==null ? this.intake : dto.getIntake();
+        this.remains = dto.getRemains()==null ? this.remains : dto.getRemains();
+        this.gl = dto.getGl()==null ? this.gl : dto.getGl();
+        this.result = dto.getResult()==null ? this.result : dto.getResult();
 
         return this;
     }

@@ -1,11 +1,9 @@
 package com.diabetes.auth.config;
 
-
-import com.diabetes.user.domain.RoleType;
+import com.diabetes.auth.security.CustomAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,6 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 @Configuration
 public class SecurityConfig {
+    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
     /*
      * security 설정 시, 사용할 인코더 설정
@@ -37,18 +36,19 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authz) -> authz
                         // TODO 아래 접근에 대해서 관리자만 접근 가능하도록 제한 설정을 해둘 필요성!
                         .antMatchers("/actuator/health", "/h2-console/**").permitAll()
-
                         .antMatchers("/", "/css/**", "/images/**").permitAll()
                         .antMatchers("/api/v1/auth/**").permitAll()
-                        .antMatchers("/api/v1/food", "/api/v1/foods/**", "/api/v1/users/**").hasRole(RoleType.USER.name())
+                        .antMatchers("/api/v1/food", "/api/v1/food/**", "/api/v1/foods", "/api/v1/users/**").permitAll() //.hasRole(RoleType.USER.name())
                         .anyRequest().authenticated()
                 )
                 .oauth2Login()
                 .authorizationEndpoint()
                 .and()
                 .userInfoEndpoint();
-//                .and()
-//                .exceptionHandling();
+
+        http
+                .exceptionHandling()
+                .authenticationEntryPoint(customAuthenticationEntryPoint);	// 401  자동 구글 로그인 url로 이동하는 것 방지
 
         return http.build();
     }

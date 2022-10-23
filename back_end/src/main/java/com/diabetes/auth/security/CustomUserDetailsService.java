@@ -21,7 +21,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) {
         Optional<UserPrincipal> userPrincipal = userRepository.findByEmail(email)
                 .map(user -> {
-                    if (user.getStatus() == UserStatus.Normal) {
+                    if (user.getStatus() == UserStatus.NORMAL) {
                         throw new RuntimeException(email + "-> 활성화되어 있지 않습니다.");
                     } else {
                         return UserPrincipal.create(user);

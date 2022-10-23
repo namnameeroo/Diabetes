@@ -31,11 +31,12 @@ public abstract class OAuth2UserInfo {
   public User toEntity() {
 
     return User.builder()
+            .authId(getId())
             .name(getName())
             .email(getEmail())
             .imageUrl(getImageUrl())
             .role(RoleType.USER)
-            .status(UserStatus.Normal)
+            .status(UserStatus.NORMAL)
             .authProviderType(getProviderType())
             .build();
   }

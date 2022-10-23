@@ -4,10 +4,7 @@ package com.diabetes.user.domain;
 import com.diabetes.common.domain.BaseTimeEntity;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Getter
 @Builder
@@ -18,19 +15,28 @@ import javax.persistence.Table;
 public class User extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private String oauthId;
-    private String email;
+    @Column(unique = true)
+    private String authId;
     private String password;
+
+    private String email;
+    private String name;
+
+    @Enumerated(EnumType.STRING)
     private UserStatus status;
+
+    @Enumerated(EnumType.STRING)
     private RoleType role;
+
+    @Enumerated(EnumType.STRING)
     private AuthProviderType authProviderType;
 
     private String imageUrl;
     private Integer age;
+    @Enumerated(EnumType.STRING)
     private GenderType gender;
 
     // enum은 항상 static

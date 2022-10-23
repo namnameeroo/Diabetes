@@ -33,9 +33,28 @@ public class UserService {
                 .build();
     }
 
-    public User findUserById(Long userId) {
-        return userRepository.findById(userId)
+    @Transactional(readOnly = true)
+    public UserDto findUserByAuthId(String authId) {
+        User user = userRepository.findByAuthId(authId)
                 .orElseThrow(()-> new IllegalArgumentException("찾는 사용자가 존재하지 않습니다."));
+
+        return UserDto.builder()
+                .authId(user.getAuthId())
+                .email(user.getEmail())
+                .name(user.getName())
+                .build();
+
+    }
+
+    @Transactional(readOnly = true)
+    public UserDto findUserById(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(()-> new IllegalArgumentException("찾는 사용자가 존재하지 않습니다."));
+        return UserDto.builder()
+                .authId(user.getAuthId())
+                .email(user.getEmail())
+                .name(user.getName())
+                .build();
     }
 
     @Transactional(readOnly = true)
@@ -53,4 +72,5 @@ public class UserService {
 
         return newUser;
     }
+
 }
