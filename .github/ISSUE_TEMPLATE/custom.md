@@ -18,3 +18,6 @@ assignees: ''
 ### Summary
 
 ### Description
+
+# 코드 컨벤션 종류
+`Feat:` , `Fix:` , `Style:` , `Docs:` , `Remove` , `Refactor`
