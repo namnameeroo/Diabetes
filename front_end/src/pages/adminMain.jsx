@@ -71,7 +71,7 @@ const Wrap = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   background-color: var(--white-color);
-  height: 450px; /**임시 */
+  height: 460px; /**임시 */
 `;
 
 const UserlistPage = () => {
