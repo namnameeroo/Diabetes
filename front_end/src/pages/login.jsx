@@ -1,6 +1,6 @@
 import React from "react";
 // import {useState} from "react";
-// import {BrowserRouter, Routes, Route} from "react-router-dom";
+
 import "../styles/main.css";
 import Footer from "../components/footer";
 
@@ -12,7 +12,7 @@ const Header = (props) => {
   );
 };
 
-// // 로그인 후 이동 안되는중!
+// 로그인 후 이동 안되는중!
 // const AuthSubmit = () => {
 //   const [User, Valid] = useState("");
 //   console.log("goto main");

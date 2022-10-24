@@ -1,0 +1,20 @@
+{
+  "users": [
+    {
+      "id": "user1",
+      "password": "1234",
+      "name": "jay"
+    },
+    {
+      "id": "user2",
+      "password": "1234",
+      "name": "sara"
+    }
+  ],
+
+  "foodlist": [
+    {"foodName": "gogi", "id": "0", "createDate": "2022-10-22"},
+    {"foodName": "salad", "id": "1", "createDate": "2022-10-10"},
+    {"foodName": "hamburger", "id": "2", "createDate": "2022-01-21"}
+  ]
+}
