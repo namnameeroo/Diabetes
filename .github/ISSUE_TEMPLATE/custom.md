@@ -11,5 +11,5 @@ assignees: ''
 
 ### Description
 
-# 코드 컨벤션 종류
+# 코드 컨벤션 종류 (참고용)
 `Feat:` , `Fix:` , `Style:` , `Docs:` , `Remove:` , `Refactor:`, `Chore:`
