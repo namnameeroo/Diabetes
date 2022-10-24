@@ -16,5 +16,11 @@
     {"foodName": "gogi", "id": "0", "createDate": "2022-10-22"},
     {"foodName": "salad", "id": "1", "createDate": "2022-10-10"},
     {"foodName": "hamburger", "id": "2", "createDate": "2022-01-21"}
+  ],
+  "userlist": [
+    {"name": "이하이", "id": "hi@mail.com", "gender": "F", "date": "2022-10-10", "count": "2"},
+    {"name": "최안경", "id": "glasses@mail.com", "gender": "F", "date": "2022-01-10", "count": "4"},
+    {"name": "Ahn Yeah", "id": "Nono@mail.com", "gender": "F", "date": "2022-12-01", "count": "0"},
+    {"name": "소시지", "id": "cowww@mail.com", "gender": "M", "date": "2000-05-15", "count": "2"}
   ]
 }

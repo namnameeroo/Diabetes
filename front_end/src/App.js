@@ -5,6 +5,7 @@ import {Routes, Route, Link} from "react-router-dom";
 import LoginPage from "./pages/login";
 import MainPage from "./pages/main";
 import MylistPage from "./pages/mylist";
+import AdminUserListPage from "./pages/adminUserList";
 
 function App() {
   let container = {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/main" element={<MainPage />} />
         <Route path="/mylist" element={<MylistPage />} />
+        <Route path="/adminUserList" element={<AdminUserListPage />} />
       </Routes>
       <div className="temp">
         <li>
@@ -29,6 +31,9 @@ function App() {
         </li>
         <li>
           <Link to="/mylist">입력목록 페이지로</Link>
+        </li>
+        <li>
+          <Link to="/adminUserList">(어드민) 유저목록 페이지로</Link>
         </li>
       </div>
     </div>
