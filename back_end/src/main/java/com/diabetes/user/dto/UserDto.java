@@ -15,12 +15,10 @@ import javax.validation.constraints.Size;
 public class UserDto {
     @NotNull
     @Size(min = 5, max = 100)
-    private String email;
+    private String authId;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @NotNull
-    @Size(min = 3, max = 100)
-    private String password;
+    @Size(min = 5, max = 100)
+    private String email;
 
     @NotNull
     @Size(min = 1, max = 100)

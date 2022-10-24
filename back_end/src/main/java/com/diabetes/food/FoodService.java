@@ -1,8 +1,7 @@
-package com.diabetes.foodInfo;
+package com.diabetes.food;
 
 import com.diabetes.common.exception.NoSuchElementFoundException;
-import com.diabetes.foodInfo.dto.FoodDto;
-import lombok.NoArgsConstructor;
+import com.diabetes.food.dto.FoodDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

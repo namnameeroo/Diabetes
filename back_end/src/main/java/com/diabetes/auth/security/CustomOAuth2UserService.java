@@ -40,28 +40,36 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
     // TODO readonly 트랜잭션 전파 체크해보기 (https://code-mania.tistory.com/m/143)
     // 획득한 유저정보를 Java Model과 매핑하고 프로세스 진행
+    // 트랜잭션은 퍼블릭 메소드여야 하는 것 같음. 프록시 패턴을 활용하기 위해서 퍼블릭이어야 한다고... 확인해보기
     @Transactional
-    OAuth2User process(OAuth2UserRequest oAuth2UserRequest, OAuth2User oAuth2User) {
+    public OAuth2User process(OAuth2UserRequest oAuth2UserRequest, OAuth2User oAuth2User) {
         AuthProviderType authProviderType = AuthProviderType.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId().toUpperCase());
 
         // 이왕 팩토리패턴을 적용하니, 인터페이스를 사용
         OAuth2UserInfo userInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(authProviderType, oAuth2User.getAttributes());
 
-        if (userInfo.getEmail().isEmpty()) {
-            throw new OAuthProcessingException("Email not found from OAuth2 provider");
-        }
+        // TODO 향후 삭제
+//        if (userInfo.getEmail().isEmpty()) {
+//            throw new OAuthProcessingException("Email not found from OAuth2 provider");
+//        }
         // 유저 정보 조회
-        Optional<User> userOptional = userRepository.findByEmail(userInfo.getEmail());
+        Optional<User> userOptional = userRepository.findByAuthId(userInfo.getId());
         User user;
 
         if (userOptional.isPresent()) {	// 이미 가입된 경우
+
             user = userOptional.get();
-            if (authProviderType.equals(user.getAuthProviderType())) {
+            if (authProviderType.equals(user.getAuthProviderType().name())) {
                 throw new OAuthProcessingException("Wrong Match Auth Provider");
             }
+            // TODO 새로 조회한 유저 정보가 변경되었을 수 있으니 갱신시켜준다.
+
         } else { // 가입되지 않은 경우
             user = userService.registerForOauth2(userInfo);
         }
+
+        // TODO 구글의 경우 oAuth2UserRequest 들어있는 access_token 과 id_token 처리 방법
+        // 토큰을 저장할지 vs. 바로 people api를 활용해서 사용자의 추가 정보를 로드해오기만 할지...
         return UserPrincipal.create(user, oAuth2User.getAttributes());
     }
 

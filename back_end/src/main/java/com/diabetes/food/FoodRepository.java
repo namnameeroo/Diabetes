@@ -1,4 +1,4 @@
-package com.diabetes.foodInfo;
+package com.diabetes.food;
 
 
 import com.diabetes.user.domain.User;

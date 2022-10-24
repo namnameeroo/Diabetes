@@ -1,4 +1,4 @@
-package com.diabetes.foodInfo.dto;
+package com.diabetes.food.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
