@@ -31,7 +31,8 @@ const Table = styled.table`
 
   td {
     text-align: center;
-    padding: 10px;
+    padding: 10px 4px;
+
     vertical-align: top;
     border-bottom: 1px solid #ccc;
   }
