@@ -20,4 +20,4 @@ assignees: ''
 ### Description
 
 # 코드 컨벤션 종류
-`Feat:` , `Fix:` , `Style:` , `Docs:` , `Remove` , `Refactor`
+`Feat:` , `Fix:` , `Style:` , `Docs:` , `Remove:` , `Refactor:`, `Chore:`
