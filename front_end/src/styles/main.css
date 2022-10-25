@@ -151,7 +151,6 @@ table {
 }
 
 table td {
-  padding-right: 10px;
   min-width: 5%;
 }
 /* table td#small_td {
@@ -161,4 +160,17 @@ table td {
 table td:last-child {
   flex-grow: 1;
   min-width: 60%;
+}
+.pad-right-10 {
+  padding-right: 10px;
+}
+
+.right-align {
+  text-align: right;
+}
+.small-txt {
+  font-size: smaller;
+}
+.gray-txt {
+  color: var(--gray-font);
 }
