@@ -3,8 +3,9 @@ import {Routes, Route, Link} from "react-router-dom";
 // import styled from "styled-component";
 
 import LoginPage from "./pages/login";
-import MainPage from "./pages/main";
+import FoodFormPage from "./pages/foodForm";
 import MylistPage from "./pages/mylist";
+import AdminUserListPage from "./pages/adminUserList";
 
 function App() {
   let container = {
@@ -17,8 +18,9 @@ function App() {
     <div style={container}>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/main" element={<MainPage />} />
+        <Route path="/main" element={<FoodFormPage />} />
         <Route path="/mylist" element={<MylistPage />} />
+        <Route path="/adminUserList" element={<AdminUserListPage />} />
       </Routes>
       <div className="temp">
         <li>
@@ -29,6 +31,9 @@ function App() {
         </li>
         <li>
           <Link to="/mylist">입력목록 페이지로</Link>
+        </li>
+        <li>
+          <Link to="/adminUserList">(어드민) 유저목록 페이지로</Link>
         </li>
       </div>
     </div>
