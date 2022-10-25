@@ -1,4 +1,5 @@
 import React from "react";
+
 import "../styles/main.css";
 import Footer from "../components/footer";
 
@@ -29,9 +30,6 @@ const handleFormSubmit = (e) => {
   e.preventDefault();
 };
 
-// const getInputValue = () => {};
-// const [errorMessage, setErrorMessage] = React.useState("빈 값이 있습니다.");
-
 const SubmitButton = (props) => {
   const handleSubmitClick = () => {
     console.log("submit button clicked");
@@ -42,69 +40,79 @@ const SubmitButton = (props) => {
     </button>
   );
 };
-// prettier-ignore
 
+const Today = () => {
+  let now = new Date();
+  let todayYear = now.getFullYear();
+  let todayMonth = now.getMonth();
+  let todayDay = now.getDate();
+
+  return <div className="right-align small-txt gray-txt">작성일 : {[todayYear, todayMonth, todayDay].join("-")}</div>;
+};
+
+// prettier-ignore
 const MainContainer = () => {
   return (
     <div id="container" className="container">
       <div id="container_inner" className="container_inner table_container">
+        <Today />
         <form onSubmit={handleFormSubmit}>
           <div className="main_wrap table_wrap">
             <table className="simple_font">
               <tbody>
                 <tr>
-                  <td>제품명</td>
+                  <td className="pad-right-10">제품명</td>
                   <td>
                     <InputCell />
                   </td>
                 </tr>
                 <tr>
-                  <td>업체명</td>
-                  <td>
+                  <td className="pad-right-10">업체명</td>
+                  <td >
                     <InputCell />
                   </td>
                 </tr>
                 <tr>
-                  <td>총량</td>
+                  <td className="pad-right-10">총량&nbsp; &nbsp; &nbsp; &nbsp;(g)</td>
                   <td>
                     <InputCell />
                   </td>
                 </tr>
                 {/* 단위들 스팬에 넣고... 공백 맞추기!*/}
                 <tr>
-                  <td>
-                    섭취량<span>(%)</span>
+                  <td className="pad-right-10">
+                    섭취량&nbsp; &nbsp; &nbsp;(%)
                   </td>
                   <td>
                     <InputCell />
                   </td>
                 </tr>
                 <tr>
-                  <td>칼로리&nbsp; &nbsp; &nbsp;(g)</td>
+                  <td className="pad-right-10">칼로리&nbsp; &nbsp; &nbsp;(g)</td>
                   <td>
                     <InputCell />
                   </td>
                 </tr>
                 <tr>
-                  <td>탄수화물 (g)</td>
+                  <td className="pad-right-10">탄수화물 (g)</td>
                   <td>
                     <InputCell />
                   </td>
                 </tr>
                 <tr>
-                  <td>단백질&nbsp; &nbsp; &nbsp;(g)</td>
+                  <td className="pad-right-10">단백질&nbsp; &nbsp; &nbsp;(g)</td>
                   <td>
                     <InputCell />
                   </td>
                 </tr>
                 <tr>
-                  <td>지방&nbsp; &nbsp; &nbsp; &nbsp; (g)</td>
+                  <td className="pad-right-10">지방&nbsp; &nbsp; &nbsp; &nbsp; (g)</td>
                   <td>
                     <InputCell />
                   </td>
                 </tr>
                 <tr>
-                  <td>식이섬유 (g)</td>
+                  <td className="pad-right-10">식이섬유 (g)</td >
                   <td>
                     <InputCell />
                   </td>
