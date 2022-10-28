@@ -1,12 +1,17 @@
 package com.diabetes.food.dto;
 
+import com.diabetes.food.GLResult;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+
 @Getter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Builder
 @AllArgsConstructor
 public class FoodDto {
@@ -33,8 +38,11 @@ public class FoodDto {
     private Float intake;
     @NotNull
     private Float gl;
+
+    // GLResultType(현재 Food 엔티티의 내부 클래스)을 쓸지 String을 쓸지 고민
     @NotNull
-    private String result;
+    @Valid
+    private GLResult result;
 
     public void checkUserId(Long userId) {
         if (!this.userId.equals(userId)) {

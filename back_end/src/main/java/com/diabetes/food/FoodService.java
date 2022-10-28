@@ -2,6 +2,7 @@ package com.diabetes.food;
 
 import com.diabetes.common.exception.NoSuchElementFoundException;
 import com.diabetes.food.dto.FoodDto;
+import com.diabetes.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 public class FoodService {
 
     private final FoodRepository foodRepository;
+    private final UserRepository userRepository;
 
     @Transactional(readOnly = true)
     public List<FoodDto> getFoodList(Long userId) {
@@ -107,7 +109,10 @@ public class FoodService {
     private Food convertToEntity(FoodDto dto) {
         return Food.builder()
                 .id(dto.getId())
-                //.user(userRepository.findById(dto.getUserId()))
+                .name(dto.getName())
+                .user(userRepository.findById(dto.getUserId()).orElseThrow(
+                        () -> new NoSuchElementFoundException("NOT VALID USER ID")
+                ))
                 .provider(dto.getProvider())
                 .entireWeight(dto.getEntireWeight())
                 .fat(dto.getFat())
@@ -116,7 +121,7 @@ public class FoodService {
                 .protein(dto.getProtein())
                 .intake(dto.getIntake())
                 .gl(dto.getGl())
-                .result(Enum.valueOf(Food.GLResult.class, dto.getResult()))
+                .result(dto.getResult())//Enum.valueOf(GLResult.class, dto.getResult()))
                 .build();
     }
 
