@@ -5,6 +5,9 @@ import com.diabetes.common.domain.BaseTimeEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.time.LocalDate;
 
 @Getter
 @Builder
@@ -20,13 +23,10 @@ public class User extends BaseTimeEntity {
 
     @Column(unique = true)
     private String authId;
-    private String password;
 
     private String email;
     private String name;
-
-    @Enumerated(EnumType.STRING)
-    private UserStatus status;
+//    private String password;
 
     @Enumerated(EnumType.STRING)
     private RoleType role;
@@ -34,15 +34,26 @@ public class User extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private AuthProviderType authProviderType;
 
-    private String imageUrl;
-    private Integer age;
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
+
     @Enumerated(EnumType.STRING)
     private GenderType gender;
+    private String age;
+
+    private LocalDate birthday;
+    private String imageUrl;
+
+//    @Column(length = 512)
+//    private String accessToken;
+//
+//    @Column(length = 512)
+//    private String refreshToken;
 
     // enum은 항상 static
     // 내부 클래스는 static!! 외부 참조 발생 주의!
     public enum GenderType {
-        F, M
+        FEMALE, MALE
     }
 
 }
