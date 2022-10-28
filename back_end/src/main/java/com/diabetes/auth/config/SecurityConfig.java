@@ -37,9 +37,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authz) -> authz
                         // TODO 아래 접근에 대해서 관리자만 접근 가능하도록 제한 설정을 해둘 필요성!
                         .antMatchers("/actuator/health", "/h2-console/**").permitAll()
+                        .antMatchers("/api/v1/admin/**").permitAll()
                         .antMatchers("/", "/css/**", "/images/**").permitAll()
                         .antMatchers("/api/v1/auth/**").permitAll()
-                        .antMatchers("/api/v1/foods", "/api/v1/foods/**", "/api/v1/users/**").permitAll() //.hasRole(RoleType.USER.name())
+                        .antMatchers("/api/v1/foods", "/api/v1/foods/**", "/api/v1/users/**").permitAll() //.hasRole(RoleType.USER.getCode())
                         .anyRequest().authenticated()
                 )
                 .oauth2Login()
