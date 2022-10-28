@@ -19,6 +19,7 @@ spring:
       enabled: true
 
 # cors 설정
+#
 cors:
   allowedOrigins: 'http://localhost:3000'
   allowedMethods: GET,POST,PUT,PATCH,DELETE,OPTIONS
@@ -36,9 +37,9 @@ spring:
       on-profile: test
   datasource:
     url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE  # db 주소 고정
-    sql:
-      init:
-        data-locations: classpath:data-for-h2.sql # 시작할때 실행시킬 script
+  sql:
+    init:
+      data-locations: classpath:data-for-h2.sql # 시작할때 실행시킬 script
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     defer-datasource-initialization: true # hibernate가 초기화되기 전 data.sql 실행하는 것을 방지
@@ -58,7 +59,6 @@ spring:
   config:
     activate:
       on-profile: local
-
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/diabetes?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
