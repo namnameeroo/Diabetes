@@ -1,6 +1,7 @@
 package com.diabetes.auth.config;
 
 import com.diabetes.auth.security.CustomAuthenticationEntryPoint;
+import com.diabetes.auth.security.OAuth2AuthenticationSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
-
+    private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
     /*
      * security 설정 시, 사용할 인코더 설정
      * */
@@ -38,17 +39,19 @@ public class SecurityConfig {
                         .antMatchers("/actuator/health", "/h2-console/**").permitAll()
                         .antMatchers("/", "/css/**", "/images/**").permitAll()
                         .antMatchers("/api/v1/auth/**").permitAll()
-                        .antMatchers("/api/v1/food", "/api/v1/food/**", "/api/v1/foods", "/api/v1/users/**").permitAll() //.hasRole(RoleType.USER.name())
+                        .antMatchers("/api/v1/foods", "/api/v1/foods/**", "/api/v1/users/**").permitAll() //.hasRole(RoleType.USER.name())
                         .anyRequest().authenticated()
                 )
                 .oauth2Login()
+                .defaultSuccessUrl("/api/v1/users/me", true)
                 .authorizationEndpoint()
                 .and()
                 .userInfoEndpoint();
-
+//                .and()
+//                .successHandler(oAuth2AuthenticationSuccessHandler);
         http
                 .exceptionHandling()
-                .authenticationEntryPoint(customAuthenticationEntryPoint);	// 401  자동 구글 로그인 url로 이동하는 것 방지
+                .authenticationEntryPoint(customAuthenticationEntryPoint);	// 401 자동 구글 로그인 url로 이동하는 것 방지
 
         return http.build();
     }

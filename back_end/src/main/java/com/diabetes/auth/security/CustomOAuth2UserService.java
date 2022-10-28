@@ -45,13 +45,10 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     public OAuth2User process(OAuth2UserRequest oAuth2UserRequest, OAuth2User oAuth2User) {
         AuthProviderType authProviderType = AuthProviderType.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId().toUpperCase());
 
+        String accessToken = oAuth2UserRequest.getAccessToken().getTokenValue();
         // 이왕 팩토리패턴을 적용하니, 인터페이스를 사용
-        OAuth2UserInfo userInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(authProviderType, oAuth2User.getAttributes());
+        OAuth2UserInfo userInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(authProviderType, oAuth2User.getAttributes(), accessToken);
 
-        // TODO 향후 삭제
-//        if (userInfo.getEmail().isEmpty()) {
-//            throw new OAuthProcessingException("Email not found from OAuth2 provider");
-//        }
         // 유저 정보 조회
         Optional<User> userOptional = userRepository.findByAuthId(userInfo.getId());
         User user;
