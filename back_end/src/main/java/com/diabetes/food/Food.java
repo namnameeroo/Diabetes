@@ -20,18 +20,17 @@ public class Food extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
-
     private String name;
     private String provider;
-    private Integer entireWeight;
-    private Integer calories;
-    private Integer carbohydrate;
-    private Integer protein;
-    private Integer fat;
-    private Integer intake;
-    private Integer remains;
-    private Integer gl; // 소숫점
-    private String result; // low, middle, high
+    private Float entireWeight;
+    private Float calories;
+    private Float carbohydrate;
+    private Float protein;
+    private Float fat;
+    private Float intake;
+    private Float gl; // 소숫점
+    private Food.GLResult result; // low, middle, high
+    private Status status;
 
 
     public FoodDto toDto() {
@@ -46,9 +45,8 @@ public class Food extends BaseTimeEntity {
                 .protein(this.protein)
                 .fat(this.fat)
                 .intake(this.intake)
-                .remains(this.remains)
                 .gl(this.gl)
-                .result(this.result)
+                .result(this.result.toString())
                 .build();
     }
 
@@ -62,10 +60,21 @@ public class Food extends BaseTimeEntity {
         this.protein = dto.getProtein()==null ? this.protein : dto.getProtein();
         this.fat = dto.getFat()==null ? this.fat : dto.getFat();
         this.intake = dto.getIntake()==null ? this.intake : dto.getIntake();
-        this.remains = dto.getRemains()==null ? this.remains : dto.getRemains();
         this.gl = dto.getGl()==null ? this.gl : dto.getGl();
-        this.result = dto.getResult()==null ? this.result : dto.getResult();
+        this.result = dto.getResult()==null ? this.result : Enum.valueOf(Food.GLResult.class, dto.getResult());
 
         return this;
+    }
+
+    public Food setDeleted() {
+        this.status = Status.DELETED;
+        return this;
+    }
+
+    public enum Status {
+        NORMAL, DELETED, INVALID
+    }
+    public enum GLResult {
+        LOW, MIDDLE, HIGH
     }
 }

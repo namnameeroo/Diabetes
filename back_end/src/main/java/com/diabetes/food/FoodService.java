@@ -29,9 +29,20 @@ public class FoodService {
     }
 
     @Transactional(readOnly = true)
-    public FoodDto getFoodInfo(Long foodId) {
+    public FoodDto getFoodInfoByFoodId(Long foodId) {
 
         Optional<Food> foodInfo = foodRepository.findById(foodId);
+        FoodDto foodDto = foodInfo.orElseThrow(
+                        ()-> new NoSuchElementFoundException("NOT FOUND ITEM", HttpStatus.NOT_FOUND)
+                )
+                .toDto();
+        return foodDto;
+    }
+
+    @Transactional(readOnly = true)
+    public FoodDto getFoodInfo(Long foodId, Long userId) {
+
+        Optional<Food> foodInfo = foodRepository.findByIdAndUserId(foodId, userId);
         FoodDto foodDto = foodInfo.orElseThrow(
                         ()-> new NoSuchElementFoundException("NOT FOUND ITEM", HttpStatus.NOT_FOUND)
                 )
@@ -60,8 +71,28 @@ public class FoodService {
      * 데이터의 상태를 변경해서 삭제 처리?
      */
     @Transactional
-    public Boolean updateFoodInfoDeleted(Long foodId) {
-        //foodRepository.deleteById(foodId);
+    public Boolean updateFoodInfoDeleted(Long foodId, Long userId) {
+        Optional<Food> foodInfoById = foodRepository.findByIdAndUserId(foodId, userId);
+        FoodDto foodDto = foodInfoById.orElseThrow(
+                ()-> new NoSuchElementFoundException("NOT FOUND ITEM", HttpStatus.NOT_FOUND)
+        )
+                .setDeleted()
+                .toDto();
+
+        // 익셉션이 없다면, 삭제되었을 것
+        return Boolean.TRUE;
+    }
+
+    @Transactional
+    public Boolean updateFoodInfoDeletedByFoodId(Long foodId) {
+
+        Optional<Food> foodInfoById = foodRepository.findById(foodId);
+        FoodDto foodDto = foodInfoById.orElseThrow(
+                        ()-> new NoSuchElementFoundException("NOT FOUND ITEM", HttpStatus.NOT_FOUND)
+                )
+                .setDeleted()
+                .toDto();
+
         // 익셉션이 없다면, 삭제되었을 것
         return Boolean.TRUE;
     }
@@ -84,10 +115,11 @@ public class FoodService {
                 .calories(dto.getCalories())
                 .protein(dto.getProtein())
                 .intake(dto.getIntake())
-                .remains(dto.getRemains())
                 .gl(dto.getGl())
-                .result(dto.getResult())
+                .result(Enum.valueOf(Food.GLResult.class, dto.getResult()))
                 .build();
     }
+
+
 }
 
