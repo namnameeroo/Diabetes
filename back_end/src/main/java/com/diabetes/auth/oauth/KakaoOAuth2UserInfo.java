@@ -1,7 +1,10 @@
 package com.diabetes.auth.oauth;
 
 import com.diabetes.user.domain.AuthProviderType;
+import com.diabetes.user.domain.User;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 public class KakaoOAuth2UserInfo extends OAuth2UserInfo {
@@ -24,7 +27,7 @@ public class KakaoOAuth2UserInfo extends OAuth2UserInfo {
 
     @Override
     public String getId() {
-        return (String) attributes.get("id");
+        return attributes.get("id").toString();
     }
 
     @Override
@@ -41,6 +44,35 @@ public class KakaoOAuth2UserInfo extends OAuth2UserInfo {
             return null;
         }
         return (String) attributesProfile.get("nickname");
+    }
+
+    @Override
+    public User.GenderType getGender() {
+        if (attributesProfile == null) {
+            return null;
+        }
+        String gender = attributesAccount.get("gender").toString().toUpperCase();
+        return gender.equals("")?null:Enum.valueOf(User.GenderType.class, gender);
+    }
+
+    @Override
+    public LocalDate getBirthday() {
+        if (attributesAccount == null) {
+            return null;
+        }
+        LocalDate parsedBirthday = LocalDate.now();
+
+        // TODO 카카오에서 생년을 받아오기 위해서는 앱이 정식 등록되어야 하는 듯
+        // LocalDate.parse(attributesAccount.get("birthday").toString(), DateTimeFormatter.ofPattern("yyyyMMdd"));
+        return parsedBirthday;
+    }
+
+    @Override
+    public String getAge() {
+        if (attributesAccount == null) {
+            return null;
+        }
+        return attributesAccount.get("age_range").toString();
     }
 
     @Override
