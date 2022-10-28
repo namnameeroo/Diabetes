@@ -2,6 +2,8 @@ package com.diabetes.user.domain;
 
 
 import com.diabetes.common.domain.BaseTimeEntity;
+import com.diabetes.user.dto.UserRequestDto;
+import com.diabetes.user.dto.UserResponseDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -56,4 +58,23 @@ public class User extends BaseTimeEntity {
         FEMALE, MALE
     }
 
+    public User modify(UserRequestDto userRequestDto) {
+        this.name = userRequestDto.getName();
+        this.age = userRequestDto.getAge();
+        this.gender = userRequestDto.getGender();
+
+        return this;
+    }
+
+    public UserResponseDto toResponseDto() {
+        return UserResponseDto.builder()
+                .id(this.id)
+                .authId(this.authId)
+                .email(this.email)
+                .name(this.name)
+                .gender(this.gender)
+                .age(this.age)
+                .authProvider(this.authProviderType)
+                .build();
+    }
 }

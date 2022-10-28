@@ -9,7 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,10 +28,16 @@ public class AdminUserController {
     private final UserService userService;
 
     @GetMapping("/users")
-    public CommonResponse<List<UserResponseDto>> getUserListForAdmin(Principal principal, @AuthenticationPrincipal UserPrincipal userPrincipal) {
+    public CommonResponse<List<UserResponseDto>> getUserListForAdmin() {
 
         List<UserResponseDto> userResponseDtoList = userService.findAllUsers();
         return new CommonResponse<>("UserList For Admin", userResponseDtoList);
     }
 
+    @GetMapping("/users/{userId}")
+    public CommonResponse<UserResponseDto> getUserByUserIdForAdmin(@PathVariable("userId")Long userId) {
+
+        UserResponseDto userResponseDto = userService.findUserById(userId);
+        return new CommonResponse<>("UserDto For Admin", userResponseDto);
+    }
 }

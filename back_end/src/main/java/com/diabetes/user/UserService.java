@@ -3,6 +3,7 @@ package com.diabetes.user;
 import com.diabetes.auth.oauth.OAuth2UserInfo;
 import com.diabetes.common.exception.DuplicatedResoureException;
 import com.diabetes.user.domain.User;
+import com.diabetes.user.dto.UserRequestDto;
 import com.diabetes.user.dto.UserResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,23 +27,14 @@ public class UserService {
     public UserResponseDto findUserByEmail(String email) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("Not Registered User Mail"));
-
-        return UserResponseDto.builder()
-                .email(user.getEmail())
-                .name(user.getName())
-                .build();
+        return user.toResponseDto();
     }
 
     @Transactional(readOnly = true)
     public UserResponseDto findUserByAuthId(String authId) {
         User user = userRepository.findByAuthId(authId)
                 .orElseThrow(()-> new IllegalArgumentException("찾는 사용자가 존재하지 않습니다."));
-
-        return UserResponseDto.builder()
-                .authId(user.getAuthId())
-                .email(user.getEmail())
-                .name(user.getName())
-                .build();
+        return user.toResponseDto();
 
     }
 
@@ -50,20 +42,32 @@ public class UserService {
     public UserResponseDto findUserById(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(()-> new IllegalArgumentException("찾는 사용자가 존재하지 않습니다."));
-        return UserResponseDto.builder()
-                .id(user.getId())
-                .authId(user.getAuthId())
-                .email(user.getEmail())
-                .name(user.getName())
-                .gender(user.getGender())
-                .age(user.getAge())
-                .authProvider(user.getAuthProviderType())
-                .build();
+        return user.toResponseDto();
     }
 
     @Transactional(readOnly = true)
     public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
+
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserResponseDto> findAllUsers() {
+        List<UserResponseDto> userResponseDtoList = userRepository.findAll()
+                .stream()
+                .map(user -> user.toResponseDto())
+                .collect(Collectors.toList());
+
+        return userResponseDtoList;
+    }
+
+    @Transactional
+    public UserResponseDto updateUserInfo(Long userId, UserRequestDto userRequestDto) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(()-> new IllegalArgumentException("찾는 사용자가 존재하지 않습니다."));
+
+        UserResponseDto userResponseDto = user.modify(userRequestDto).toResponseDto();
+        return userResponseDto;
 
     }
 
@@ -77,17 +81,4 @@ public class UserService {
         return newUser;
     }
 
-    public List<UserResponseDto> findAllUsers() {
-        List<UserResponseDto> userResponseDtoList = userRepository.findAll()
-                .stream()
-                .map(item -> {
-                    return UserResponseDto.builder()
-                            .email(item.getEmail())
-                            .name(item.getName())
-                            .build();
-                })
-                .collect(Collectors.toList());
-
-        return userResponseDtoList;
-    }
 }
