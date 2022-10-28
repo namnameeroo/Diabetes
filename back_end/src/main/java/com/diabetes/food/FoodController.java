@@ -38,9 +38,10 @@ public class FoodController {
     @GetMapping("/foods/{foodId}")
     public ResponseEntity<?> getFoodDetailInfo(@PathVariable Long foodId, Authentication authentication) {
 
-        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+//        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+//        FoodDto foodDto = foodService.getFoodInfo(foodId, userPrincipal.getId());
+        FoodDto foodDto = foodService.getFoodInfoByFoodId(foodId);
 
-        FoodDto foodDto = foodService.getFoodInfo(foodId, userPrincipal.getId());
         return ResponseEntity.ok(new CommonResponse<>("SUCCESS", foodDto));
     }
 
@@ -50,8 +51,8 @@ public class FoodController {
     @PostMapping("/foods")
     public ResponseEntity<?> saveFoodInfo(@RequestBody FoodDto foodDto, Authentication authentication) {
 
-        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-        foodDto.checkUserId(userPrincipal.getId());
+//        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+//        foodDto.checkUserId(userPrincipal.getId());
 
         FoodDto savedFoodDto = foodService.saveFoodInfo(foodDto);
 
@@ -70,8 +71,9 @@ public class FoodController {
     @DeleteMapping("/foods/{foodId}")
     public ResponseEntity<?> deleteFoodInfo(@PathVariable Long foodId, Authentication authentication) {
 
-        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-        Boolean result = foodService.updateFoodInfoDeleted(foodId, userPrincipal.getId());
+//        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        Boolean result = foodService.updateFoodInfoDeletedByFoodId(foodId);
+        // Boolean result = foodService.updateFoodInfoDeleted(foodId, userPrincipal.getId());
         return ResponseEntity.ok(new CommonResponse<Long>("SUCCESSFULLY DELETED BY ID", foodId));
     }
 
@@ -82,8 +84,8 @@ public class FoodController {
     public ResponseEntity<?> updateFoodInfo(@PathVariable Long foodId, @RequestBody FoodDto dto, Authentication authentication) {
         if (!foodId.equals(dto.getId())) throw new IllegalStateException("NOT VALID INPUT");
 
-        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-        dto.checkUserId(userPrincipal.getId());
+//        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+//        dto.checkUserId(userPrincipal.getId());
 
         FoodDto foodDto = foodService.updateFoodInfo(foodId, dto);
         return ResponseEntity.ok(new CommonResponse<>("SUCCESSFULLY UPDATE", foodDto));

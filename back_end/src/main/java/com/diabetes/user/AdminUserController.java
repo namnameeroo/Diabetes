@@ -28,13 +28,6 @@ public class AdminUserController {
     @GetMapping("/users")
     public CommonResponse<List<UserResponseDto>> getUserListForAdmin(Principal principal, @AuthenticationPrincipal UserPrincipal userPrincipal) {
 
-        Collection<? extends GrantedAuthority> authorities = userPrincipal.getAuthorities();
-        boolean check = authorities
-                .stream()
-                .anyMatch(item -> RoleType.ADMIN.getCode().equals(item.getAuthority()));
-
-        if (!check) throw new AccessDeniedException("NOT ALLOWED");
-
         List<UserResponseDto> userResponseDtoList = userService.findAllUsers();
         return new CommonResponse<>("UserList For Admin", userResponseDtoList);
     }
