@@ -5,6 +5,7 @@ import com.diabetes.user.domain.RoleType;
 import com.diabetes.user.domain.User;
 import com.diabetes.user.domain.UserStatus;
 
+import java.time.LocalDate;
 import java.util.Map;
 
 public abstract class OAuth2UserInfo {
@@ -24,6 +25,12 @@ public abstract class OAuth2UserInfo {
 
   public abstract String getName();
 
+  public abstract User.GenderType getGender();
+
+  public abstract LocalDate getBirthday();
+
+  public abstract String getAge();
+
   public abstract String getEmail();
 
   public abstract String getImageUrl();
@@ -34,6 +41,9 @@ public abstract class OAuth2UserInfo {
             .authId(getId())
             .name(getName())
             .email(getEmail())
+            .gender(getGender())
+            .birthday(getBirthday())
+            .age(getAge())
             .imageUrl(getImageUrl())
             .role(RoleType.USER)
             .status(UserStatus.NORMAL)
