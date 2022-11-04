@@ -18,7 +18,7 @@ function App() {
     <div style={container}>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/main" element={<FoodFormPage />} />
+        <Route path="/foodForm" element={<FoodFormPage />} />
         <Route path="/mylist" element={<MylistPage />} />
         <Route path="/adminUserList" element={<AdminUserListPage />} />
       </Routes>
@@ -27,7 +27,7 @@ function App() {
           <Link to="/login">로그인페이지로</Link>
         </li>
         <li>
-          <Link to="/main">메인페이지로</Link>
+          <Link to="/foodForm">입력페이지로</Link>
         </li>
         <li>
           <Link to="/mylist">입력목록 페이지로</Link>
