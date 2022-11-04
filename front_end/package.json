@@ -38,7 +38,7 @@
     ]
   },
   "devDependencies": {
-    "react-router-dom": "^6.4.1"
+    "react-router-dom": "^6.4.2"
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
