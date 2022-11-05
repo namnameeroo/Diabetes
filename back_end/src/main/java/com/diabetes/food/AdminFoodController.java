@@ -4,6 +4,8 @@ import com.diabetes.common.dto.CommonResponse;
 import com.diabetes.food.dto.FoodDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -24,9 +26,16 @@ public class AdminFoodController {
      * 유저 정보 기준 등록했던 음식 리스트 조회
      */
     @GetMapping("/foods")
-    public ResponseEntity<?> getFoodList(@RequestParam(name="userId") Long userId, Authentication authentication) {
+    public ResponseEntity<?> getFoodList(Authentication authentication,
+                                         @RequestParam(name="userId") Long userId,
+                                         @RequestParam(value ="sort", required = false, defaultValue = "DESC") String sort,
+                                         @RequestParam(value ="page", required = false, defaultValue = "0") Integer page,
+                                         @RequestParam(value ="size", required = false, defaultValue = "10") Integer size) {
 
-        List<FoodDto> foodList = foodService.getFoodList(userId);
+        Sort.Direction direction = Sort.Direction.valueOf(sort);
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(direction, "modifiedDate"));
+
+        List<FoodDto> foodList = foodService.getFoodList(userId, pageRequest);
         return ResponseEntity.ok(new CommonResponse<>("SUCCESS", foodList));
     }
 

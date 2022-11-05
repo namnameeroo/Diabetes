@@ -28,6 +28,7 @@ public class Food extends BaseTimeEntity {
     private Float carbohydrate;
     private Float protein;
     private Float fat;
+    private Float fiber;
     private Float intake;
     private Float gl; // 소숫점
     private GLResult result; // low, middle, high
@@ -45,6 +46,7 @@ public class Food extends BaseTimeEntity {
                 .carbohydrate(this.carbohydrate)
                 .protein(this.protein)
                 .fat(this.fat)
+                .fiber(this.fiber)
                 .intake(this.intake)
                 .gl(this.gl)
                 .result(result)//!=null?result.toString():null)
@@ -60,6 +62,7 @@ public class Food extends BaseTimeEntity {
         this.carbohydrate = dto.getCarbohydrate()==null ? this.carbohydrate : dto.getCarbohydrate();
         this.protein = dto.getProtein()==null ? this.protein : dto.getProtein();
         this.fat = dto.getFat()==null ? this.fat : dto.getFat();
+        this.fiber = dto.getFiber() == null? this.fiber: dto.getFiber();
         this.intake = dto.getIntake()==null ? this.intake : dto.getIntake();
         this.gl = dto.getGl()==null ? this.gl : dto.getGl();
         this.result = dto.getResult();//==null ? this.result : Enum.valueOf(GLResult.class, dto.getResult());
