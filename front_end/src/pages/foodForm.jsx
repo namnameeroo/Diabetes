@@ -1,22 +1,13 @@
 import React from "react";
 import "../styles/main.css";
 import Footer from "../components/footer";
+import {MdSettingsInputSvideo} from "react-icons/md";
 
 const PageTitle = (props) => {
   return (
     <h3 className="page_title">
       <div className="page_title_inner">{props.children}</div>
     </h3>
-  );
-};
-
-const InputCell = (props) => {
-  // const [value, setValue] = React.useState("");
-
-  return (
-    <div className="input_item" id="input_item_id">
-      <input type="text" id={props.id} placeholder={props.placeholder} className="input_text"></input>
-    </div>
   );
 };
 
@@ -32,17 +23,6 @@ const handleFormSubmit = (e) => {
   e.preventDefault();
 };
 
-const SubmitButton = (props) => {
-  const handleSubmitClick = () => {
-    console.log("submit button clicked");
-  };
-  return (
-    <button type="submit" className="btn_submit" id={props.id} onClick={handleSubmitClick}>
-      <span className="btn_text">{props.children}</span>
-    </button>
-  );
-};
-
 const Today = () => {
   let now = new Date();
   let todayYear = now.getFullYear();
@@ -51,7 +31,56 @@ const Today = () => {
 
   return <div className="right-align small-txt gray-txt">작성일 : {[todayYear, todayMonth, todayDay].join("-")}</div>;
 };
+
 const InputForm = () => {
+  // const [inputList, setInputList] = React.useState([""] * 10);
+
+  const [inputs, setInputs] = React.useState({
+    id: "",
+    foodName: "",
+    provider: "",
+    entireWeight: 0,
+    calories: 0,
+    carbohydrate: 0,
+    protein: 0,
+    fat: 0,
+    fiber: 0,
+    intake: 0,
+    remains: 0,
+    gl: 0,
+    result: "",
+  });
+
+  const {id, foodName, provider, entireWeight, calories, carbohydrate, protein, fat, fiber, intake, remains, gl, result} = inputs;
+
+  const onChangeInput = (e) => {
+    const {name, value} = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+  };
+
+  const InputCell = (props) => {
+    return (
+      <div className="input_item" id="input_item_id">
+        <input type="text" className="input_text" name={props.name} value={props.content} onChange={onChangeInput}></input>
+      </div>
+    );
+  };
+
+  const SubmitButton = (props) => {
+    const handleSubmitClick = () => {
+      console.log("submit button clicked");
+      console.log(inputs);
+    };
+    return (
+      <button type="submit" className="btn_submit" id={props.id} onClick={handleSubmitClick}>
+        <span className="btn_text">{props.children}</span>
+      </button>
+    );
+  };
+
   return (
     <form onSubmit={handleFormSubmit}>
       <div className="main_wrap table_wrap">
@@ -60,56 +89,56 @@ const InputForm = () => {
             <tr>
               <td className="pad-right-10">제품명</td>
               <td>
-                <InputCell />
+                <InputCell name="foodName" content={foodName} />
               </td>
             </tr>
             <tr>
               <td className="pad-right-10">업체명</td>
               <td>
-                <InputCell />
+                <InputCell name="provider" content={provider} />
               </td>
             </tr>
             <tr>
               <td className="pad-right-10">총량&nbsp; &nbsp; &nbsp; &nbsp;(g)</td>
               <td>
-                <InputCell />
+                <InputCell name="entireWeight" content={entireWeight} />
               </td>
             </tr>
             {/* 단위들 스팬에 넣고... 공백 맞추기!*/}
             <tr>
               <td className="pad-right-10">섭취량&nbsp; &nbsp; &nbsp;(%)</td>
               <td>
-                <InputCell />
+                <InputCell name="intake" content={intake} />
               </td>
             </tr>
             <tr>
               <td className="pad-right-10">칼로리&nbsp; &nbsp; &nbsp;(g)</td>
               <td>
-                <InputCell />
+                <InputCell name="calories" content={calories} />
               </td>
             </tr>
             <tr>
               <td className="pad-right-10">탄수화물 (g)</td>
               <td>
-                <InputCell />
+                <InputCell name="carbohydrate" content={carbohydrate} />
               </td>
             </tr>
             <tr>
               <td className="pad-right-10">단백질&nbsp; &nbsp; &nbsp;(g)</td>
               <td>
-                <InputCell />
+                <InputCell name="protein" content={protein} />
               </td>
             </tr>
             <tr>
               <td className="pad-right-10">지방&nbsp; &nbsp; &nbsp; &nbsp; (g)</td>
               <td>
-                <InputCell />
+                <InputCell name="fat" content={fat} />
               </td>
             </tr>
             <tr>
               <td className="pad-right-10">식이섬유 (g)</td>
               <td>
-                <InputCell />
+                <InputCell name="fiber" content={fiber} />
               </td>
             </tr>
           </tbody>
