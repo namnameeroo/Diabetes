@@ -1,14 +1,10 @@
 package com.diabetes.user.domain;
 
-
 import com.diabetes.common.domain.BaseTimeEntity;
 import com.diabetes.user.dto.UserRequestDto;
 import com.diabetes.user.dto.UserResponseDto;
 import lombok.*;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Getter
@@ -42,7 +38,6 @@ public class User extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private GenderType gender;
     private String age;
-
     private LocalDate birthday;
     private String imageUrl;
 

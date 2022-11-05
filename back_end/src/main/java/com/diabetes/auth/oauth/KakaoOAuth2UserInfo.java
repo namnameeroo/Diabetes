@@ -60,10 +60,9 @@ public class KakaoOAuth2UserInfo extends OAuth2UserInfo {
         if (attributesAccount == null) {
             return null;
         }
-        LocalDate parsedBirthday = LocalDate.now();
-
         // TODO 카카오에서 생년을 받아오기 위해서는 앱이 정식 등록되어야 하는 듯
-        // LocalDate.parse(attributesAccount.get("birthday").toString(), DateTimeFormatter.ofPattern("yyyyMMdd"));
+        LocalDate parsedBirthday = LocalDate.parse(attributesAccount.get("birthday").toString(), DateTimeFormatter.ofPattern("MMdd"));
+
         return parsedBirthday;
     }
 
