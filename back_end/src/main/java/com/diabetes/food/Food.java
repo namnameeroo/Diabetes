@@ -3,6 +3,7 @@ package com.diabetes.food;
 import com.diabetes.common.domain.BaseTimeEntity;
 import com.diabetes.food.dto.FoodDto;
 import com.diabetes.user.domain.User;
+import com.sun.xml.bind.v2.TODO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,14 +30,14 @@ public class Food extends BaseTimeEntity {
     private Float fat;
     private Float intake;
     private Float gl; // 소숫점
-    private Food.GLResult result; // low, middle, high
+    private GLResult result; // low, middle, high
     private Status status;
 
 
     public FoodDto toDto() {
         return FoodDto.builder()
                 .id(this.id)
-                //.userId() TODO 응답값에 유저 아이디 정보를 담아줘야 하는지???
+                //.userId() //TODO 응답값에 유저 아이디 정보를 담아줘야 하는지???
                 .name(this.name)
                 .provider(this.provider)
                 .entireWeight(this.entireWeight)
@@ -46,7 +47,7 @@ public class Food extends BaseTimeEntity {
                 .fat(this.fat)
                 .intake(this.intake)
                 .gl(this.gl)
-                .result(this.result.toString())
+                .result(result)//!=null?result.toString():null)
                 .build();
     }
 
@@ -61,7 +62,7 @@ public class Food extends BaseTimeEntity {
         this.fat = dto.getFat()==null ? this.fat : dto.getFat();
         this.intake = dto.getIntake()==null ? this.intake : dto.getIntake();
         this.gl = dto.getGl()==null ? this.gl : dto.getGl();
-        this.result = dto.getResult()==null ? this.result : Enum.valueOf(Food.GLResult.class, dto.getResult());
+        this.result = dto.getResult();//==null ? this.result : Enum.valueOf(GLResult.class, dto.getResult());
 
         return this;
     }
@@ -73,8 +74,5 @@ public class Food extends BaseTimeEntity {
 
     public enum Status {
         NORMAL, DELETED, INVALID
-    }
-    public enum GLResult {
-        LOW, MIDDLE, HIGH
     }
 }

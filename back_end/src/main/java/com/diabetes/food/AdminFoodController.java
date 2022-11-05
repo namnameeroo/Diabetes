@@ -24,7 +24,7 @@ public class AdminFoodController {
      * 유저 정보 기준 등록했던 음식 리스트 조회
      */
     @GetMapping("/foods")
-    public ResponseEntity<?> getFoodList(@RequestParam(name="user") Long userId, Authentication authentication) {
+    public ResponseEntity<?> getFoodList(@RequestParam(name="userId") Long userId, Authentication authentication) {
 
         List<FoodDto> foodList = foodService.getFoodList(userId);
         return ResponseEntity.ok(new CommonResponse<>("SUCCESS", foodList));
