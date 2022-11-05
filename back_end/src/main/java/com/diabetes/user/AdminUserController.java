@@ -22,7 +22,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/admin")
 public class AdminUserController {
-
     private final UserService userService;
 
     @GetMapping("/users")
