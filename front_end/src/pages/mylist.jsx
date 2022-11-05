@@ -1,10 +1,10 @@
 // 유저의 입력 내역
 import React from "react";
-// import {useState} from "react";
 import "../styles/main.css";
 import styled from "styled-components";
 import DB from "../db.json";
 import Top from "../components/top";
+import RouteButton from "../components/plusButton";
 
 const Table = styled.table`
   border-collapse: collapse;
@@ -47,6 +47,22 @@ const Table = styled.table`
   }
 `;
 
+const Wrap = styled.div`
+  margin-top: 75px;
+  padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--white-color);
+  height: 450px; /**임시 */
+`;
+
+// const fetchFood = async (text) => {
+//   try {
+//     const response = await axios.get();
+//   } catch {}
+// };
+
 /**
  * props = {id: "001", foodName: "abc", createDate: 0102330}
  *
@@ -63,18 +79,8 @@ const ListElement = (props) => {
   );
 };
 
-const Wrap = styled.div`
-  margin-top: 75px;
-  padding: 0 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  background-color: var(--white-color);
-  height: 450px; /**임시 */
-`;
-
 // React.useState('')
-const MylistPage = () => {
+const MylistPage = ({history}) => {
   let foodlist = DB.foodlist;
 
   console.log(foodlist);
@@ -82,7 +88,7 @@ const MylistPage = () => {
     <div>
       <Top title="입력 내역" />
       <Wrap>
-        <Table class="type09">
+        <Table className="type09">
           <thead>
             <tr>
               <th scope="cols">id</th>
@@ -96,6 +102,7 @@ const MylistPage = () => {
             ))}
           </tbody>
         </Table>
+        <RouteButton goToPage={"/foodForm"} />
       </Wrap>
     </div>
   );
