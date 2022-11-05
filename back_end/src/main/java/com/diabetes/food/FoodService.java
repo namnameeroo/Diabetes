@@ -4,6 +4,7 @@ import com.diabetes.common.exception.NoSuchElementFoundException;
 import com.diabetes.food.dto.FoodDto;
 import com.diabetes.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,8 +21,8 @@ public class FoodService {
     private final UserRepository userRepository;
 
     @Transactional(readOnly = true)
-    public List<FoodDto> getFoodList(Long userId) {
-        List<Food> allFoodListByUserId = foodRepository.findAllByUserId(userId);
+    public List<FoodDto> getFoodList(Long userId, PageRequest pageRequest) {
+        List<Food> allFoodListByUserId = foodRepository.findAllByUserId(userId, pageRequest);
 
         List<FoodDto> dtoList = allFoodListByUserId.stream()
                 .map(Food::toDto)

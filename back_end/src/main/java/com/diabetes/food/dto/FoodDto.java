@@ -35,6 +35,8 @@ public class FoodDto {
     @NotNull
     private Float fat;
     @NotNull
+    private Float fiber;
+    @NotNull
     private Float intake;
     @NotNull
     private Float gl;
@@ -50,4 +52,5 @@ public class FoodDto {
             this.userId = userId;
         }
     }
+
 }
