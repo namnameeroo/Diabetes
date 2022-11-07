@@ -6,14 +6,16 @@ import com.diabetes.user.domain.RoleType;
 import com.diabetes.user.dto.UserResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.parameters.P;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.Collection;
@@ -26,10 +28,12 @@ import java.util.List;
 public class AdminUserController {
     private final UserService userService;
 
+    // TODO 필터링
+    // TODO 응답값으로 Page를 쓸 것인가....
     @GetMapping("/users")
-    public CommonResponse<List<UserResponseDto>> getUserListForAdmin() {
+    public CommonResponse<Page<UserResponseDto>> getUserListForAdmin(@PageableDefault(sort="modifiedDate", direction = Sort.Direction.DESC) Pageable pageable) {
 
-        List<UserResponseDto> userResponseDtoList = userService.findAllUsers();
+        Page<UserResponseDto> userResponseDtoList = userService.findAllUsers(pageable);
         return new CommonResponse<>("UserList For Admin", userResponseDtoList);
     }
 

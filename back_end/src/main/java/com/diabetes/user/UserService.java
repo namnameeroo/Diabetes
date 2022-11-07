@@ -7,6 +7,9 @@ import com.diabetes.user.dto.UserRequestDto;
 import com.diabetes.user.dto.UserResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -52,11 +55,10 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public List<UserResponseDto> findAllUsers() {
-        List<UserResponseDto> userResponseDtoList = userRepository.findAll()
-                .stream()
-                .map(user -> user.toResponseDto())
-                .collect(Collectors.toList());
+    public Page<UserResponseDto> findAllUsers(Pageable pageable) {
+
+        Page<UserResponseDto> userResponseDtoList = userRepository.findAll(pageable)
+                .map(user -> user.toResponseDto());
 
         return userResponseDtoList;
     }
