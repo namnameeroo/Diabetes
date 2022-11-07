@@ -4,8 +4,11 @@ import com.diabetes.common.dto.CommonResponse;
 import com.diabetes.food.dto.FoodDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -28,14 +31,9 @@ public class AdminFoodController {
     @GetMapping("/foods")
     public ResponseEntity<?> getFoodList(Authentication authentication,
                                          @RequestParam(name="userId") Long userId,
-                                         @RequestParam(value ="sort", required = false, defaultValue = "DESC") String sort,
-                                         @RequestParam(value ="page", required = false, defaultValue = "0") Integer page,
-                                         @RequestParam(value ="size", required = false, defaultValue = "10") Integer size) {
+                                         @PageableDefault(sort="modifiedDate", direction = Sort.Direction.DESC) Pageable pageable) {
 
-        Sort.Direction direction = Sort.Direction.valueOf(sort);
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(direction, "modifiedDate"));
-
-        List<FoodDto> foodList = foodService.getFoodList(userId, pageRequest);
+        Page<FoodDto> foodList = foodService.getFoodList(userId, pageable);
         return ResponseEntity.ok(new CommonResponse<>("SUCCESS", foodList));
     }
 
@@ -56,7 +54,7 @@ public class AdminFoodController {
     public ResponseEntity<?> saveFoodInfo(@RequestBody FoodDto foodDto, Authentication authentication) {
 
         FoodDto savedFoodDto = foodService.saveFoodInfo(foodDto);
-        URI location = ServletUriComponentsBuilder.fromCurrentContextPath() //.fromContextPath(request)
+        URI location = ServletUriComponentsBuilder.fromCurrentContextPath() //.fromContextPath(request) or .fromCurrentRequest()
                 .path("/food/" + savedFoodDto.getId())
                 .build()
                 .toUri();

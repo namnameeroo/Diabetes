@@ -5,8 +5,11 @@ import com.diabetes.common.dto.CommonResponse;
 import com.diabetes.food.dto.FoodDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -28,16 +31,12 @@ public class FoodController {
      */
     @GetMapping("/foods")
     public ResponseEntity<?> getFoodList(Authentication authentication,
-                                         @RequestParam(value ="sort", required = false, defaultValue = "DESC") String sort,
-                                         @RequestParam(value ="page", required = false, defaultValue = "0") Integer page,
-                                         @RequestParam(value ="size", required = false, defaultValue = "10") Integer size) {
+                                         @PageableDefault(sort="modifiedDate", direction = Sort.Direction.DESC) Pageable pageable) {
 
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-        Sort.Direction direction = Sort.Direction.valueOf(sort);
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(direction, "modifiedDate"));
 
         Long userId = userPrincipal.getId();
-        List<FoodDto> foodList = foodService.getFoodList(userId, pageRequest);
+        Page<FoodDto> foodList = foodService.getFoodList(userId, pageable);
         return ResponseEntity.ok(new CommonResponse<>("SUCCESS", foodList));
     }
 
