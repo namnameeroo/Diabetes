@@ -1,7 +1,9 @@
+/**
+ * eslint-disable
+ */
 import React from "react";
 import "../styles/main.css";
 import Footer from "../components/footer";
-import {MdSettingsInputSvideo} from "react-icons/md";
 
 const PageTitle = (props) => {
   return (
