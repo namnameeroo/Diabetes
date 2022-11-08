@@ -1,11 +1,7 @@
 import React from "react";
-import {Routes, Route, Link} from "react-router-dom";
-// import styled from "styled-component";
+import AppRouter from "/components/router";
 
-import LoginPage from "./pages/login";
-import FoodFormPage from "./pages/foodForm";
-import MylistPage from "./pages/mylist";
-import AdminUserListPage from "./pages/adminUserList";
+import {Link} from "react-router-dom";
 
 function App() {
   let container = {
@@ -16,12 +12,8 @@ function App() {
 
   return (
     <div style={container}>
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/foodForm" element={<FoodFormPage />} />
-        <Route path="/mylist" element={<MylistPage />} />
-        <Route path="/adminUserList" element={<AdminUserListPage />} />
-      </Routes>
+      <AppRouter />
+
       <div className="temp">
         <li>
           <Link to="/login">로그인페이지로</Link>
