@@ -1,5 +1,6 @@
 // 유저의 입력 내역
 import React from "react";
+
 import "../styles/main.css";
 import styled from "styled-components";
 import DB from "../db.json";
@@ -57,12 +58,6 @@ const Wrap = styled.div`
   height: 450px; /**임시 */
 `;
 
-// const fetchFood = async (text) => {
-//   try {
-//     const response = await axios.get();
-//   } catch {}
-// };
-
 /**
  * props = {id: "001", foodName: "abc", createDate: 0102330}
  *
@@ -80,15 +75,16 @@ const ListElement = (props) => {
 };
 
 // React.useState('')
-const MylistPage = ({history}) => {
+const MylistPage = () => {
   let foodlist = DB.foodlist;
+  /* eslint-disable */
+  const [listData, setListData] = React.useState([]);
 
-  console.log(foodlist);
   return (
     <div>
       <Top title="입력 내역" />
       <Wrap>
-        <Table className="type09">
+        <Table className="mylist-table">
           <thead>
             <tr>
               <th scope="cols">id</th>
