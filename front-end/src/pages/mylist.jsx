@@ -1,11 +1,11 @@
 // 유저의 입력 내역
 import React from "react";
 
-import "../styles/main.css";
+import "styles/main.css";
 import styled from "styled-components";
-import DB from "../db.json";
-import Top from "../components/top";
-import RouteButton from "../components/plusButton";
+import DB from "db.json";
+import Top from "components/top";
+import RouteButton from "components/plusButton";
 
 const Table = styled.table`
   border-collapse: collapse;

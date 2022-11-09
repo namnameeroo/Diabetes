@@ -2,8 +2,8 @@
  * eslint-disable
  */
 import React from "react";
-import "../styles/main.css";
-import Footer from "../components/footer";
+import "styles/main.css";
+import Footer from "components/footer";
 
 const PageTitle = (props) => {
   return (

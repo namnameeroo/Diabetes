@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/components.css";
+import "styles/components.css";
 import styled from "styled-components";
 import {FiChevronLeft} from "react-icons/fi";
 import {HiOutlineSearch} from "react-icons/hi";
