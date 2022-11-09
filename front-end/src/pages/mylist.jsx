@@ -1,9 +1,13 @@
 // 유저의 입력 내역
 import React from "react";
-
-import "styles/main.css";
+import {useState, useEffect} from "react";
 import styled from "styled-components";
+import axios from "axios";
+
+import Utils from "utils";
+import "styles/main.css";
 import DB from "db.json";
+
 import Top from "components/top";
 import RouteButton from "components/plusButton";
 
@@ -55,16 +59,14 @@ const Wrap = styled.div`
   flex-direction: column;
   justify-content: space-between;
   background-color: var(--white-color);
-  height: 450px; /**임시 */
+  height: 450px; /** 임시 */
 `;
 
 /**
  * props = {id: "001", foodName: "abc", createDate: 0102330}
- *
  */
 const ListElement = (props) => {
-  console.log(props);
-
+  // console.log(props);
   return (
     <tr>
       <td className="id">{props.item.id}</td>
@@ -74,11 +76,21 @@ const ListElement = (props) => {
   );
 };
 
-// React.useState('')
 const MylistPage = () => {
-  let foodlist = DB.foodlist;
   /* eslint-disable */
-  const [listData, setListData] = React.useState([]);
+  const [foodlist, setFoodlist] = useState(DB.foodlist); // foodlist = DB.foodlist; 임시 데이터
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(Utils.baseUrl + `/api/v1/foods`);
+      } catch (e) {
+        console.error(e);
+        setFoodlist([]);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div>
@@ -95,6 +107,7 @@ const MylistPage = () => {
           <tbody>
             {foodlist.map((i, k) => (
               <ListElement key={k} item={i} />
+              // 22.11.09 null 검증 필요
             ))}
           </tbody>
         </Table>
