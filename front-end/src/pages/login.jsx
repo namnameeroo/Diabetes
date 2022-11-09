@@ -1,9 +1,9 @@
 import React from "react";
 import {useEffect, useState} from "react";
-import Utils from "../utils";
+import Utils from "utils";
 
-import "../styles/main.css";
-import Footer from "../components/footer";
+import "styles/main.css";
+import Footer from "components/footer";
 
 const Header = (props) => {
   return (
@@ -14,24 +14,26 @@ const Header = (props) => {
 };
 
 const SocialButton = (props) => {
-  const [RequestURL, setRequestURL] = useState("");
-  const onSocialClick = async (event) => {
-    const {
-      target: {name},
-    } = event;
+  // const [RequestURL, setRequestURL] = useState("");
+  let RequestUrl = "";
+  const authUrl = Utils.baseUrl + "/oauth2/authorization";
 
-    if (name === "google") {
-      // 구글 로그인 요청
-      setRequestURL(Utils.baseUrl + "/oauth2/authorization/google?redirect");
-      //
-    } else if (name === "kakao") {
-      // 카카오 로그인 요청
-      setRequestURL(Utils.baseUrl + "/oauth2/authorization/kakao?redirect");
-    }
-  };
+  if (props.name === "google") {
+    RequestUrl = authUrl + "/google";
+  } else if (props.name === "kakao") {
+    RequestUrl = authUrl + "/kakao";
+  }
 
   return (
-    <button type="submit" className="btn_login" id={props.id} name={props.name} onClick={onSocialClick}>
+    <button
+      type="submit"
+      className="btn_login"
+      id={props.id}
+      name={props.name}
+      onClick={() => {
+        window.location.href = RequestUrl;
+      }}
+    >
       <span className="btn_text">{props.children}</span>
     </button>
   );

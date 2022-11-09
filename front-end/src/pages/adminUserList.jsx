@@ -3,10 +3,10 @@
 
 import React from "react";
 // import {useState} from "react";
-import "../styles/main.css";
+import "styles/main.css";
 import styled from "styled-components";
-import DB from "../db.json";
-import Top from "../components/top";
+import DB from "db.json";
+import Top from "components/top";
 
 const Table = styled.table`
   border-collapse: collapse;

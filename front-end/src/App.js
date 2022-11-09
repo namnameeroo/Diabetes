@@ -1,5 +1,5 @@
 import React from "react";
-import AppRouter from "/components/router";
+import AppRouter from "components/router";
 
 import {Link} from "react-router-dom";
 

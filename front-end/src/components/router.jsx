@@ -1,10 +1,10 @@
 import React from "react";
 import {Routes, Route} from "react-router-dom";
 
-import LoginPage from "/pages/login";
-import FoodFormPage from "./pages/foodForm";
-import MylistPage from "./pages/mylist";
-import AdminUserListPage from "./pages/adminUserList";
+import LoginPage from "pages/login";
+import FoodFormPage from "pages/foodForm";
+import MylistPage from "pages/mylist";
+import AdminUserListPage from "pages/adminUserList";
 
 const AppRouter = ({isLoggedIn}) => {
   return (

@@ -73,7 +73,6 @@ const Input = styled.input`
 `;
 
 const RouteButton = ({goToPage}) => {
-  console.log();
   return (
     <>
       <CircleButton onClick={() => (window.location.href = goToPage)}>
