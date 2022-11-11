@@ -1,9 +1,19 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 
-const Auth = () => {
+const Auth = ({props}) => {
   const [isUser, setIsUser] = useState(false);
   const [userId, setUserId] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState("Auth 실패");
+
+  useEffect(() => {
+    if (!!props) {
+      // setUserId(props.id)
+      setUserId(props);
+      console.log(userId, "userID");
+    } else {
+      console.error("Auth 인자 없음");
+    }
+  }, []);
 
   const onChange = (e) => {
     const {
@@ -11,10 +21,10 @@ const Auth = () => {
     } = e;
 
     // 값 가져오는 키
-    if (name === "userId") {
-      setIsUser(true);
-      setUserId(value);
-    }
+    // if (name === "userId") {
+    //   setIsUser(true);
+    //   setUserId(value);
+    // }
   };
 
   const onSubmit = (e) => {
@@ -25,11 +35,7 @@ const Auth = () => {
       // home 화면 돌아가기
     }
   };
-  return (
-    <div>
-      <form onSubmit={onSubmit}>{/* google, kakao login 서비스 */}</form>
-    </div>
-  );
+  return <div></div>;
 };
 
 export default Auth;
