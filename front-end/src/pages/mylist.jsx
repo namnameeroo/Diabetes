@@ -33,7 +33,9 @@ const Table = styled.table`
     border-bottom: 1px solid #ccc;
     background: #f3f6f7;
   }
-
+  .hover-a:hover {
+    color: blue;
+  }
   td {
     text-align: center;
     padding: 10px 4px;
@@ -69,9 +71,11 @@ const ListElement = (props) => {
   // console.log(props);
   return (
     <tr>
-      <td className="id">{props.item.id}</td>
-      <td className="food-name">{props.item.foodName}</td>
-      <td className="create-date">{props.item.createDate}</td>
+      <a className="hover-a" href={`/foodForm/` + props.item.id}>
+        <td className="id">{props.item.id}</td>
+        <td className="food-name">{props.item.foodName}</td>
+        <td className="create-date">{props.item.createDate}</td>
+      </a>
     </tr>
   );
 };
@@ -83,9 +87,13 @@ const MylistPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(Utils.baseUrl + `/api/v1/foods`);
+        const response = await axios.get(Utils.baseUrl + `/api/v1/foods`, {withCredentials: true}).then((res) => console.log(res));
+        setFoodlist(response);
+        console.log(foodlist);
       } catch (e) {
         console.error(e);
+
+        // test 할 때만 주석처리
         setFoodlist([]);
       }
     };
