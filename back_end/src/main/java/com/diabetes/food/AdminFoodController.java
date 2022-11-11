@@ -1,6 +1,7 @@
 package com.diabetes.food;
 
 import com.diabetes.common.dto.CommonResponse;
+import com.diabetes.common.dto.CustomPageDto;
 import com.diabetes.food.dto.FoodDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +35,8 @@ public class AdminFoodController {
                                          @PageableDefault(sort="modifiedDate", direction = Sort.Direction.DESC) Pageable pageable) {
 
         Page<FoodDto> foodList = foodService.getFoodList(userId, pageable);
-        return ResponseEntity.ok(new CommonResponse<>("SUCCESS", foodList));
+        CustomPageDto customPageDto = new CustomPageDto(foodList);
+        return ResponseEntity.ok(new CommonResponse<>("SUCCESS", customPageDto));
     }
 
     /**
