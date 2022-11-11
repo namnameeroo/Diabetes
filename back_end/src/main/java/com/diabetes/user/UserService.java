@@ -55,9 +55,9 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public Page<UserResponseDto> findAllUsers(Pageable pageable) {
+    public Page<UserResponseDto> findAllUsersWithFoodListCount(Pageable pageable) {
 
-        Page<UserResponseDto> userResponseDtoList = userRepository.findAll(pageable)
+        Page<UserResponseDto> userResponseDtoList = userRepository.findAllWithFoodList(pageable)
                 .map(user -> user.toResponseDto());
 
         return userResponseDtoList;

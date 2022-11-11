@@ -32,7 +32,7 @@ public class UserController {
 //        requestDto.checkUserId(userPrincipal.getId());
 
         UserResponseDto userResponseDto = userService.updateUserInfo(userId, requestDto); //findUserByAuthId(principal.getName());
-        return new CommonResponse<>("User Info getting by UserEmail", userResponseDto);
+        return new CommonResponse<>("Updated User Info Successfully", userResponseDto);
     }
 
 
