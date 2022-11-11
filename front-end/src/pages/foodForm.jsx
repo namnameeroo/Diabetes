@@ -1,9 +1,7 @@
-/**
- * eslint-disable
- */
 import React from "react";
 import "styles/main.css";
 import Footer from "components/footer";
+import {useState} from "react";
 
 const PageTitle = (props) => {
   return (
@@ -34,9 +32,7 @@ const Today = () => {
   return <div className="right-align small-txt gray-txt">작성일 : {[todayYear, todayMonth, todayDay].join("-")}</div>;
 };
 
-const InputForm = () => {
-  // const [inputList, setInputList] = React.useState([""] * 10);
-
+const InputCell = ({label}) => {
   const [inputs, setInputs] = React.useState({
     id: "",
     foodName: "",
@@ -56,25 +52,28 @@ const InputForm = () => {
   const {id, foodName, provider, entireWeight, calories, carbohydrate, protein, fat, fiber, intake, remains, gl, result} = inputs;
 
   const onChangeInput = (e) => {
-    const {name, value} = e.target;
-    setInputs({
+    const {label, value} = e.target;
+    console.log(e.target, "target");
+    console.log(inputs);
+    const nextInput = {
       ...inputs,
-      [name]: value,
-    });
+      [label]: value,
+    };
+    setInputs(nextInput);
   };
+  return (
+    <div className="input_item" id="input_item_id">
+      <input type="text" className="input_text" name={label} value={inputs[label]} onChange={onChangeInput}></input>
+    </div>
+  );
+};
 
-  const InputCell = (props) => {
-    return (
-      <div className="input_item" id="input_item_id">
-        <input type="text" className="input_text" name={props.name} value={props.content} onChange={onChangeInput}></input>
-      </div>
-    );
-  };
+const InputForm = () => {
+  // const [inputList, setInputList] = React.useState([""] * 10);
 
   const SubmitButton = (props) => {
     const handleSubmitClick = () => {
       console.log("submit button clicked");
-      console.log(inputs);
     };
     return (
       <button type="submit" className="btn_submit" id={props.id} onClick={handleSubmitClick}>
@@ -91,56 +90,56 @@ const InputForm = () => {
             <tr>
               <td className="pad-right-10">제품명</td>
               <td>
-                <InputCell name="foodName" content={foodName} />
+                <InputCell name="foodName" />
               </td>
             </tr>
             <tr>
               <td className="pad-right-10">업체명</td>
               <td>
-                <InputCell name="provider" content={provider} />
+                <InputCell name="provider" />
               </td>
             </tr>
             <tr>
               <td className="pad-right-10">총량&nbsp; &nbsp; &nbsp; &nbsp;(g)</td>
               <td>
-                <InputCell name="entireWeight" content={entireWeight} />
+                <InputCell name="entireWeight" />
               </td>
             </tr>
-            {/* 단위들 스팬에 넣고... 공백 맞추기!*/}
+
             <tr>
               <td className="pad-right-10">섭취량&nbsp; &nbsp; &nbsp;(%)</td>
               <td>
-                <InputCell name="intake" content={intake} />
+                <InputCell name="intake" />
               </td>
             </tr>
             <tr>
               <td className="pad-right-10">칼로리&nbsp; &nbsp; &nbsp;(g)</td>
               <td>
-                <InputCell name="calories" content={calories} />
+                <InputCell name="calories" />
               </td>
             </tr>
             <tr>
               <td className="pad-right-10">탄수화물 (g)</td>
               <td>
-                <InputCell name="carbohydrate" content={carbohydrate} />
+                <InputCell name="carbohydrate" />
               </td>
             </tr>
             <tr>
               <td className="pad-right-10">단백질&nbsp; &nbsp; &nbsp;(g)</td>
               <td>
-                <InputCell name="protein" content={protein} />
+                <InputCell name="protein" />
               </td>
             </tr>
             <tr>
               <td className="pad-right-10">지방&nbsp; &nbsp; &nbsp; &nbsp; (g)</td>
               <td>
-                <InputCell name="fat" content={fat} />
+                <InputCell name="fat" />
               </td>
             </tr>
             <tr>
               <td className="pad-right-10">식이섬유 (g)</td>
               <td>
-                <InputCell name="fiber" content={fiber} />
+                <InputCell name="fiber" />
               </td>
             </tr>
           </tbody>
