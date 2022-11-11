@@ -35,4 +35,5 @@ public class UserResponseDto {
 
     private String age;
     private User.GenderType gender;
+    private long FoodListCount;
 }
