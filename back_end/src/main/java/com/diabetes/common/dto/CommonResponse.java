@@ -12,10 +12,10 @@ public class CommonResponse<T> {
     private String message;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    T data;
+    T result;
 
-    public CommonResponse(String message, @Nullable T data) {
+    public CommonResponse(String message, @Nullable T result) {
         this.message = message;
-        this.data = data;
+        this.result = result;
     }
 }
