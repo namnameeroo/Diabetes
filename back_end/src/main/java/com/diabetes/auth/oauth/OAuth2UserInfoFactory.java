@@ -1,8 +1,10 @@
 package com.diabetes.auth.oauth;
 
 import com.diabetes.user.domain.AuthProviderType;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -13,11 +15,11 @@ public class OAuth2UserInfoFactory {
         switch (authProvider) {
             case GOOGLE:
                 // 구글에서 고객의 성별, 연령대를 가져오기 위해 People Api를 추가로 호출한다.
-                GoogleAdditionalUserInfoHandler additionalUserInfoHandler = new GoogleAdditionalUserInfoHandler();
-                Map<String, List<Map>> additionalUserInfo = additionalUserInfoHandler.getAdditionalUserInfo(accessToken);
-                return new GoogleOAuth2UserInfo(attributes, additionalUserInfo);
+//                GoogleAdditionalUserInfoHandler additionalUserInfoHandler = new GoogleAdditionalUserInfoHandler();
+//                Map<String, List<Map>> additionalUserInfo = additionalUserInfoHandler.getAdditionalUserInfo(accessToken);
+                return new GoogleOAuth2UserInfo(attributes, accessToken);
                 
-            case KAKAO: return new KakaoOAuth2UserInfo(attributes);
+            case KAKAO: return new KakaoOAuth2UserInfo(attributes, accessToken);
             //case NAVER: return new NAVEROAuth2UserInfo(attributes);
             //case GITHUB: return new GithubOAuth2UserInfo(attributes);
             default: throw new IllegalArgumentException("Invalid Provider Type.");

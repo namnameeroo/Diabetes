@@ -16,12 +16,14 @@ public class GoogleOAuth2UserInfo extends OAuth2UserInfo {
     private Map<String, List<Map>> additionalUserInfo;
     private LocalDate birthday;
     private String age;
+    private String accessToken;
 
-    public GoogleOAuth2UserInfo(Map<String, Object> attributes, Map<String, List<Map>> additionalUserInfo) {
+    public GoogleOAuth2UserInfo(Map<String, Object> attributes, String accessToken) { //Map<String, List<Map>> additionalUserInfo,
         super(attributes);
-        this.additionalUserInfo = additionalUserInfo;
+       // this.additionalUserInfo = additionalUserInfo;
         this.birthday = parseBirthday();
         this.age = calculateAge();
+        this.accessToken = accessToken;
     }
 
     private LocalDate parseBirthday() {
@@ -40,7 +42,7 @@ public class GoogleOAuth2UserInfo extends OAuth2UserInfo {
                 .get(0)
                 .get("date");
 
-        if (birthday.equals("")) return null;
+        if (birthday.equals(Collections.<String, Integer>emptyMap())) return null;
 
         // 생년월일 String to Date
         LocalDate parsedBirthday = LocalDate.of(birthday.get("year"), birthday.get("month"), birthday.get("day"));
@@ -84,7 +86,7 @@ public class GoogleOAuth2UserInfo extends OAuth2UserInfo {
         String gender = Optional.ofNullable(additionalUserInfo.get("genders"))
                 .orElseGet(() ->{
                     Map<String, String> map =  Map.of(
-                            "formattedValue", ""
+                            "value", ""
                     );
                     return List.of(map);
                 } )

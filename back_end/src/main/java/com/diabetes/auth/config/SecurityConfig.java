@@ -1,7 +1,9 @@
 package com.diabetes.auth.config;
 
 import com.diabetes.auth.security.CustomAuthenticationEntryPoint;
+import com.diabetes.auth.security.CustomAuthorizationRequestResolver;
 import com.diabetes.auth.security.OAuth2AuthenticationSuccessHandler;
+import com.diabetes.user.domain.RoleType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,12 +11,16 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.web.SecurityFilterChain;
+
 
 @EnableWebSecurity
 @RequiredArgsConstructor
 @Configuration
 public class SecurityConfig {
+
+  //  private final ClientRegistrationRepository clientRegistrationRepository;
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
     private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
     /*
@@ -40,16 +46,19 @@ public class SecurityConfig {
                         .antMatchers("/api/v1/admin/**").permitAll()
                         .antMatchers("/", "/css/**", "/images/**").permitAll()
                         .antMatchers("/api/v1/auth/**").permitAll()
-                        .antMatchers("/api/v1/foods", "/api/v1/foods/**", "/api/v1/users/**").permitAll() //.hasRole(RoleType.USER.getCode())
+                        .antMatchers("/api/v1/foods", "/api/v1/foods/**", "/api/v1/users/**").hasRole(RoleType.USER.toString()) // ROLE_{} 형태
                         .anyRequest().authenticated()
                 )
                 .oauth2Login()
-                .defaultSuccessUrl("/api/v1/users/me", true)
+                .defaultSuccessUrl("http://localhost:3000/login/redirect", true)
+                .failureUrl("http://localhost:3000/login")
+                //.successHandler(oAuth2AuthenticationSuccessHandler)
                 .authorizationEndpoint()
+              //  .authorizationRequestResolver(new CustomAuthorizationRequestResolver(this.clientRegistrationRepository))
                 .and()
                 .userInfoEndpoint();
 //                .and()
-//                .successHandler(oAuth2AuthenticationSuccessHandler);
+//               ;
         http
                 .exceptionHandling()
                 .authenticationEntryPoint(customAuthenticationEntryPoint);	// 401 자동 구글 로그인 url로 이동하는 것 방지

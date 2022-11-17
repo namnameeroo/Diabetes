@@ -45,6 +45,7 @@ public class GoogleAdditionalUserInfoHandler {
         RequestEntity<HttpHeaders> requestEntity = new RequestEntity<>(headers, httpMethod, URI.create(uri));
         ResponseEntity<HashMap> responseEntity = restOperations.exchange(requestEntity, HashMap.class);
 
+        // 동의를 안 하는 경우
         return responseEntity.getBody();
     }
 }
