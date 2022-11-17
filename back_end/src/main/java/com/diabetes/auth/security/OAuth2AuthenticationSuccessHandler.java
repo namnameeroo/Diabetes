@@ -6,6 +6,7 @@ import com.diabetes.common.exception.BadRequestException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.core.log.LogMessage;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
@@ -37,23 +38,18 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws ServletException, IOException {
 
-            SavedRequest savedRequest = this.requestCache.getRequest(request, response);
-            if (savedRequest == null) {
-                clearAuthenticationAttributes(request);
-                return;
-            }
-            String targetUrlParameter = getTargetUrlParameter();
-            if (isAlwaysUseDefaultTargetUrl()
-                    || (targetUrlParameter != null && StringUtils.hasText(request.getParameter(targetUrlParameter)))) {
-                this.requestCache.removeRequest(request, response);
-                clearAuthenticationAttributes(request);
-                return;
-            }
-            clearAuthenticationAttributes(request);
-
-            // Use the DefaultSavedRequest URL
-            String targetUrl = savedRequest.getRedirectUrl();
-            getRedirectStrategy().sendRedirect(request, response, targetUrl);
+        handle(request, response, authentication);
+        clearAuthenticationAttributes(request);
     }
 
+    @Override
+    protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
+            throws IOException, ServletException {
+        String targetUrl = determineTargetUrl(request, response, authentication);
+        if (response.isCommitted()) {
+            this.logger.debug(LogMessage.format("Did not redirect to %s since response already committed.", targetUrl));
+            return;
+        }
+        getRedirectStrategy().sendRedirect(request, response, targetUrl);
+    }
 }
