@@ -1,7 +1,7 @@
 import React from "react";
 import "styles/main.css";
 import Footer from "components/footer";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 
 const PageTitle = (props) => {
   return (
@@ -26,13 +26,13 @@ const handleFormSubmit = (e) => {
 const Today = () => {
   let now = new Date();
   let todayYear = now.getFullYear();
-  let todayMonth = now.getMonth();
+  let todayMonth = now.getMonth() + 1;
   let todayDay = now.getDate();
 
   return <div className="right-align small-txt gray-txt">작성일 : {[todayYear, todayMonth, todayDay].join("-")}</div>;
 };
 
-const InputCell = ({label}) => {
+const InputCell = ({label, types}) => {
   const [inputs, setInputs] = React.useState({
     id: "",
     foodName: "",
@@ -51,16 +51,24 @@ const InputCell = ({label}) => {
 
   const {id, foodName, provider, entireWeight, calories, carbohydrate, protein, fat, fiber, intake, remains, gl, result} = inputs;
 
+  const setMsg = (msg) => {
+    console.log(msg);
+  };
+
   const onChangeInput = (e) => {
-    const {label, value} = e.target;
+    const {name, value} = e.target;
     console.log(e.target, "target");
-    console.log(inputs);
+    if (types === "Number" && isNaN(value)) {
+      setMsg("숫자만 입력해주세요.");
+    }
+
     const nextInput = {
       ...inputs,
-      [label]: value,
+      [name]: value,
     };
     setInputs(nextInput);
   };
+
   return (
     <div className="input_item" id="input_item_id">
       <input type="text" className="input_text" name={label} value={inputs[label]} onChange={onChangeInput}></input>
@@ -90,56 +98,56 @@ const InputForm = () => {
             <tr>
               <td className="pad-right-10">제품명</td>
               <td>
-                <InputCell name="foodName" />
+                <InputCell label="foodName" />
               </td>
             </tr>
             <tr>
               <td className="pad-right-10">업체명</td>
               <td>
-                <InputCell name="provider" />
+                <InputCell label="provider" />
               </td>
             </tr>
             <tr>
               <td className="pad-right-10">총량&nbsp; &nbsp; &nbsp; &nbsp;(g)</td>
               <td>
-                <InputCell name="entireWeight" />
+                <InputCell label="entireWeight" types="Number" />
               </td>
             </tr>
 
             <tr>
               <td className="pad-right-10">섭취량&nbsp; &nbsp; &nbsp;(%)</td>
               <td>
-                <InputCell name="intake" />
+                <InputCell label="intake" types="Number" />
               </td>
             </tr>
             <tr>
               <td className="pad-right-10">칼로리&nbsp; &nbsp; &nbsp;(g)</td>
               <td>
-                <InputCell name="calories" />
+                <InputCell label="calories" types="Number" />
               </td>
             </tr>
             <tr>
               <td className="pad-right-10">탄수화물 (g)</td>
               <td>
-                <InputCell name="carbohydrate" />
+                <InputCell label="carbohydrate" types="Number" />
               </td>
             </tr>
             <tr>
               <td className="pad-right-10">단백질&nbsp; &nbsp; &nbsp;(g)</td>
               <td>
-                <InputCell name="protein" />
+                <InputCell label="protein" types="Number" />
               </td>
             </tr>
             <tr>
               <td className="pad-right-10">지방&nbsp; &nbsp; &nbsp; &nbsp; (g)</td>
               <td>
-                <InputCell name="fat" />
+                <InputCell label="fat" types="Number" />
               </td>
             </tr>
             <tr>
               <td className="pad-right-10">식이섬유 (g)</td>
               <td>
-                <InputCell name="fiber" />
+                <InputCell label="fiber" types="Number" />
               </td>
             </tr>
           </tbody>
