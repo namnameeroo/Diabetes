@@ -1,7 +1,9 @@
 import React from "react";
-import "styles/main.css";
-import Footer from "components/footer";
 import {useState, useEffect} from "react";
+import axios from "axios";
+import Utils from "utils";
+import Footer from "components/footer";
+import "styles/main.css";
 
 const PageTitle = (props) => {
   return (
@@ -11,16 +13,23 @@ const PageTitle = (props) => {
   );
 };
 
-const handleFormSubmit = (e) => {
-  // const [errorMsg, setErrorMsg] = React.useState("에러 발생");
+const postData = async (inputs) => {
+  console.log("post data", inputs);
+  try {
+    await axios
+      .post(Utils.baseUrl + `/api/v1/foods`, {
+        data: inputs,
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res);
+        console.log("form submit success");
+      });
 
-  console.log(e.target, "값");
-  console.log(e.target[0]);
-  console.log(e);
-
-  console.log("form 전송");
-  // setCounter(counter + 1);
-  e.preventDefault();
+    // console.log(res.data.result.content);
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 const Today = () => {
@@ -32,9 +41,21 @@ const Today = () => {
   return <div className="right-align small-txt gray-txt">작성일 : {[todayYear, todayMonth, todayDay].join("-")}</div>;
 };
 
-const InputCell = ({label, types}) => {
+const InputCell = ({label, onChangeInput, value}) => {
+  return (
+    <div className="input_item" id="input_item_id">
+      <input className="input_text" name={label} onChange={onChangeInput} value={value}></input>
+    </div>
+  );
+};
+const getNumOnly = (input) => {
+  return input.replaceAll(/[^0-9]*/g, "");
+};
+
+const InputForm = () => {
+  // const [inputList, setInputList] = React.useState([""] * 10);
   const [inputs, setInputs] = React.useState({
-    id: "",
+    userId: 4,
     foodName: "",
     provider: "",
     entireWeight: 0,
@@ -46,10 +67,10 @@ const InputCell = ({label, types}) => {
     intake: 0,
     remains: 0,
     gl: 0,
-    result: "",
+    result: "MIDDLE",
   });
 
-  const {id, foodName, provider, entireWeight, calories, carbohydrate, protein, fat, fiber, intake, remains, gl, result} = inputs;
+  const {userId, foodName, provider, entireWeight, calories, carbohydrate, protein, fat, fiber, intake, remains, gl, result} = inputs;
 
   const setMsg = (msg) => {
     console.log(msg);
@@ -58,107 +79,139 @@ const InputCell = ({label, types}) => {
   const onChangeInput = (e) => {
     const {name, value} = e.target;
     console.log(e.target, "target");
-    if (types === "Number" && isNaN(value)) {
-      setMsg("숫자만 입력해주세요.");
-    }
-
     const nextInput = {
       ...inputs,
       [name]: value,
     };
+
     setInputs(nextInput);
   };
 
-  return (
-    <div className="input_item" id="input_item_id">
-      <input type="text" className="input_text" name={label} value={inputs[label]} onChange={onChangeInput}></input>
-    </div>
-  );
-};
-
-const InputForm = () => {
-  // const [inputList, setInputList] = React.useState([""] * 10);
-
-  const SubmitButton = (props) => {
-    const handleSubmitClick = () => {
-      console.log("submit button clicked");
+  const onChangeInputForNum = (e) => {
+    const {name, value} = e.target;
+    console.log(e.target, "target", value);
+    if (isNaN(value)) {
+      setMsg("숫자만 입력해주세요.");
+    }
+    const nextInput = {
+      ...inputs,
+      [name]: getNumOnly(value),
     };
-    return (
-      <button type="submit" className="btn_submit" id={props.id} onClick={handleSubmitClick}>
-        <span className="btn_text">{props.children}</span>
-      </button>
-    );
+    setInputs(nextInput);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault(); // 폼전송시 리액트 상태 초기화를 막음
+  };
+
+  const handleSubmitClick = async () => {
+    console.log("submit button clicked");
+    inputs.name = inputs.foodName; // 키 다른 거 수정
+
+    await postData(inputs).then(() => console.log("posted"));
   };
 
   return (
-    <form onSubmit={handleFormSubmit}>
-      <div className="main_wrap table_wrap">
-        <table className="simple_font">
-          <tbody>
-            <tr>
-              <td className="pad-right-10">제품명</td>
-              <td>
-                <InputCell label="foodName" />
-              </td>
-            </tr>
-            <tr>
-              <td className="pad-right-10">업체명</td>
-              <td>
-                <InputCell label="provider" />
-              </td>
-            </tr>
-            <tr>
-              <td className="pad-right-10">총량&nbsp; &nbsp; &nbsp; &nbsp;(g)</td>
-              <td>
-                <InputCell label="entireWeight" types="Number" />
-              </td>
-            </tr>
+    <>
+      <form onSubmit={onSubmit}>
+        <div className="main_wrap table_wrap">
+          <table className="simple_font">
+            <tbody>
+              <tr>
+                <td className="pad-right-10">제품명</td>
+                <td>
+                  <InputCell label="foodName" onChangeInput={onChangeInput} value={inputs.foodName ? inputs.foodName : ""} />
+                </td>
+              </tr>
+              <tr>
+                <td className="pad-right-10">업체명</td>
+                <td>
+                  <InputCell label="provider" onChangeInput={onChangeInput} value={inputs.provider ? inputs.provider : ""} />
+                </td>
+              </tr>
+              <tr>
+                <td className="pad-right-10">총량&nbsp; &nbsp; &nbsp; &nbsp;(g)</td>
+                <td>
+                  <InputCell
+                    label="entireWeight"
+                    types="number"
+                    onChangeInput={onChangeInputForNum}
+                    value={inputs.entireWeight ? inputs.entireWeight : 0}
+                  />
+                </td>
+              </tr>
 
-            <tr>
-              <td className="pad-right-10">섭취량&nbsp; &nbsp; &nbsp;(%)</td>
-              <td>
-                <InputCell label="intake" types="Number" />
-              </td>
-            </tr>
-            <tr>
-              <td className="pad-right-10">칼로리&nbsp; &nbsp; &nbsp;(g)</td>
-              <td>
-                <InputCell label="calories" types="Number" />
-              </td>
-            </tr>
-            <tr>
-              <td className="pad-right-10">탄수화물 (g)</td>
-              <td>
-                <InputCell label="carbohydrate" types="Number" />
-              </td>
-            </tr>
-            <tr>
-              <td className="pad-right-10">단백질&nbsp; &nbsp; &nbsp;(g)</td>
-              <td>
-                <InputCell label="protein" types="Number" />
-              </td>
-            </tr>
-            <tr>
-              <td className="pad-right-10">지방&nbsp; &nbsp; &nbsp; &nbsp; (g)</td>
-              <td>
-                <InputCell label="fat" types="Number" />
-              </td>
-            </tr>
-            <tr>
-              <td className="pad-right-10">식이섬유 (g)</td>
-              <td>
-                <InputCell label="fiber" types="Number" />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div className="submit_wrap">
-        <div id="submit_button_wrap">
-          <SubmitButton id="submit_item">저 장</SubmitButton>
+              <tr>
+                <td className="pad-right-10">섭취량&nbsp; &nbsp; &nbsp;(%)</td>
+                <td>
+                  <InputCell label="intake" types="number" onChangeInput={onChangeInputForNum} value={inputs.intake ? inputs.intake : 0} />
+                </td>
+              </tr>
+              <tr>
+                <td className="pad-right-10">칼로리&nbsp; &nbsp; &nbsp;(g)</td>
+                <td>
+                  <InputCell
+                    label="calories"
+                    types="number"
+                    onChangeInput={onChangeInputForNum}
+                    value={inputs.calories ? inputs.calories : 0}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td className="pad-right-10">탄수화물 (g)</td>
+                <td>
+                  <InputCell
+                    label="carbohydrate"
+                    types="number"
+                    onChangeInput={onChangeInputForNum}
+                    value={inputs.carbohydrate ? inputs.carbohydrate : 0}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td className="pad-right-10">단백질&nbsp; &nbsp; &nbsp;(g)</td>
+                <td>
+                  <InputCell
+                    label="protein"
+                    types="number"
+                    onChangeInput={onChangeInputForNum}
+                    value={inputs.protein ? inputs.protein : 0}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td className="pad-right-10">지방&nbsp; &nbsp; &nbsp; &nbsp; (g)</td>
+                <td>
+                  <InputCell label="fat" types="number" onChangeInput={onChangeInputForNum} value={inputs.fat ? inputs.fat : 0} />
+                </td>
+              </tr>
+              <tr>
+                <td className="pad-right-10">식이섬유 (g)</td>
+                <td>
+                  <InputCell label="fiber" types="number" onChangeInput={onChangeInputForNum} value={inputs.fiber ? inputs.fiber : 0} />
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </form>
+      <SubmitButton id="submit_item" handleSubmitClick={handleSubmitClick}>
+        저 장
+      </SubmitButton>
+    </>
+  );
+};
+
+const SubmitButton = (props) => {
+  return (
+    <div className="submit_wrap">
+      <div id="submit_button_wrap">
+        <button types="submit" className="btn_submit" id={props.id} onClick={props.handleSubmitClick}>
+          <span className="btn_text">{props.children}</span>
+        </button>
       </div>
-    </form>
+    </div>
   );
 };
 
