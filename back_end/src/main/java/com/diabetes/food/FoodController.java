@@ -61,9 +61,9 @@ public class FoodController {
     @PostMapping("/foods")
     public ResponseEntity<?> saveFoodInfo(@RequestBody FoodDto foodDto, Authentication authentication) {
 
-//        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 //        foodDto.checkUserId(userPrincipal.getId());
-
+        foodDto.assignUserId(userPrincipal.getId());
         FoodDto savedFoodDto = foodService.saveFoodInfo(foodDto);
 
         URI location = ServletUriComponentsBuilder.fromCurrentContextPath() //.fromContextPath(request)

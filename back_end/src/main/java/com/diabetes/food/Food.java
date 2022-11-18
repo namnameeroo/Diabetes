@@ -35,6 +35,7 @@ public class Food extends BaseTimeEntity {
 
 
     public FoodDto toDto() {
+
         return FoodDto.builder()
                 .id(this.id)
                 //.userId() //TODO 응답값에 유저 아이디 정보를 담아줘야 하는지???
@@ -48,6 +49,8 @@ public class Food extends BaseTimeEntity {
                 .intake(this.intake)
                 .gl(this.gl)
                 .result(result)//!=null?result.toString():null)
+                .createdDate(getCreatedDate())
+                .modifiedDate(getModifiedDate())
                 .build();
     }
 
