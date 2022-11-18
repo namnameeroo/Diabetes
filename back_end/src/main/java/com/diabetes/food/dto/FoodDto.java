@@ -8,6 +8,8 @@ import lombok.Getter;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Getter
@@ -17,7 +19,6 @@ import javax.validation.constraints.NotNull;
 public class FoodDto {
 
     private Long id;
-    @NotNull
     private Long userId;
 
     @NotNull
@@ -44,10 +45,17 @@ public class FoodDto {
     @Valid
     private GLResult result;
 
+    private LocalDateTime createdDate;
+    private LocalDateTime modifiedDate;
+
     public void checkUserId(Long userId) {
         if (!this.userId.equals(userId)) {
             // TODO 에러를 던질 것인지?
             this.userId = userId;
         }
+    }
+
+    public void assignUserId(Long userId) {
+        this.userId = userId;
     }
 }
