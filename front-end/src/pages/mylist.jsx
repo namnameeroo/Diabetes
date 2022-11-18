@@ -33,8 +33,12 @@ const Table = styled.table`
     border-bottom: 1px solid #ccc;
     background: #f3f6f7;
   }
-  .hover-a:hover {
+  /* .hover-a:hover {
     color: blue;
+  } */
+  tr:hover td {
+    color: blue;
+    background-color: gray;
   }
   td {
     text-align: center;
@@ -65,36 +69,51 @@ const Wrap = styled.div`
 `;
 
 /**
- * props = {id: "001", foodName: "abc", createDate: 0102330}
+ * props = {
+ *  id: 1,
+ *  name: "foodName",
+ *  calories : 540,
+ * ...
  */
+
 const ListElement = (props) => {
-  // console.log(props);
+  // setFoodIndex(foodIndex + 1);
+  console.log(props);
   return (
-    <tr>
-      <a className="hover-a" href={`/foodForm/` + props.item.id}>
-        <td className="id">{props.item.id}</td>
-        <td className="food-name">{props.item.foodName}</td>
+    <>
+      <tr
+        className="hover-a"
+        onClick={() => {
+          window.location = `/foodForm/` + props.item.id;
+        }}
+      >
+        <td className="id">{props.order}</td>
+        <td className="food-name">{props.item.name}</td>
         <td className="create-date">{props.item.createDate}</td>
-      </a>
-    </tr>
+      </tr>
+    </>
   );
 };
 
 const MylistPage = () => {
   /* eslint-disable */
-  const [foodlist, setFoodlist] = useState(DB.foodlist); // foodlist = DB.foodlist; 임시 데이터
+  const [foodlist, setFoodlist] = useState([]); // foodlist = DB.foodlist; 임시 데이터
+  const [foodIndex, setFoodIndex] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(Utils.baseUrl + `/api/v1/foods`, {withCredentials: true}).then((res) => console.log(res));
-        setFoodlist(response);
-        console.log(foodlist);
+        await axios.get(Utils.baseUrl + `/api/v1/foods`, {withCredentials: true}).then((res) => {
+          // console.log(res.data.result.content);
+          console.log(res);
+          setFoodlist(res.data.result.content);
+          console.log("foodlist", foodlist);
+        });
+
+        // console.log(res.data.result.content);
       } catch (e) {
         console.error(e);
-
-        // test 할 때만 주석처리
-        setFoodlist([]);
+        setFoodlist([]); // test 할 때만 주석처리
       }
     };
     fetchData();
@@ -112,12 +131,7 @@ const MylistPage = () => {
               <th scope="cols">작성일</th>
             </tr>
           </thead>
-          <tbody>
-            {foodlist.map((i, k) => (
-              <ListElement key={k} item={i} />
-              // 22.11.09 null 검증 필요
-            ))}
-          </tbody>
+          <tbody>{foodlist ? foodlist.map((i, k) => <ListElement key={k} item={i} order={foodIndex} />) : "입력 내역이 없습니다."}</tbody>
         </Table>
         <RouteButton goToPage={"/foodForm"} />
       </Wrap>
