@@ -5,8 +5,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.util.Assert;
 
 import javax.validation.Valid;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,11 +18,9 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Builder
 @AllArgsConstructor
-public class FoodDto {
+public class FoodReqDto {
 
-    private Long id;
     private Long userId;
-
     @NotNull
     private String name;
     @NotNull
@@ -39,14 +39,9 @@ public class FoodDto {
     private Float intake;
     @NotNull
     private Float gl;
-
-    // GLResultType(현재 Food 엔티티의 내부 클래스)을 쓸지 String을 쓸지 고민
     @NotNull
     @Valid
     private GLResult result;
-
-    private LocalDateTime createdDate;
-    private LocalDateTime modifiedDate;
 
     public void checkUserId(Long userId) {
         if (!this.userId.equals(userId)) {
@@ -58,4 +53,9 @@ public class FoodDto {
     public void assignUserId(Long userId) {
         this.userId = userId;
     }
+
+    public void checkUserIdNotNull() {
+        Assert.notNull(this.userId, "USER ID NEEDED");
+    }
+
 }

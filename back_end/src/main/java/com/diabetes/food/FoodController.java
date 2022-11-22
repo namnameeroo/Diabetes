@@ -3,7 +3,8 @@ package com.diabetes.food;
 import com.diabetes.auth.security.UserPrincipal;
 import com.diabetes.common.dto.CommonResponse;
 import com.diabetes.common.dto.CustomPageDto;
-import com.diabetes.food.dto.FoodDto;
+import com.diabetes.food.dto.FoodReqDto;
+import com.diabetes.food.dto.FoodResDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -37,7 +38,7 @@ public class FoodController {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 
         Long userId = userPrincipal.getId();
-        Page<FoodDto> foodList = foodService.getFoodList(userId, pageable);
+        Page<FoodResDto> foodList = foodService.getFoodList(userId, pageable);
         CustomPageDto customPageDto = new CustomPageDto(foodList);
         return ResponseEntity.ok(new CommonResponse<>("SUCCESS", customPageDto));
     }
@@ -50,7 +51,7 @@ public class FoodController {
 
 //        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 //        FoodDto foodDto = foodService.getFoodInfo(foodId, userPrincipal.getId());
-        FoodDto foodDto = foodService.getFoodInfoByFoodId(foodId);
+        FoodResDto foodDto = foodService.getFoodInfoByFoodId(foodId);
 
         return ResponseEntity.ok(new CommonResponse<>("SUCCESS", foodDto));
     }
@@ -59,12 +60,12 @@ public class FoodController {
      * 음식 정보 등록
      */
     @PostMapping("/foods")
-    public ResponseEntity<?> saveFoodInfo(@RequestBody FoodDto foodDto, Authentication authentication) {
+    public ResponseEntity<?> saveFoodInfo(@RequestBody FoodReqDto foodDto, Authentication authentication) {
 
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 //        foodDto.checkUserId(userPrincipal.getId());
         foodDto.assignUserId(userPrincipal.getId());
-        FoodDto savedFoodDto = foodService.saveFoodInfo(foodDto);
+        FoodResDto savedFoodDto = foodService.saveFoodInfo(foodDto);
 
         URI location = ServletUriComponentsBuilder.fromCurrentContextPath() //.fromContextPath(request)
                 .path("/food/" + savedFoodDto.getId())
@@ -81,9 +82,9 @@ public class FoodController {
     @DeleteMapping("/foods/{foodId}")
     public ResponseEntity<?> deleteFoodInfo(@PathVariable Long foodId, Authentication authentication) {
 
-//        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-        Boolean result = foodService.updateFoodInfoDeletedByFoodId(foodId);
-        // Boolean result = foodService.updateFoodInfoDeleted(foodId, userPrincipal.getId());
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        // Boolean result = foodService.updateFoodInfoDeletedByFoodId(foodId);
+        Boolean result = foodService.updateFoodInfoDeleted(foodId, userPrincipal.getId());
         return ResponseEntity.ok(new CommonResponse<Long>("SUCCESSFULLY DELETED BY ID", foodId));
     }
 
@@ -91,13 +92,11 @@ public class FoodController {
      * 음식 정보 수정
      */
     @PutMapping("/foods/{foodId}")
-    public ResponseEntity<?> updateFoodInfo(@PathVariable Long foodId, @RequestBody FoodDto dto, Authentication authentication) {
-        if (!foodId.equals(dto.getId())) throw new IllegalStateException("NOT VALID INPUT");
+    public ResponseEntity<?> updateFoodInfo(@PathVariable Long foodId, @RequestBody FoodReqDto dto, Authentication authentication) {
 
-//        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-//        dto.checkUserId(userPrincipal.getId());
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 
-        FoodDto foodDto = foodService.updateFoodInfo(foodId, dto);
+        FoodResDto foodDto = foodService.updateFoodInfo(foodId, userPrincipal.getId(), dto);
         return ResponseEntity.ok(new CommonResponse<>("SUCCESSFULLY UPDATE", foodDto));
     }
 

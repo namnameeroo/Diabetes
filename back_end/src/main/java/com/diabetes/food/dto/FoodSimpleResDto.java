@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 @Builder
 @AllArgsConstructor
-public class FoodSimpleDto {
+public class FoodSimpleResDto {
     private Long id;
     private Long userId;
     private String name;
