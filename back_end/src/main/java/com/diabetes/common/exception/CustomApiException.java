@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 public class CustomApiException extends RuntimeException{
-    private HttpStatus status;
+    private HttpStatus status = HttpStatus.BAD_REQUEST;
 
     // 응답처리에 활용할 상태값을 미리 지정해둔다.
     public CustomApiException(String message, HttpStatus status) {
