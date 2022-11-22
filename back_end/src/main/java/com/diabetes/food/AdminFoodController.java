@@ -2,11 +2,11 @@ package com.diabetes.food;
 
 import com.diabetes.common.dto.CommonResponse;
 import com.diabetes.common.dto.CustomPageDto;
-import com.diabetes.food.dto.FoodDto;
+import com.diabetes.food.dto.FoodReqDto;
+import com.diabetes.food.dto.FoodResDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -34,7 +33,7 @@ public class AdminFoodController {
                                          @RequestParam(name="userId") Long userId,
                                          @PageableDefault(sort="modifiedDate", direction = Sort.Direction.DESC) Pageable pageable) {
 
-        Page<FoodDto> foodList = foodService.getFoodList(userId, pageable);
+        Page<FoodResDto> foodList = foodService.getFoodList(userId, pageable);
         CustomPageDto customPageDto = new CustomPageDto(foodList);
         return ResponseEntity.ok(new CommonResponse<>("SUCCESS", customPageDto));
     }
@@ -45,28 +44,12 @@ public class AdminFoodController {
     @GetMapping("/foods/{foodId}")
     public ResponseEntity<?> getFoodDetailInfo(@PathVariable Long foodId, Authentication authentication) {
 
-        FoodDto foodDto = foodService.getFoodInfoByFoodId(foodId);
+        FoodResDto foodDto = foodService.getFoodInfoByFoodId(foodId);
         return ResponseEntity.ok(new CommonResponse<>("SUCCESS", foodDto));
     }
 
     /**
-     * 음식 정보 등록
-     */
-    @PostMapping("/foods")
-    public ResponseEntity<?> saveFoodInfo(@RequestBody FoodDto foodDto, Authentication authentication) {
-
-        FoodDto savedFoodDto = foodService.saveFoodInfo(foodDto);
-        URI location = ServletUriComponentsBuilder.fromCurrentContextPath() //.fromContextPath(request) or .fromCurrentRequest()
-                .path("/food/" + savedFoodDto.getId())
-                .build()
-                .toUri();
-
-        return ResponseEntity.created(location)
-                .body(new CommonResponse<>("SUCCESS", savedFoodDto));
-    }
-
-    /**
-     * 음식 정보 삭제
+     * 음식 정보 삭제 (관리자 권한을 가진 경우)
      */
     @DeleteMapping("/foods/{foodId}")
     public ResponseEntity<?> deleteFoodInfo(@PathVariable Long foodId, Authentication authentication) {
@@ -76,15 +59,29 @@ public class AdminFoodController {
     }
 
     /**
-     * 음식 정보 수정
+     * 음식 정보 수정 (관리자 권한을 가진 경우)
      */
     @PutMapping("/foods/{foodId}")
-    public ResponseEntity<?> updateFoodInfo(@PathVariable Long foodId, @RequestBody FoodDto dto, Authentication authentication) {
+    public ResponseEntity<?> updateFoodInfo(@PathVariable Long foodId, @RequestBody FoodReqDto dto, Authentication authentication) {
 
-        // dto에 입력된 item의 id와 url에 입려된 id 같은지 검증...ㅎ
-        if (!foodId.equals(dto.getId())) throw new IllegalStateException("NOT VALID INPUT");
-
-        FoodDto foodDto = foodService.updateFoodInfo(foodId, dto);
+        FoodResDto foodDto = foodService.updateFoodInfo(foodId, dto.getUserId(), dto);
         return ResponseEntity.ok(new CommonResponse<>("SUCCESSFULLY UPDATE", foodDto));
+    }
+
+    /**
+     * 음식 정보 등
+     */
+    @PostMapping("/foods")
+    public ResponseEntity<?> saveFoodInfo(@RequestBody FoodReqDto foodDto, Authentication authentication) {
+
+        foodDto.checkUserIdNotNull(); // 흠...
+        FoodResDto savedFoodDto = foodService.saveFoodInfo(foodDto);
+        URI location = ServletUriComponentsBuilder.fromCurrentContextPath() //.fromContextPath(request) or .fromCurrentRequest()
+                .path("/food/" + savedFoodDto.getId())
+                .build()
+                .toUri();
+
+        return ResponseEntity.created(location)
+                .body(new CommonResponse<>("SUCCESS", savedFoodDto));
     }
 }

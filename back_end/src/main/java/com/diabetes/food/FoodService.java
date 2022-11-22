@@ -1,11 +1,11 @@
 package com.diabetes.food;
 
 import com.diabetes.common.exception.NoSuchElementFoundException;
-import com.diabetes.food.dto.FoodDto;
+import com.diabetes.food.dto.FoodReqDto;
+import com.diabetes.food.dto.FoodResDto;
 import com.diabetes.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -23,18 +23,18 @@ public class FoodService {
     private final UserRepository userRepository;
 
     @Transactional(readOnly = true)
-    public Page<FoodDto> getFoodList(Long userId, Pageable pageable) {
+    public Page<FoodResDto> getFoodList(Long userId, Pageable pageable) {
         Page<Food> allFoodListByUserId = foodRepository.findAllByUserId(userId, pageable);
-        Page<FoodDto> dtoList = allFoodListByUserId.map(Food::toDto);
+        Page<FoodResDto> dtoList = allFoodListByUserId.map(Food::toDto);
 
         return dtoList;
     }
 
     @Transactional(readOnly = true)
-    public FoodDto getFoodInfoByFoodId(Long foodId) {
+    public FoodResDto getFoodInfoByFoodId(Long foodId) {
 
         Optional<Food> foodInfo = foodRepository.findById(foodId);
-        FoodDto foodDto = foodInfo.orElseThrow(
+        FoodResDto foodDto = foodInfo.orElseThrow(
                         ()-> new NoSuchElementFoundException("NOT FOUND ITEM", HttpStatus.NOT_FOUND)
                 )
                 .toDto();
@@ -42,10 +42,10 @@ public class FoodService {
     }
 
     @Transactional(readOnly = true)
-    public FoodDto getFoodInfo(Long foodId, Long userId) {
+    public FoodResDto getFoodInfo(Long foodId, Long userId) {
 
         Optional<Food> foodInfo = foodRepository.findByIdAndUserId(foodId, userId);
-        FoodDto foodDto = foodInfo.orElseThrow(
+        FoodResDto foodDto = foodInfo.orElseThrow(
                         ()-> new NoSuchElementFoundException("NOT FOUND ITEM", HttpStatus.NOT_FOUND)
                 )
                 .toDto();
@@ -53,15 +53,16 @@ public class FoodService {
     }
 
     @Transactional
-    public FoodDto saveFoodInfo(FoodDto foodDto) {
+    public FoodResDto saveFoodInfo(FoodReqDto foodDto) {
         Food savedFood = foodRepository.save(convertToEntity(foodDto));
         return savedFood.toDto();
     }
 
     @Transactional
-    public FoodDto updateFoodInfo(Long foodId, FoodDto dto) {
-        Optional<Food> foodInfoById = foodRepository.findById(foodId);
-        FoodDto foodDto = foodInfoById.orElseThrow(
+    public FoodResDto updateFoodInfo(Long foodId, Long userId, FoodReqDto dto) {
+        Optional<Food> foodInfoById = foodRepository.findByIdAndUserId(foodId, userId);
+
+        FoodResDto foodDto = foodInfoById.orElseThrow(
                         ()-> new NoSuchElementFoundException("NOT FOUND ITEM", HttpStatus.NOT_FOUND)
                 )
                 .modify(dto)
@@ -70,12 +71,13 @@ public class FoodService {
     }
 
     /**
-     * 데이터의 상태를 변경해서 삭제 처리?
+     * 데이터의 상태를 변경해서 삭제 처리
      */
     @Transactional
     public Boolean updateFoodInfoDeleted(Long foodId, Long userId) {
         Optional<Food> foodInfoById = foodRepository.findByIdAndUserId(foodId, userId);
-        FoodDto foodDto = foodInfoById.orElseThrow(
+
+        FoodResDto foodDto = foodInfoById.orElseThrow(
                 ()-> new NoSuchElementFoundException("NOT FOUND ITEM", HttpStatus.NOT_FOUND)
         )
                 .setDeleted()
@@ -89,7 +91,7 @@ public class FoodService {
     public Boolean updateFoodInfoDeletedByFoodId(Long foodId) {
 
         Optional<Food> foodInfoById = foodRepository.findById(foodId);
-        FoodDto foodDto = foodInfoById.orElseThrow(
+        FoodResDto foodDto = foodInfoById.orElseThrow(
                         ()-> new NoSuchElementFoundException("NOT FOUND ITEM", HttpStatus.NOT_FOUND)
                 )
                 .setDeleted()
@@ -106,11 +108,11 @@ public class FoodService {
         return Boolean.TRUE;
     }
 
-    private Food convertToEntity(FoodDto dto) {
+    private Food convertToEntity(FoodReqDto dto) {
         return Food.builder()
-                .id(dto.getId())
                 .name(dto.getName())
-                .user(userRepository.findById(dto.getUserId()).orElseThrow(
+                .user(userRepository.findById(dto.getUserId())
+                        .orElseThrow(
                         () -> new NoSuchElementFoundException("NOT VALID USER ID")
                 ))
                 .provider(dto.getProvider())
@@ -124,7 +126,5 @@ public class FoodService {
                 .result(dto.getResult())//Enum.valueOf(GLResult.class, dto.getResult()))
                 .build();
     }
-
-
 }
 

@@ -1,9 +1,9 @@
 package com.diabetes.food;
 
 import com.diabetes.common.domain.BaseTimeEntity;
-import com.diabetes.food.dto.FoodDto;
+import com.diabetes.food.dto.FoodReqDto;
+import com.diabetes.food.dto.FoodResDto;
 import com.diabetes.user.domain.User;
-import com.sun.xml.bind.v2.TODO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -34,9 +34,9 @@ public class Food extends BaseTimeEntity {
     private Status status;
 
 
-    public FoodDto toDto() {
+    public FoodResDto toDto() {
 
-        return FoodDto.builder()
+        return FoodResDto.builder()
                 .id(this.id)
                 //.userId() //TODO 응답값에 유저 아이디 정보를 담아줘야 하는지???
                 .name(this.name)
@@ -54,8 +54,7 @@ public class Food extends BaseTimeEntity {
                 .build();
     }
 
-    public Food modify(FoodDto dto) {
-//        this.id = dto.getId();
+    public Food modify(FoodReqDto dto) {
 //        this.name = dto.getName();
 //        this.provider = dto.getProvider();
         this.entireWeight = dto.getEntireWeight()==null ? this.entireWeight : dto.getEntireWeight();
