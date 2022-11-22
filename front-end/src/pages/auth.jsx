@@ -1,6 +1,6 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 
-const Auth = ({props}) => {
+const Auth = ({ props }) => {
   const [isUser, setIsUser] = useState(false);
   const [userId, setUserId] = useState("");
   const [errorMsg, setErrorMsg] = useState("Auth 실패");
@@ -17,7 +17,7 @@ const Auth = ({props}) => {
 
   const onChange = (e) => {
     const {
-      target: {name, value},
+      target: { name, value },
     } = e;
 
     // 값 가져오는 키
