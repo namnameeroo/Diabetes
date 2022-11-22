@@ -70,7 +70,6 @@ public class UserService {
 
         UserResponseDto userResponseDto = user.modify(userRequestDto).toResponseDto();
         return userResponseDto;
-
     }
 
     @Transactional
@@ -83,4 +82,12 @@ public class UserService {
         return newUser;
     }
 
+    @Transactional
+    public UserResponseDto addAdminRoleToUser(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(()-> new IllegalArgumentException("찾는 사용자가 존재하지 않습니다."));
+
+        UserResponseDto userResponseDto = user.addAdminRole().toResponseDto();
+        return userResponseDto;
+    }
 }
