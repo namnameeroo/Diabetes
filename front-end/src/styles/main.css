@@ -16,19 +16,22 @@
 
 @font-face {
   font-family: "MabinogiClassicR";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/MabinogiClassicR.woff2") format("woff2");
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/MabinogiClassicR.woff2")
+    format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "GilbeotRainbow";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2112@1.0/GilbeotRainbow.woff") format("woff");
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2112@1.0/GilbeotRainbow.woff")
+    format("woff");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "Pretendard-Regular";
-  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff") format("woff");
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
   font-weight: 400;
   font-style: normal;
 }
@@ -96,13 +99,22 @@ ul {
   box-sizing: border-box;
 }
 
-.submit_wrap {
+.btn_wrap {
   width: 100%;
   padding: 20px 0;
   box-sizing: border-box;
 }
 
 .btn_submit {
+  display: block;
+  width: 100%;
+  padding: 13px 0 13px;
+  border-radius: 6px;
+  border: solid 1px rgba(0, 0, 0, 0.15);
+  background-color: var(--point-color);
+  box-sizing: border-box;
+}
+.btn_result {
   display: block;
   width: 100%;
   padding: 13px 0 13px;

@@ -1,15 +1,16 @@
 import React from "react";
-import {Routes, Route} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import LoginPage from "pages/login";
 import FoodFormPage from "pages/foodForm";
 import MylistPage from "pages/mylist";
 import AdminUserListPage from "pages/adminUserList";
-import GetUsersTest from "pages/temp";
 
-const AppRouter = ({isLoggedIn}) => {
+/* eslint-disable*/
+const AppRouter = ({ isLoggedIn }) => {
   // const HandlerRedirectCallback = () => {
   // }
+
   return (
     <div>
       <Routes>

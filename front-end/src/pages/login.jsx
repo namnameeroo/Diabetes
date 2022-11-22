@@ -1,5 +1,4 @@
 import React from "react";
-import {useEffect, useState} from "react";
 import Utils from "utils";
 
 import "styles/main.css";

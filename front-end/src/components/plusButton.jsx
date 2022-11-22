@@ -1,7 +1,7 @@
 import React from "react";
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 import "../styles/main.css";
-import {MdAdd} from "react-icons/md";
+import { MdAdd } from "react-icons/md";
 
 const CircleButton = styled.button`
   background: var(--point-color);
@@ -72,7 +72,7 @@ const Input = styled.input`
   box-sizing: border-box;
 `;
 
-const RouteButton = ({goToPage}) => {
+const RouteButton = ({ goToPage }) => {
   return (
     <>
       <CircleButton onClick={() => (window.location.href = goToPage)}>

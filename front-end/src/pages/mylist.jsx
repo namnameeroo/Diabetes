@@ -1,12 +1,12 @@
 // 유저의 입력 내역
 import React from "react";
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 
 import Utils from "utils";
 import "styles/main.css";
-import DB from "db.json";
+//import DB from "db.json";
 
 import Top from "components/top";
 import RouteButton from "components/plusButton";
@@ -53,7 +53,7 @@ const Table = styled.table`
   td.food-name {
     /* min-width: 100px; */
   }
-  td.create-date {
+  td.created-date {
     /* min-width: 150px; */
   }
 `;
@@ -76,9 +76,24 @@ const Wrap = styled.div`
  * ...
  */
 
+const Today = () => {
+  let now = new Date();
+  let todayYear = now.getFullYear();
+  let todayMonth = now.getMonth() + 1;
+  let todayDay = now.getDate();
+
+  return [todayYear, todayMonth, todayDay].join("-");
+};
+
 const ListElement = (props) => {
   // setFoodIndex(foodIndex + 1);
-  console.log(props);
+
+  const dateArr = props.item.createdDate.split("T").map((v) => {
+    return v.split(".")[0];
+  });
+  const createAt = dateArr[0] === Today() ? dateArr[1] : dateArr[0];
+  // 오늘 작성한 건은 시간으로 표시
+
   return (
     <>
       <tr
@@ -89,7 +104,7 @@ const ListElement = (props) => {
       >
         <td className="id">{props.order}</td>
         <td className="food-name">{props.item.name}</td>
-        <td className="create-date">{props.item.createDate}</td>
+        <td className="created-date">{createAt}</td>
       </tr>
     </>
   );
@@ -97,23 +112,26 @@ const ListElement = (props) => {
 
 const MylistPage = () => {
   /* eslint-disable */
-  const [foodlist, setFoodlist] = useState([]); // foodlist = DB.foodlist; 임시 데이터
+  const [foodlist, setFoodlist] = useState([]); //
+  // const foodlist = DB.foodlist; //임시 데이터
   const [foodIndex, setFoodIndex] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await axios.get(Utils.baseUrl + `/api/v1/foods`, {withCredentials: true}).then((res) => {
-          // console.log(res.data.result.content);
-          console.log(res);
-          setFoodlist(res.data.result.content);
-          console.log("foodlist", foodlist);
-        });
+        await axios
+          .get(Utils.baseUrl + `/api/v1/foods`, { withCredentials: true })
+          .then((res) => {
+            // console.log(res.data.result.content);
+            console.log(res);
+            setFoodlist(res.data.result.content);
+            console.log("foodlist", foodlist);
+          });
 
         // console.log(res.data.result.content);
       } catch (e) {
         console.error(e);
-        setFoodlist([]); // test 할 때만 주석처리
+        // setFoodlist([]); // test 할 때만 주석처리
       }
     };
     fetchData();
@@ -126,12 +144,18 @@ const MylistPage = () => {
         <Table className="mylist-table">
           <thead>
             <tr>
-              <th scope="cols">id</th>
+              <th scope="cols">idx</th>
               <th scope="cols">이름</th>
               <th scope="cols">작성일</th>
             </tr>
           </thead>
-          <tbody>{foodlist ? foodlist.map((i, k) => <ListElement key={k} item={i} order={foodIndex} />) : "입력 내역이 없습니다."}</tbody>
+          <tbody>
+            {foodlist
+              ? foodlist.map((i, k) => (
+                  <ListElement key={k} item={i} order={foodIndex} />
+                ))
+              : "입력 내역이 없습니다."}
+          </tbody>
         </Table>
         <RouteButton goToPage={"/foodForm"} />
       </Wrap>

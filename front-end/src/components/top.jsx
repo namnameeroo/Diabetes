@@ -1,8 +1,8 @@
 import React from "react";
 import "styles/components.css";
 import styled from "styled-components";
-import {FiChevronLeft} from "react-icons/fi";
-import {HiOutlineSearch} from "react-icons/hi";
+import { FiChevronLeft } from "react-icons/fi";
+import { HiOutlineSearch } from "react-icons/hi";
 
 const Header = styled.header`
   height: 45px;
