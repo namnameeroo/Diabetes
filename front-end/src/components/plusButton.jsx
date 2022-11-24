@@ -43,6 +43,7 @@ const CircleButton = styled.button`
     `}
 `;
 
+/*
 const InsertFormPositioner = styled.div`
   width: 100%;
   bottom: 0;
@@ -71,7 +72,7 @@ const Input = styled.input`
   font-size: 18px;
   box-sizing: border-box;
 `;
-
+*/
 const RouteButton = ({ goToPage }) => {
   return (
     <>

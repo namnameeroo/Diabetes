@@ -6,7 +6,7 @@ import axios from "axios";
 
 import Utils from "utils";
 import "styles/main.css";
-//import DB from "db.json";
+// import DB from "db.json";
 
 import Top from "components/top";
 import RouteButton from "components/plusButton";
@@ -47,8 +47,9 @@ const Table = styled.table`
     vertical-align: top;
     border-bottom: 1px solid #ccc;
   }
-  td.id {
+  td.idx {
     /* min-width: 10px; */
+    width: 15px;
   }
   td.food-name {
     /* min-width: 100px; */
@@ -59,13 +60,14 @@ const Table = styled.table`
 `;
 
 const Wrap = styled.div`
-  margin-top: 75px;
-  padding: 0 10px;
+  /* margin-top: 75px; */
+  /* padding: 0 10px; */
+  padding-top: 75px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   background-color: var(--white-color);
-  height: 450px; /** 임시 */
+  height: 750px; /** 임시 */
 `;
 
 /**
@@ -102,9 +104,10 @@ const ListElement = (props) => {
           window.location = `/foodForm/` + props.item.id;
         }}
       >
-        <td className="id">{props.order}</td>
+        <td className="idx">{props.order+1}</td>
         <td className="food-name">{props.item.name}</td>
-        <td className="created-date">{createAt}</td>
+        <td className="date-col">{createAt}</td>
+        <td >{props.item.result}</td>
       </tr>
     </>
   );
@@ -112,8 +115,8 @@ const ListElement = (props) => {
 
 const MylistPage = () => {
   /* eslint-disable */
-  const [foodlist, setFoodlist] = useState([]); //
-  // const foodlist = DB.foodlist; //임시 데이터
+  const [foodlist, setFoodlist] = useState([]); 
+  // const foodlist = DB.foodlist.result; //임시 데이터
   const [foodIndex, setFoodIndex] = useState(0);
 
   useEffect(() => {
@@ -122,8 +125,7 @@ const MylistPage = () => {
         await axios
           .get(Utils.baseUrl + `/api/v1/foods`, { withCredentials: true })
           .then((res) => {
-            // console.log(res.data.result.content);
-            console.log(res);
+            // console.log(res);
             setFoodlist(res.data.result.content);
             console.log("foodlist", foodlist);
           });
@@ -131,7 +133,7 @@ const MylistPage = () => {
         // console.log(res.data.result.content);
       } catch (e) {
         console.error(e);
-        // setFoodlist([]); // test 할 때만 주석처리
+        setFoodlist([]); // test 할 때만 주석처리
       }
     };
     fetchData();
@@ -145,8 +147,9 @@ const MylistPage = () => {
           <thead>
             <tr>
               <th scope="cols">idx</th>
-              <th scope="cols">이름</th>
+              <th scope="cols">식품명</th>
               <th scope="cols">작성일</th>
+              <th scope="cols">GL</th>
             </tr>
           </thead>
           <tbody>

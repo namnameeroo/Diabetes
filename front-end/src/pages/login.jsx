@@ -40,8 +40,8 @@ const SocialButton = (props) => {
 
 const LoginContainer = () => {
   return (
-    <div id="container" className="container">
-      <div id="container_inner" className="container_inner">
+    <div id="login-container" className="container">
+      <div id="login_inner" className="container_inner">
         <div className="login_wrap">
           {/* <form> */}
           <div id="social_login_wrap">
