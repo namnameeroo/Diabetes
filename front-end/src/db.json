@@ -12,10 +12,27 @@
     }
   ],
 
-  "foodlist": [
+  "foodlist": 
+  {
+    "message": "SUCCESS",
+    "result": [{
+        "id": 3,
+        "name": "testtest",
+        "provider": "who?",
+        "entireWeight": 100,
+        "calories": 540,
+        "carbohydrate": 10,
+        "protein": 20,
+        "fat": 40.2,
+        "intake": 50,
+        "gl": 33,
+        "result": "MIDDLE",
+        "createdDate": "2022-11-17T17:46:13.951085",
+        "modifiedDate": "2022-11-17T17:46:13.951085"
+    }, 
     {
       "id": "0",
-      "foodName": "gogi",
+      "name": "gogi",
       "provider": "참조은",
       "entireWeight": 100,
       "calories": 540,
@@ -27,43 +44,14 @@
       "remains": 10,
       "gl": 33,
       "result": "MIDDLE",
-      "createDate": "2022-10-10"
-    },
+      "createdDate": "2022-11-20T17:46:13.951085",
+      "modifiedDate": "2022-11-21T17:46:13.951085"
 
-    {
-      "id": "1",
-      "foodName": "salad",
-      "provider": "참조은",
-      "entireWeight": 100,
-      "calories": 540,
-      "carbohydrate": 10,
-      "protein": 20,
-      "fat": 40,
-      "fiber": 10,
-      "intake": 50,
-      "remains": 10,
-      "gl": 33,
-      "result": "MIDDLE",
-      "createDate": "2021-10-10"
-    },
-
-    {
-      "id": "2",
-      "foodName": "hamburger",
-      "provider": "참조은",
-      "entireWeight": 100,
-      "calories": 540,
-      "carbohydrate": 10,
-      "protein": 20,
-      "fat": 40,
-      "fiber": 10,
-      "intake": 50,
-      "remains": 10,
-      "gl": 33,
-      "result": "MIDDLE",
-      "createDate": "2022-12-10"
     }
-  ],
+  ]
+  },
+  
+  
   "userlist": [
     {
       "name": "이하이",

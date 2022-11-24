@@ -1,12 +1,13 @@
-import { useState, useEffect } from "react";
 
-const Auth = ({ props }) => {
+
+const Auth = () => {
+  /*
   const [isUser, setIsUser] = useState(false);
   const [userId, setUserId] = useState("");
   const [errorMsg, setErrorMsg] = useState("Auth 실패");
 
   useEffect(() => {
-    if (!!props) {
+    if (props) {
       // setUserId(props.id)
       setUserId(props);
       console.log(userId, "userID");
@@ -36,6 +37,7 @@ const Auth = ({ props }) => {
     }
   };
   return <div></div>;
+  */
 };
 
 export default Auth;

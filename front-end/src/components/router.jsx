@@ -14,8 +14,10 @@ const AppRouter = ({ isLoggedIn }) => {
   return (
     <div>
       <Routes>
+        <Route path="/" exact element={<LoginPage />} />
         <Route path="/login" exact element={<LoginPage />} />
         <Route path="/foodForm" element={<FoodFormPage />} />
+        <Route path="/foodForm/:foodId" element={<FoodFormPage />} />
         <Route path="/mylist" element={<MylistPage />} />
         <Route path="/adminUserList" element={<AdminUserListPage />} />
         <Route path="/login/redirect" element={<MylistPage />} />

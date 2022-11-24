@@ -6,7 +6,7 @@ import { HiOutlineSearch } from "react-icons/hi";
 
 const Header = styled.header`
   height: 45px;
-  padding: 0.8rem;
+  padding: 0.8em 10px;
   color: white;
   background: var(--point-color);
   font-weight: bold;
@@ -17,7 +17,9 @@ const Header = styled.header`
 
   position: fixed;
   top: 0;
-  /* width: 100% */
+  max-width: 600px;
+  margin: 0 auto;
+
   left: 0;
   right: 0;
 

@@ -1,5 +1,4 @@
 import React from "react";
-
 import styled, { css } from "styled-components";
 
 const ToggleButton = styled.button`
@@ -17,15 +16,12 @@ const ToggleButton = styled.button`
   width: 100%;
   /* height: 80px; */
   /* display: block; */
-
   align-items: center;
   justify-content: center;
   position: relative; /**absolute */
   left: 50%;
   bottom: 0px;
   transform: translate(-50%, 50%);
-
-
   outline: none;
   display: flex;
 
@@ -78,7 +74,7 @@ function ResultToggle(props) {
       <div className="btn_wrap" id="btn_result_wrap">
         <ToggleButton className="btn_result btn_text" id="btn_result" onClick={props.onToggle} open={props.open}>
 
-            {props.children}
+          {props.children}
 
         </ToggleButton>
       </div>
