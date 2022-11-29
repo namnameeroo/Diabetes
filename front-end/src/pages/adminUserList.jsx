@@ -1,12 +1,15 @@
-// 관리자의 첫화면
-// 유저 리스트
+/* 관리자의 첫화면
+ 유저 리스트 */
 
-import React from "react";
-// import {useState} from "react";
+ import React from "react";
+ import { useState, useEffect } from "react";
 import "styles/main.css";
 import styled from "styled-components";
-import DB from "db.json";
 import Top from "components/top";
+// import DB from "db.json";
+import axios from "axios";
+import Utils from "utils";
+
 
 const Table = styled.table`
   border-collapse: collapse;
@@ -21,6 +24,7 @@ const Table = styled.table`
     color: var(--point-color);
     border-bottom: 1.2px solid var(--sub-color);
   }
+
   thead th {
     min-width: 30px;
   }
@@ -57,10 +61,10 @@ const ListElement = (props) => {
   return (
     <tr>
       <td className="user-name">{props.item.name}</td>
-      <td className="user-id wide-col">{props.item.id}</td>
+      <td className="user-id wide-col">{props.item.email}</td>
       <td className="gender narrow-col">{props.item.gender}</td>
       <td className="user-date wide-col">{props.item.date}</td>
-      <td className="list-count narrow-col">{props.item.count}</td>
+      <td className="list-count narrow-col">{props.item.foodListCount}</td>
     </tr>
   );
 };
@@ -72,13 +76,29 @@ const Wrap = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   background-color: var(--white-color);
-  height: 460px; /**임시 */
+  height: 460px;    /** 임시 */
 `;
 
 const UserlistPage = () => {
-  let userlist = DB.userlist;
+  const [userlist, setUserlist] = useState([]);
+
+  // let userlist = DB.userlist;
 
   console.log(userlist);
+  useEffect(()=>{
+    const fetchData = async () => {
+      try {
+        await axios.get( Utils.baseUrl+`/api/v1/admin/users`, {withCredentials: true} ).then((res)=>{
+          setUserlist(res.data.result.content);
+        });
+      } catch (e){
+        console.error(e);
+        setUserlist([]);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <div>
       <Top title="기록 현황" />
@@ -95,9 +115,11 @@ const UserlistPage = () => {
             </tr>
           </thead>
           <tbody>
-            {userlist.map((i, k) => (
+            {userlist
+             ? userlist.map((i, k) => (
               <ListElement key={k} item={i} />
-            ))}
+            ))
+            : "입력 내역이 없습니다."}
           </tbody>
         </Table>
       </Wrap>
