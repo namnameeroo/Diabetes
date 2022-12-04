@@ -8,13 +8,13 @@ on:
     paths:
       - backend/**
       - .github/** # Github Actions 작업을 위한 포함
-  push:
-    branches:
-      - main
-      - dev
-    paths:
-      - backend/**
-      - .github/** # Github Actions 작업을 위한 포함
+  # push:
+  #   branches:
+  #     - main
+  #     - dev
+  #   paths:
+  #     - backend/**
+  #     - .github/** # Github Actions 작업을 위한 포함
 
 jobs:
   build:
@@ -45,7 +45,7 @@ jobs:
           host: ${{ secrets.HOST }}
           key: ${{ secrets.PASSWORD }}
           source: "./build/libs/*.jar"
-          target: "/home/ubuntu/diabetes/backend/"
+          target: "/home/ubuntu/diabetes/back_end/"
 
       # - name: Execute Server Init Script
       #   uses: appleboy/ssh-action@master
