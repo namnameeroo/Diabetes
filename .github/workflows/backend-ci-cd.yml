@@ -34,7 +34,6 @@ jobs:
       - name: pass JAR file through SCP
         uses: appleboy/scp-action@master
         with:
-          username: ubuntu
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.PASSWORD }}
