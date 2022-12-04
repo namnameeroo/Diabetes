@@ -37,10 +37,10 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
+          key: ${{ secrets.PASSWORD }}
           source: "./libs/*.jar"
-          target: "/home/ubuntu/diabetes/back_end/build"
+          target: "/home/ubuntu/diabetes/back_end/build/"
 
       # - name: Execute Server Init Script
       #   uses: appleboy/ssh-action@master
