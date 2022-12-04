@@ -38,11 +38,11 @@ jobs:
         run: npm run build
   
       - name: executing remote ssh commands using password
-        uses: appleboy/ssh-action@v0.1.5
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
+          key: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
             rm -rf /home/ubuntu/diabetes/front-end/build/
@@ -52,7 +52,7 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
+          key: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           source: 'build'
           target: '/home/ubuntu/diabetes/front-end/'
