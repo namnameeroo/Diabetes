@@ -1,0 +1,41 @@
+name: build
+on:
+  pull_request:
+    branches:
+      - main
+      - dev
+    paths:
+      - front-end/**
+      - .github/**
+  push:
+    branches:
+      - main
+      - dev
+    paths:
+      - front-end/**
+      - .github/**
+
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    # env:
+      # working-directory: ./front-end
+      
+    defaults:
+      run:
+        working-directory: ./front-end
+        
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          
+      - name: npm install
+        run: npm install
+        
+      - name: build
+        run: npm run build
+       
+      
+      
