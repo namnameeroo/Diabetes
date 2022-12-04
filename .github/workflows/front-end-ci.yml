@@ -54,5 +54,5 @@ jobs:
           username: ${{ secrets.USERNAME }}
           port: ${{ secrets.PORT }}
           key: ${{ secrets.PASSWORD }}
-          source: '/build'
-          target: '/home/ubuntu/diabetes/front-end'
+          source: '.'
+          target: '/home/ubuntu/diabetes/front-end/build/'
