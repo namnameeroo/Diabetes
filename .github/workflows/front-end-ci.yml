@@ -18,7 +18,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     # env:
       # working-directory: ./front-end
       
@@ -48,7 +48,7 @@ jobs:
             rm -rf /home/ubuntu/diabetes/front-end/build/
 
       - name: copy file via ssh password
-        uses: appleboy/scp-action@v0.0.1
+        uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
