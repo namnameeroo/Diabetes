@@ -37,7 +37,7 @@ jobs:
           username: ubuntu
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
+          key: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           source: "./build/libs/*.jar"
           target: "/home/ubuntu/diabetes/back_end/"
