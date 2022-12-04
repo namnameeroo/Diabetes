@@ -36,5 +36,24 @@ jobs:
         
       - name: build
         run: npm run build
- 
+  
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@deploy
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            rm -rf /home/ubuntu/diabetes/front-end/build/
+
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@deploy
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          source: 'build'
+          target: '/home/ubuntu/diabetes/front-end/'
       
