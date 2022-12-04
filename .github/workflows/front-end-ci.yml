@@ -52,7 +52,7 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          source: 'build'
+          key: ${{ secrets.PASSWORD }}
+          source: 'build/*'
           target: '/home/ubuntu/diabetes/front-end/'
