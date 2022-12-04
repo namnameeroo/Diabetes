@@ -7,18 +7,11 @@ on:
       - dev
     paths:
       - backend/**
-      - .github/** # Github Actions 작업을 위한 포함
-  # push:
-  #   branches:
-  #     - main
-  #     - dev
-  #   paths:
-  #     - backend/**
-  #     - .github/** # Github Actions 작업을 위한 포함
+      - .github/workflows/backend-ci-cd.yml # Github Actions 작업을 위한 포함
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./back_end
@@ -44,7 +37,9 @@ jobs:
         with:
           username: ubuntu
           host: ${{ secrets.HOST }}
-          key: ${{ secrets.PASSWORD }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
           source: "./build/libs/*.jar"
           target: "/home/ubuntu/diabetes/back_end/"
 
