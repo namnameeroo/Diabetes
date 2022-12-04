@@ -38,7 +38,7 @@ jobs:
         run: npm run build
   
       - name: executing remote ssh commands using password
-        uses: appleboy/ssh-action@deploy
+        uses: appleboy/ssh-action@v0.1.5
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
@@ -48,7 +48,7 @@ jobs:
             rm -rf /home/ubuntu/diabetes/front-end/build/
 
       - name: copy file via ssh password
-        uses: appleboy/scp-action@deploy
+        uses: appleboy/scp-action@v0.0.1
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
