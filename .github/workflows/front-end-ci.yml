@@ -17,6 +17,7 @@ on:
 
 jobs:
     build:
+        name: frontend-build
         runs-on: ubuntu-latest
         # env:
         # working-directory: ./front-end
@@ -59,5 +60,8 @@ jobs:
                   username: ${{ secrets.USERNAME }}
                   port: ${{ secrets.PORT }}
                   key: ${{ secrets.PASSWORD }}
-                  source: build/*
-                  target: /home/ubuntu/diabetes/front-end/build/
+                  script: |
+                      ls
+                      cwd
+                  source: "frontend-build/build/*"
+                  target: "/home/ubuntu/diabetes/front-end/build/"
