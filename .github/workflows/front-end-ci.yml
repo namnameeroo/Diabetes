@@ -7,13 +7,13 @@ on:
     paths:
       - front-end/**
       - .github/workflows/front-end-ci.yml
-  # push:
-    # branches:
-      # - main
-      # - dev
-   # paths:
-     # - front-end/**
-     # - .github/**
+  push:
+    branches:
+      - main
+      - dev
+    paths:
+     #- front-end/**
+      - .github/**
 
 
 jobs:
