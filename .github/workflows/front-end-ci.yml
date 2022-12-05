@@ -60,8 +60,6 @@ jobs:
                   username: ${{ secrets.USERNAME }}
                   port: ${{ secrets.PORT }}
                   key: ${{ secrets.PASSWORD }}
-                  script: |
-                      ls
-                      cwd
+
                   source: "frontend-build/build/*"
                   target: "/home/ubuntu/diabetes/front-end/build/"
