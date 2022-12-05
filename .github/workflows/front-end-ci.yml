@@ -56,3 +56,6 @@ jobs:
           key: ${{ secrets.PASSWORD }}
           source: './*'
           target: '/home/ubuntu/diabetes/front-end/build/'
+      - name: show fils
+        run: |
+          ls
