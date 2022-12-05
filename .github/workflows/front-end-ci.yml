@@ -45,7 +45,7 @@ jobs:
           key: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            rm -rf /home/ubuntu/diabetes/front-end/.
+            rm -rf /home/ubuntu/diabetes/front-end/build/
 
       - name: show files
         run: |
