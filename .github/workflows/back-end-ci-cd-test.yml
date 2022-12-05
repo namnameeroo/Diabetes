@@ -39,8 +39,8 @@ jobs:
           username: ${{ secrets.USERNAME }}
           port: ${{ secrets.PORT }}
           key: ${{ secrets.PASSWORD }}
-          source: "./libs/*.jar"
-          target: "/home/ubuntu/diabetes/back_end/build/"
+          source: "*.jar"
+          target: "/home/ubuntu/diabetes/back_end/build/libs"
 
       # - name: Execute Server Init Script
       #   uses: appleboy/ssh-action@master
