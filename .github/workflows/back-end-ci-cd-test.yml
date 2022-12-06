@@ -44,8 +44,9 @@ jobs:
                   PORT: ${{ secrets.PORT }}
                   KEY: ${{ secrets.PASSWORD }}
               with:
-                  source: "."
+                  source: "/home/runner/work/Diabetes/Diabetes/back_end/build/"
                   target: "/home/ubuntu/diabetes/back_end/build/"
+                  strip_components: 1
 
             # - name: Execute Server Init Script
             #   uses: appleboy/ssh-action@master
