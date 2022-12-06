@@ -44,7 +44,7 @@ jobs:
                   PORT: ${{ secrets.PORT }}
                   KEY: ${{ secrets.PASSWORD }}
               with:
-                  source: "build/libs/*.jar"
+                  source: "."
                   target: "/home/ubuntu/diabetes/back_end/build/"
 
             # - name: Execute Server Init Script
