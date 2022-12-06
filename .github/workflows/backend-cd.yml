@@ -40,6 +40,7 @@ jobs:
           key: ${{ secrets.PASSWORD }}
           source: "back_end/build/libs/*.jar"
           target: "/home/ubuntu/diabetes/back_end/build/"
+          strip_components: 3
 
       # - name: Execute Server Init Script
       #   uses: appleboy/ssh-action@master
