@@ -62,4 +62,4 @@ jobs:
                   key: ${{ secrets.PASSWORD }}
                   source: "/home/runner/work/Diabetes/Diabetes/front-end/build"
                   target: "/home/ubuntu/diabetes/front-end/build/"
-                  strip_components: 6
+                  strip_components: 5
