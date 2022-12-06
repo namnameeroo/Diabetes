@@ -31,6 +31,11 @@ jobs:
             - name: Build with Gradle
               run: ./gradlew build -x test
 
+            - name: show pwd
+              run: |
+                  pwd
+                  ls
+
             - name: pass JAR file through SCP
               uses: appleboy/scp-action@master
               env:
