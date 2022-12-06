@@ -60,6 +60,6 @@ jobs:
                   username: ${{ secrets.USERNAME }}
                   port: ${{ secrets.PORT }}
                   key: ${{ secrets.PASSWORD }}
-                  source: "/home/runner/work/Diabetes/Diabetes/front-end/build/*"
+                  source: "/home/runner/work/Diabetes/Diabetes/front-end/build"
                   target: "/home/ubuntu/diabetes/front-end/build/"
-                  strip_components: 7
+                  strip_components: 6
