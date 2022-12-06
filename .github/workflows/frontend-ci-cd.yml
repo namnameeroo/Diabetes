@@ -6,18 +6,18 @@ on:
             - dev
         paths:
             - front-end/**
-            - .github/workflows/front-end-ci.yml
-    push:
-        branches:
-            - main
-            - dev
-        paths:
+            - .github/workflows/frontend-ci-cd.yml
+    #push:
+        #branches:
+            #- main
+            #- dev
+        #paths:
             #- front-end/**
-            - .github/**
+            #- .github/**
 
 jobs:
     build:
-        name: frontend-build
+        name: frontend-ci-cd
         runs-on: ubuntu-latest
         # env:
         # working-directory: ./front-end
