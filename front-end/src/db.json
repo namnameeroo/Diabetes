@@ -52,34 +52,70 @@
   },
   
   
-  "userlist": [
-    {
-      "name": "이하이",
-      "id": "hi@mail.com",
-      "gender": "F",
-      "date": "2022-10-10",
-      "count": "2"
-    },
-    {
-      "name": "최안경",
-      "id": "glasses@mail.com",
-      "gender": "F",
-      "date": "2022-01-10",
-      "count": "4"
-    },
-    {
-      "name": "Ahn Yeah",
-      "id": "Nono@mail.com",
-      "gender": "F",
-      "date": "2022-12-01",
-      "count": "0"
-    },
-    {
-      "name": "소시지",
-      "id": "cowww@mail.com",
-      "gender": "M",
-      "date": "2000-05-15",
-      "count": "2"
-    }
-  ]
+  "userlist":
+    {"result": {
+      "content": [
+          {
+              "id": 2,
+              "authId": "134",
+              "email": "hanah2@example.com",
+              "name": "han3",
+              "authProvider": "DEFAULT",
+              "age": null,
+              "gender": null,
+              "foodListCount": 0
+          },
+          {
+              "id": 1,
+              "authId": "12",
+              "email": "hanah@example.com",
+              "name": "hana",
+              "authProvider": "DEFAULT",
+              "age": null,
+              "gender": null,
+              "foodListCount": 2
+          }
+          ,
+          
+            {
+              "name": "이하이",
+              "id": "hi@mail.com",
+              "gender": "F",
+              "date": "2022-10-10",
+              "count": "2"
+            },
+            {
+              "name": "최안경",
+              "id": "glasses@mail.com",
+              "gender": "F",
+              "date": "2022-01-10",
+              "count": "4"
+            },
+            {
+              "name": "Ahn Yeah",
+              "id": "Nono@mail.com",
+              "gender": "F",
+              "date": "2022-12-01",
+              "count": "0"
+            },
+            {
+              "name": "소시지",
+              "id": "cowww@mail.com",
+              "gender": "M",
+              "date": "2000-05-15",
+              "count": "2"
+            }
+          
+      ],
+      "first": true,
+      "last": true,
+      "empty": false,
+      "numberOfElements": 2,
+      "totalElements": 2,
+      "totalPages": 1,
+      "pageNumber": 0,
+      "pageSize": 10,
+      "offset": 0
+  }}
+
 }
