@@ -16,10 +16,10 @@ const Header = styled.header`
   font-size: 14px;
 
   position: fixed;
-  top: 0;
   max-width: 600px;
   margin: 0 auto;
-
+  
+  top: 0;
   left: 0;
   right: 0;
 

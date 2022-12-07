@@ -2,22 +2,16 @@ import React from "react";
 import AppRouter from "components/router";
 import "styles/main.css";
 import {Link} from "react-router-dom";
-import styled from "styled-components";
 
 function App() {
   // width: "40%",
   // margin: "0 auto",
-  const Main = styled.div`
-    background: var(--white-color);
-    /* #main-card { */
-    /* } */
-  `;
 
   return (
     <div>
-      <Main>
+      <div id="main-card">
         <AppRouter />
-      </Main>
+      </div>
 
       <div className="temp">
         <li>
