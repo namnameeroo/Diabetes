@@ -1,10 +1,10 @@
 import React from "react";
-import Utils from "utils";
 
 import "styles/main.css";
+import Utils from "utils";
 import Footer from "components/footer";
 
-const Header = (props) => {
+const Header = props => {
   return (
     <header className="header">
       <div className="header_inner">{props.children}</div>
@@ -12,7 +12,7 @@ const Header = (props) => {
   );
 };
 
-const SocialButton = (props) => {
+const SocialButton = props => {
   // const [RequestURL, setRequestURL] = useState("");
   let RequestUrl = "";
   const authUrl = Utils.baseUrl + "/oauth2/authorization";
@@ -43,7 +43,6 @@ const LoginContainer = () => {
     <div id="login-container" className="container">
       <div id="login_inner" className="container_inner">
         <div className="login_wrap">
-          {/* <form> */}
           <div id="social_login_wrap">
             <SocialButton id="login.google" name="google">
               구글로 로그인
@@ -52,7 +51,6 @@ const LoginContainer = () => {
               카카오로 로그인
             </SocialButton>
           </div>
-          {/* </form> */}
         </div>
       </div>
     </div>

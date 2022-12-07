@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import LoginPage from "pages/login";
 import FoodFormPage from "pages/foodForm";
 import MylistPage from "pages/mylist";
+import RedirectPage from "pages/redirect";
 import AdminUserListPage from "pages/adminUserList";
 
 /* eslint-disable*/
@@ -20,7 +21,7 @@ const AppRouter = ({ isLoggedIn }) => {
         <Route path="/foodForm/:foodId" element={<FoodFormPage />} />
         <Route path="/mylist" element={<MylistPage />} />
         <Route path="/adminUserList" element={<AdminUserListPage />} />
-        <Route path="/login/redirect" element={<MylistPage />} />
+        <Route path="/login/redirect" element={<RedirectPage />} />
       </Routes>
     </div>
   );
