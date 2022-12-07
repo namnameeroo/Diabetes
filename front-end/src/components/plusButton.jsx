@@ -13,15 +13,16 @@ const CircleButton = styled.button`
   }
   z-index: 5;
   cursor: pointer;
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   display: block;
   align-items: center;
   justify-content: center;
   font-size: 60px;
   position: sticky;
   left: 73%;
-  bottom: 25px;
+  bottom: 15%;
+  /* bottom: 25px; */
 
   color: white;
   border-radius: 50%;
