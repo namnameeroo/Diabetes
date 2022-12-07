@@ -3,10 +3,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
-
 import Utils from "utils";
 import "styles/main.css";
-// import DB from "db.json";
 
 import Top from "components/top";
 import RouteButton from "components/plusButton";
@@ -83,7 +81,6 @@ const Today = () => {
   let todayYear = now.getFullYear();
   let todayMonth = now.getMonth() + 1;
   let todayDay = now.getDate();
-
   return [todayYear, todayMonth, todayDay].join("-");
 };
 
@@ -93,6 +90,7 @@ const ListElement = (props) => {
   const dateArr = props.item.createdDate.split("T").map((v) => {
     return v.split(".")[0];
   });
+
   const createAt = dateArr[0] === Today() ? dateArr[1] : dateArr[0];
   // 오늘 작성한 건은 시간으로 표시
 
@@ -125,12 +123,9 @@ const MylistPage = () => {
         await axios
           .get(Utils.baseUrl + `/api/v1/foods`, { withCredentials: true })
           .then((res) => {
-            // console.log(res);
             setFoodlist(res.data.result.content);
-            console.log("foodlist", foodlist);
           });
 
-        // console.log(res.data.result.content);
       } catch (e) {
         console.error(e);
         setFoodlist([]); // test 할 때만 주석처리
