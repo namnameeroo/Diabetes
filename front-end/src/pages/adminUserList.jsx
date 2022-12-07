@@ -58,12 +58,18 @@ const Table = styled.table`
 const ListElement = (props) => {
   console.log(props);
 
+  // "2022-11-28T08:52:02.912246"
+  const dateArr = props.item.createdDate.split("T").map((v) => {
+    return v.split(".")[0];
+  });
+  const createDate = dateArr[0] ? dateArr[0] : '-';
+
   return (
     <tr>
       <td className="user-name">{props.item.name}</td>
       <td className="user-id wide-col">{props.item.email}</td>
-      <td className="gender narrow-col">{props.item.gender}</td>
-      <td className="user-date wide-col">{props.item.date}</td>
+      <td className="gender narrow-col">{props.item.gender ? props.item.gender.substr(0,1) : '-'}</td>
+      <td className="user-date wide-col">{createDate}</td>
       <td className="list-count narrow-col">{props.item.foodListCount}</td>
     </tr>
   );
