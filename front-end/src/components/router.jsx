@@ -8,7 +8,7 @@ import RedirectPage from "pages/redirect";
 import AdminUserListPage from "pages/adminUserList";
 
 /* eslint-disable*/
-const AppRouter = ({ isLoggedIn }) => {
+const AppRouter = ({ isLoggedIn, handleLogin }) => {
   // const HandlerRedirectCallback = () => {
   // }
 
@@ -39,7 +39,9 @@ const AppRouter = ({ isLoggedIn }) => {
         />
         <Route
           path="/login/redirect"
-          element={<RedirectPage isLoggedIn={isLoggedIn} />}
+          element={
+            <RedirectPage isLoggedIn={isLoggedIn} handleLogin={handleLogin} />
+          }
         />
       </Routes>
     </div>

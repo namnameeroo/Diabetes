@@ -1,14 +1,15 @@
 /* User 정보 들고 있는 컴포*/
-// import React from "react";
+import React from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
+// import { Redirect } from "react-router-dom";
 
 import Utils from "utils";
 
-const Auth = ({ handleLogin }) => {
+const Auth = ({ handleLogin, handleSetIsAdmin }) => {
   /* eslint-disable-next-line*/
-  const [isAdmin, setIsAdmin] = useState(false);
+
   /* eslint-disable-next-line*/
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -25,18 +26,19 @@ const Auth = ({ handleLogin }) => {
             withCredentials: true
           })
           .then(res => {
-            setIsAdmin(res.data.result.role == "ADMIN" && true);
+            handleSetIsAdmin(res.data.result.role == "ADMIN" && true);
+            console.log(res.data.result.role);
             handleLogin(res.data.result.role);
-            console.log(isAdmin && "관리자 계정");
           });
       } catch (error) {
         handleLogin(false);
         console.error(error);
-        return false;
       }
     };
     getUser();
   }, []);
+
+  return <></>;
 };
 
 export default Auth;
