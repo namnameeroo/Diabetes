@@ -7,8 +7,7 @@ import { Link } from "react-router-dom";
 function App() {
   /* eslint-disable*/
   const [isLoggedIn, setIsLoggedIn] = useState(true);
-  // const handleLogin = () =>{
-  // }
+
   return (
     <div>
       <div id="main-card">
