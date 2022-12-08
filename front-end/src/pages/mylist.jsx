@@ -135,8 +135,8 @@ const MylistPage = ({ isLoggedin }) => {
   }, []);
 
   return;
-  {
-    isLoggedin ? (
+  <>
+    {isLoggedin ? (
       <div>
         <Top title="입력 내역" />
         <Wrap>
@@ -162,7 +162,7 @@ const MylistPage = ({ isLoggedin }) => {
       </div>
     ) : (
       <LoginPage />
-    );
-  }
+    )}
+  </>;
 };
 export default MylistPage;
