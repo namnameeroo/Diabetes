@@ -6,11 +6,11 @@ import { useState } from "react";
 
 import Utils from "utils";
 
-const Auth = ({ handleRedirect }) => {
+const Auth = ({ handleLogin }) => {
   /* eslint-disable-next-line*/
   const [isAdmin, setIsAdmin] = useState(false);
   /* eslint-disable-next-line*/
-  const [User, setUser] = useState("");
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   /* eslint-disable-next-line*/
   const [errorMsg, setErrorMsg] = useState("Auth 실패");
@@ -26,18 +26,17 @@ const Auth = ({ handleRedirect }) => {
           })
           .then(res => {
             setIsAdmin(res.data.result.role == "ADMIN" && true);
+            handleLogin(res.data.result.role);
             console.log(isAdmin && "관리자 계정");
           });
       } catch (error) {
+        handleLogin(false);
         console.error(error);
-        return handleRedirect(false);
+        return false;
       }
-      console.log("getUser done");
     };
     getUser();
   }, []);
-
-  return handleRedirect(isAdmin ? "ADMIN" : "USER");
 };
 
 export default Auth;

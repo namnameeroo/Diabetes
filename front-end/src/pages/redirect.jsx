@@ -9,18 +9,26 @@ const RedirectPage = () => {
   // const [init, setInit] = useState(false);
 
   /* eslint-disable-next-line*/
-  const [isLoggedin, setIsLoggedin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const handleLogin = user => {
+    if (user) {
+      setIsLoggedIn(true);
+      handleRedirect(user);
+    } else {
+      setIsLoggedIn(false);
+    }
+  };
   const handleRedirect = role => {
     if (role) {
-      role == "ADMIN" ? redirect("/adminUserList") : redirect("/mylist");
+      return role == "ADMIN" ? redirect("/adminUserList") : redirect("/mylist");
     } else {
-      redirect("/login");
+      return redirect("/login");
     }
   };
 
   return (
     <>
-      <Auth handleRedirect={handleRedirect} />
+      <Auth handleLogin={handleLogin} />
       <div>유저 이름 : {"빈값"}</div>
       <div>유저 이름 : {"hi"}</div>
     </>
