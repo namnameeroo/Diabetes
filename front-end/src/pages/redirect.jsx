@@ -33,7 +33,6 @@ const RedirectPage = () => {
       <Auth />
       <div>유저 이름 : {"빈값"}</div>
       <div>유저 이름 : {"hi"}</div>
-      <Auth />
     </>
   );
 };

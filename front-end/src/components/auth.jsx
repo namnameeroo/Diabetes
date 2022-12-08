@@ -8,7 +8,7 @@ const Auth = () => {
   /* eslint-disable-next-line*/
   const [isAdmin, setIsAdmin] = useState(false);
   /* eslint-disable-next-line*/
-  const [User, setUser] = useState({});
+  const [User, setUser] = useState("");
 
   /* eslint-disable-next-line*/
   const [errorMsg, setErrorMsg] = useState("Auth 실패");
@@ -23,8 +23,8 @@ const Auth = () => {
             withCredentials: true
           })
           .then(res => {
-            console.log("axios 응답값", res);
             setUser(res.result.role);
+            console.log("axios 응답값", res);
           });
       } catch (error) {
         console.error(error);
