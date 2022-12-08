@@ -1,7 +1,9 @@
 /* User 정보 들고 있는 컴포*/
+import React from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
+
 import Utils from "utils";
 
 const Auth = () => {
@@ -23,8 +25,8 @@ const Auth = () => {
             withCredentials: true
           })
           .then(res => {
-            setUser(res.result.role);
             console.log("axios 응답값", res);
+            res.result.role == "USER" && setIsAdmin(true);
           });
       } catch (error) {
         console.error(error);
@@ -43,7 +45,7 @@ const Auth = () => {
   //   }
   // };
   // return <div></div>;
-  return User;
+  return <>{isAdmin ? "관리자" : "유저"}</>;
 };
 
 export default Auth;
