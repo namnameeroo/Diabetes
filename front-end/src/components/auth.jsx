@@ -1,12 +1,12 @@
 /* User 정보 들고 있는 컴포*/
-import React from "react";
+// import React from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 
 import Utils from "utils";
 
-const Auth = () => {
+const Auth = ({ handleRedirect }) => {
   /* eslint-disable-next-line*/
   const [isAdmin, setIsAdmin] = useState(false);
   /* eslint-disable-next-line*/
@@ -25,27 +25,19 @@ const Auth = () => {
             withCredentials: true
           })
           .then(res => {
-            console.log("axios 응답값", res);
-            res.result.role == "USER" && setIsAdmin(true);
+            setIsAdmin(res.data.result.role == "ADMIN" && true);
+            console.log(isAdmin && "관리자 계정");
           });
       } catch (error) {
         console.error(error);
+        return handleRedirect(false);
       }
       console.log("getUser done");
     };
     getUser();
   }, []);
 
-  // const onSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (isUser) {
-  //     // Login Success, route
-  //   } else {
-  //     // home 화면 돌아가기
-  //   }
-  // };
-  // return <div></div>;
-  return <>{isAdmin ? "관리자" : "유저"}</>;
+  return handleRedirect(isAdmin ? "ADMIN" : "USER");
 };
 
 export default Auth;
