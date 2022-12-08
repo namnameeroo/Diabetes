@@ -8,6 +8,7 @@ import "styles/main.css";
 
 import Top from "components/top";
 import RouteButton from "components/plusButton";
+import LoginPage from "./login";
 
 const Table = styled.table`
   border-collapse: collapse;
@@ -84,10 +85,10 @@ const Today = () => {
   return [todayYear, todayMonth, todayDay].join("-");
 };
 
-const ListElement = (props) => {
+const ListElement = props => {
   // setFoodIndex(foodIndex + 1);
 
-  const dateArr = props.item.createdDate.split("T").map((v) => {
+  const dateArr = props.item.createdDate.split("T").map(v => {
     return v.split(".")[0];
   });
 
@@ -102,18 +103,18 @@ const ListElement = (props) => {
           window.location = `/foodForm/` + props.item.id;
         }}
       >
-        <td className="idx">{props.order+1}</td>
+        <td className="idx">{props.order + 1}</td>
         <td className="food-name">{props.item.name}</td>
         <td className="date-col">{createAt}</td>
-        <td >{props.item.result}</td>
+        <td>{props.item.result}</td>
       </tr>
     </>
   );
 };
 
-const MylistPage = () => {
+const MylistPage = ({ isLoggedin }) => {
   /* eslint-disable */
-  const [foodlist, setFoodlist] = useState([]); 
+  const [foodlist, setFoodlist] = useState([]);
   // const foodlist = DB.foodlist.result; //임시 데이터
   const [foodIndex, setFoodIndex] = useState(0);
 
@@ -122,10 +123,9 @@ const MylistPage = () => {
       try {
         await axios
           .get(Utils.baseUrl + `/api/v1/foods`, { withCredentials: true })
-          .then((res) => {
+          .then(res => {
             setFoodlist(res.data.result.content);
           });
-
       } catch (e) {
         console.error(e);
         setFoodlist([]); // test 할 때만 주석처리
@@ -134,30 +134,35 @@ const MylistPage = () => {
     fetchData();
   }, []);
 
-  return (
-    <div>
-      <Top title="입력 내역" />
-      <Wrap>
-        <Table className="mylist-table">
-          <thead>
-            <tr>
-              <th scope="cols">idx</th>
-              <th scope="cols">식품명</th>
-              <th scope="cols">작성일</th>
-              <th scope="cols">GL</th>
-            </tr>
-          </thead>
-          <tbody>
-            {foodlist
-              ? foodlist.map((i, k) => (
-                  <ListElement key={k} item={i} order={foodIndex} />
-                ))
-              : "입력 내역이 없습니다."}
-          </tbody>
-        </Table>
-        <RouteButton goToPage={"/foodForm"} />
-      </Wrap>
-    </div>
-  );
+  return;
+  {
+    isLoggedin ? (
+      <div>
+        <Top title="입력 내역" />
+        <Wrap>
+          <Table className="mylist-table">
+            <thead>
+              <tr>
+                <th scope="cols">idx</th>
+                <th scope="cols">식품명</th>
+                <th scope="cols">작성일</th>
+                <th scope="cols">GL</th>
+              </tr>
+            </thead>
+            <tbody>
+              {foodlist
+                ? foodlist.map((i, k) => (
+                    <ListElement key={k} item={i} order={foodIndex} />
+                  ))
+                : "입력 내역이 없습니다."}
+            </tbody>
+          </Table>
+          <RouteButton goToPage={"/foodForm"} />
+        </Wrap>
+      </div>
+    ) : (
+      <LoginPage />
+    );
+  }
 };
 export default MylistPage;

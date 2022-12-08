@@ -1,45 +1,39 @@
 import React from "react";
+/* eslint-disable-next-line*/
 import { useState, useEffect } from "react";
 // import { getUser } from "api/user";
 import Auth from "components/auth";
 
 const RedirectPage = () => {
+  // const [init, setInit] = useState(false);
+
+  /* eslint-disable-next-line*/
   const [isLoggedin, setIsLoggedin] = useState(false);
+  // const [isAdmin, setIsAdmin] = useState({
+  // role: ""
+  // });
+
   // useEffect(() => {
-  // setIsLoggedin(true);
+  //   Auth.loginUser(res => {
+  //     if (res) {
+  //       setIsLoggedin(true);
+  //       console.log("auth 응답값", res);
+  //       // admin 처리 해서 라우트
+  //     } else {
+  //       setIsLoggedin(false);
+  //     }
+  //   });
   // }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        Auth.getUser();
-
-        // .then(res => {
-        // const userData = {
-        //   ["userId"]: res.result.userId,
-        //   ["userEmail"]: res.result.userEmail
-        // };
-
-        setIsLoggedin(true);
-        // });
-      } catch (error) {
-        console.error();
-      }
-    };
-    fetchData();
-  }, []);
 
   return (
     <>
-      {isLoggedin ? (
-        <>
-          <div>유저 이름 : {"hi"}</div>
-          <div>유저 이름 : {"hi"}</div>
-          <Auth />
-        </>
-      ) : (
-        "로그인 실패"
-      )}
+      {/* {init ? <MylistPage isLoggedin={isLoggedin} User={User} /> : "initializing..."} */}
+      {isLoggedin && "로그인 성공-!"}
+      {/* home nav 추가 */}
+      <Auth />
+      <div>유저 이름 : {"빈값"}</div>
+      <div>유저 이름 : {"hi"}</div>
+      <Auth />
     </>
   );
 };

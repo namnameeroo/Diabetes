@@ -1,16 +1,18 @@
 import React from "react";
+import { useState } from "react";
 import AppRouter from "components/router";
 import "styles/main.css";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function App() {
-  // width: "40%",
-  // margin: "0 auto",
-
+  /* eslint-disable*/
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  // const handleLogin = () =>{
+  // }
   return (
     <div>
       <div id="main-card">
-        <AppRouter />
+        <AppRouter isLoggedIn={isLoggedIn} />
       </div>
 
       <div className="temp">
