@@ -15,13 +15,32 @@ const AppRouter = ({ isLoggedIn }) => {
   return (
     <div>
       <Routes>
-        <Route path="/" exact element={<LoginPage />} />
-        <Route path="/login" exact element={<LoginPage />} />
-        <Route path="/foodForm" element={<FoodFormPage />} />
-        <Route path="/foodForm/:foodId" element={<FoodFormPage />} />
-        <Route path="/mylist" element={<MylistPage />} />
-        <Route path="/adminUserList" element={<AdminUserListPage />} />
-        <Route path="/login/redirect" element={<RedirectPage />} />
+        <Route path="/" exact element={<LoginPage isLoggedIn={isLoggedIn} />} />
+        <Route
+          path="/login"
+          exact
+          element={<LoginPage isLoggedIn={isLoggedIn} />}
+        />
+        <Route
+          path="/foodForm"
+          element={<FoodFormPage isLoggedIn={isLoggedIn} />}
+        />
+        <Route
+          path="/foodForm/:foodId"
+          element={<FoodFormPage isLoggedIn={isLoggedIn} />}
+        />
+        <Route
+          path="/mylist"
+          element={<MylistPage isLoggedIn={isLoggedIn} />}
+        />
+        <Route
+          path="/adminUserList"
+          element={<AdminUserListPage isLoggedIn={isLoggedIn} />}
+        />
+        <Route
+          path="/login/redirect"
+          element={<RedirectPage isLoggedIn={isLoggedIn} />}
+        />
       </Routes>
     </div>
   );
