@@ -111,7 +111,7 @@ const ListElement = props => {
   );
 };
 
-const MylistPage = () => {
+const MylistPage = ({ isLoggedIn }) => {
   /* eslint-disable */
   const [foodlist, setFoodlist] = useState([]);
   // const foodlist = DB.foodlist.result; //임시 데이터
@@ -133,31 +133,33 @@ const MylistPage = () => {
     fetchData();
   }, []);
 
-  return;
-  <>
-    <div>
-      <Top title="입력 내역" />
-      <Wrap>
-        <Table className="mylist-table">
-          <thead>
-            <tr>
-              <th scope="cols">idx</th>
-              <th scope="cols">식품명</th>
-              <th scope="cols">작성일</th>
-              <th scope="cols">GL</th>
-            </tr>
-          </thead>
-          <tbody>
-            {foodlist
-              ? foodlist.map((i, k) => (
-                  <ListElement key={k} item={i} order={foodIndex} />
-                ))
-              : "입력 내역이 없습니다."}
-          </tbody>
-        </Table>
-        <RouteButton goToPage={"/foodForm"} />
-      </Wrap>
-    </div>
-  </>;
+  return (
+    <>
+      <div>
+        {console.log("isLoggedIn: ", isLoggedIn)}
+        <Top title="입력 내역" />
+        <Wrap>
+          <Table className="mylist-table">
+            <thead>
+              <tr>
+                <th scope="cols">idx</th>
+                <th scope="cols">식품명</th>
+                <th scope="cols">작성일</th>
+                <th scope="cols">GL</th>
+              </tr>
+            </thead>
+            <tbody>
+              {foodlist
+                ? foodlist.map((i, k) => (
+                    <ListElement key={k} item={i} order={foodIndex} />
+                  ))
+                : "입력 내역이 없습니다."}
+            </tbody>
+          </Table>
+          <RouteButton goToPage={"/foodForm"} />
+        </Wrap>
+      </div>
+    </>
+  );
 };
 export default MylistPage;

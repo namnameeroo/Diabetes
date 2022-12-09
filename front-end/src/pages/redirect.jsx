@@ -35,7 +35,7 @@ const RedirectPage = ({ handleLogin, isLoggedIn }) => {
         isAdmin ? (
           <Navigate to="/adminUserList" replace={true} />
         ) : (
-          <Navigate to="/login" replace={true} />
+          <Navigate to="/mylist" replace={true} />
         )
       ) : (
         <Navigate to="/login" replace={true} />
