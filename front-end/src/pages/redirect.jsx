@@ -2,6 +2,7 @@ import React from "react";
 /* eslint-disable-next-line*/
 import { useState, useEffect } from "react";
 // import { getUser } from "api/user";
+import { useNavigate } from "react-router-dom";
 import Auth from "components/auth";
 
 const RedirectPage = handleLogin => {
@@ -15,9 +16,15 @@ const RedirectPage = handleLogin => {
       setIsAdmin(role);
     }
   };
+  const navigate = useNavigate();
   const redirect = url => {
-    console.log("redirect", url);
+    if (url) {
+      navigate(url);
+    } else {
+      navigate("/");
+    }
   };
+
   return (
     <>
       <Auth handleLogin={handleLogin} handleSetIsAdmin={handleSetIsAdmin} />
