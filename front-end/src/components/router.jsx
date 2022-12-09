@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import LoginPage from "pages/login";
 import FoodFormPage from "pages/foodForm";
@@ -14,6 +14,7 @@ const AppRouter = ({ isLoggedIn, handleLogin }) => {
 
   return (
     <div>
+      {console.log("router의 현재 로그인 상태값: ", isLoggedIn)}
       <Routes>
         <Route path="/" exact element={<LoginPage isLoggedIn={isLoggedIn} />} />
         <Route
@@ -31,13 +32,7 @@ const AppRouter = ({ isLoggedIn, handleLogin }) => {
         />
         <Route
           path="/mylist"
-          element={
-            isLoggedIn ? (
-              <MylistPage />
-            ) : (
-              <Navigate to="/login" replace={true} />
-            )
-          }
+          element={<MylistPage isLoggedIn={isLoggedIn} />}
         />
         <Route
           path="/adminUserList"

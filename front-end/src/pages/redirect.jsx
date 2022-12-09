@@ -8,18 +8,19 @@ import Auth from "components/auth";
 const RedirectPage = ({ handleLogin, isLoggedIn }) => {
   // const [init, setInit] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-
+  // const [currentUser, setCurrentUser] = useState(isLoggedIn);
+  console.log("로그인 여부 in redirectPage: ", isLoggedIn);
   /**
    * 어드민
    * @param {Boolean} role
    */
   const handleSetIsAdmin = bool => {
     if (bool) {
-      console.log("handle set is admin");
+      console.log("set is admin");
       setIsAdmin(bool);
     } else {
       setIsAdmin(false);
-      console.log("handle set is not admin");
+      console.log("set is not admin");
     }
   };
   return (
@@ -31,6 +32,7 @@ const RedirectPage = ({ handleLogin, isLoggedIn }) => {
           : navigate("/mylist")
         : navigate("/")} */}
       {/* // {isAdmin ? navigate("/adminUserList") : navigate("/mylist")} */}
+      {console.log("왜>!", isLoggedIn)};
       {isLoggedIn ? (
         isAdmin ? (
           <Navigate to="/adminUserList" replace={true} />
@@ -40,7 +42,6 @@ const RedirectPage = ({ handleLogin, isLoggedIn }) => {
       ) : (
         <Navigate to="/login" replace={true} />
       )}
-
       <div>유저 이름 : {"빈값"}</div>
       <div>유저 이름 : {"hi"}</div>
     </>
