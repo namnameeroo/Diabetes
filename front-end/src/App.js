@@ -6,12 +6,29 @@ import { Link } from "react-router-dom";
 
 function App() {
   /* eslint-disable*/
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const handleLogin = user => {
+    console.log("handlelogin");
+    if (user) {
+      setIsLoggedIn(true);
+      // handleRedirect(user);
+    } else {
+      setIsLoggedIn(false);
+    }
+  };
+  // const handleRedirect = role => {
+  //   if (role) {
+  //     return role == "ADMIN" ? redirect("/adminUserList") : redirect("/mylist");
+  //   } else {
+  //     return redirect("/login");
+  //   }
+  // };
 
   return (
     <div>
       <div id="main-card">
-        <AppRouter isLoggedIn={isLoggedIn} />
+        <AppRouter isLoggedIn={isLoggedIn} handleLogin={handleLogin} />
       </div>
 
       <div className="temp">

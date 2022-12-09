@@ -28,7 +28,7 @@ const Auth = ({ handleLogin, handleSetIsAdmin }) => {
           .then(res => {
             handleSetIsAdmin(res.data.result.role == "ADMIN" && true);
             console.log(res.data.result.role);
-            handleLogin(res.data.result.role);
+            handleLogin(true);
           });
       } catch (error) {
         handleLogin(false);
