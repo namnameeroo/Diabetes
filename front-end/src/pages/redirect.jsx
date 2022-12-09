@@ -1,19 +1,22 @@
 import React from "react";
+import { useState } from "react";
 /* eslint-disable-next-line*/
-import { useState, useEffect } from "react";
-// import { getUser } from "api/user";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Auth from "components/auth";
 
-const RedirectPage = handleLogin => {
+const RedirectPage = ({ handleLogin }) => {
   // const [init, setInit] = useState(false);
-
-  /* eslint-disable-next-line*/
   const [isAdmin, setIsAdmin] = useState(false);
-  const handleSetIsAdmin = role => {
+
+  /**
+   * 어드민
+   * @param {*} role
+   */
+  const handleSetIsAdmin = bool => {
     console.log("handle set is admin");
-    if (role) {
-      setIsAdmin(role);
+    if (bool) {
+      setIsAdmin(bool);
     }
   };
   const navigate = useNavigate();

@@ -3,13 +3,15 @@ import React from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-// import { Redirect } from "react-router-dom";
-
 import Utils from "utils";
 
+/**
+ * 유저 정보 가져와서 로그인 처리
+ * App.js 로부터 전달받은 상태관리 함수
+ * @param {*} param0
+ * @returns
+ */
 const Auth = ({ handleLogin, handleSetIsAdmin }) => {
-  /* eslint-disable-next-line*/
-
   /* eslint-disable-next-line*/
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -27,14 +29,15 @@ const Auth = ({ handleLogin, handleSetIsAdmin }) => {
           })
           .then(res => {
             handleSetIsAdmin(res.data.result.role == "ADMIN" && true);
-            console.log(res.data.result.role);
+            console.log(res.data.result);
             handleLogin(true);
           });
       } catch (error) {
-        handleLogin(false);
         console.error(error);
+        handleLogin(false);
       }
     };
+
     getUser();
   }, []);
 
