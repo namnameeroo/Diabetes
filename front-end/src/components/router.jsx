@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import LoginPage from "pages/login";
 import FoodFormPage from "pages/foodForm";
@@ -31,7 +31,13 @@ const AppRouter = ({ isLoggedIn, handleLogin }) => {
         />
         <Route
           path="/mylist"
-          element={<MylistPage isLoggedIn={isLoggedIn} />}
+          element={
+            isLoggedIn ? (
+              <MylistPage />
+            ) : (
+              <Navigate to="/login" replace={true} />
+            )
+          }
         />
         <Route
           path="/adminUserList"
