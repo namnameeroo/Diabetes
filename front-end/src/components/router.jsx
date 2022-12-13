@@ -9,9 +9,6 @@ import AdminUserListPage from "pages/adminUserList";
 
 /* eslint-disable*/
 const AppRouter = ({ isLoggedIn, handleLogin }) => {
-  // const HandlerRedirectCallback = () => {
-  // }
-
   return (
     <div>
       {/* {console.log("router의 현재 로그인 상태값: ", isLoggedIn) } */}
