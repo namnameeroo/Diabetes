@@ -30,6 +30,33 @@ const Auth = () => {
             console.log(res.data.result);
             setIsAdmin(res.data.result.role == "ADMIN" && true);
             setIsLogin(true);
+          })
+          .then(() => {
+            return (
+              <>
+                {
+                  (console.log(
+                    "🚀 ~ file: auth.jsx:59 ~ return ~ isAdmin",
+                    isAdmin,
+                    "true"
+                  ),
+                  console.log(
+                    "🚀 ~ file: auth.jsx:62 ~ return ~ isLogin",
+                    isLogin
+                  ))
+                }
+
+                {isLogin ? (
+                  isAdmin ? (
+                    <Navigate to="/adminUserList" replace={true} />
+                  ) : (
+                    <Navigate to="/mylist" replace={true} />
+                  )
+                ) : (
+                  <Navigate to="/foodForm" replace={true} />
+                )}
+              </>
+            );
           });
       } catch (error) {
         console.error(error);
@@ -40,28 +67,5 @@ const Auth = () => {
 
     getUser();
   }, []);
-
-  return (
-    <>
-      {
-        (console.log(
-          "🚀 ~ file: auth.jsx:59 ~ return ~ isAdmin",
-          isAdmin,
-          "true"
-        ),
-        console.log("🚀 ~ file: auth.jsx:62 ~ return ~ isLogin", isLogin))
-      }
-
-      {isLogin ? (
-        isAdmin ? (
-          <Navigate to="/adminUserList" replace={true} />
-        ) : (
-          <Navigate to="/mylist" replace={true} />
-        )
-      ) : (
-        <Navigate to="/foodForm" replace={true} />
-      )}
-    </>
-  );
 };
 export default Auth;
