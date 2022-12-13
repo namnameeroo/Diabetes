@@ -11,7 +11,7 @@ import Utils from "utils";
  * @param {*} param0
  * @returns
  */
-const Auth = ({ handleLogin, handleSetIsAdmin }) => {
+const Auth = ({ handleCurrentLogin, handleSetIsAdmin }) => {
   /* eslint-disable-next-line*/
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -29,12 +29,13 @@ const Auth = ({ handleLogin, handleSetIsAdmin }) => {
           })
           .then(res => {
             handleSetIsAdmin(res.data.result.role == "ADMIN" && true);
+
             console.log(res.data.result);
-            handleLogin(true);
+            handleCurrentLogin(true);
           });
       } catch (error) {
         console.error(error);
-        handleLogin(false);
+        handleCurrentLogin(false);
       }
     };
 

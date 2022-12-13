@@ -8,6 +8,7 @@ import Auth from "components/auth";
 const RedirectPage = ({ handleLogin, isLoggedIn }) => {
   // const [init, setInit] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [currentLoggedIn, setCurrentLoggedIn] = useState(isLoggedIn);
   // const [currentUser, setCurrentUser] = useState(isLoggedIn);
   console.log("로그인 여부 in redirectPage: ", isLoggedIn);
   /**
@@ -23,17 +24,29 @@ const RedirectPage = ({ handleLogin, isLoggedIn }) => {
       console.log("set is not admin");
     }
   };
+  const handleCurrentLogin = bool => {
+    if (bool) {
+      setCurrentLoggedIn(true);
+      handleLogin(true);
+    } else {
+      setCurrentLoggedIn(false);
+      handleLogin(false);
+    }
+  };
   return (
     <>
-      <Auth handleLogin={handleLogin} handleSetIsAdmin={handleSetIsAdmin} />
+      <Auth
+        handleCurrentLogin={handleCurrentLogin}
+        handleSetIsAdmin={handleSetIsAdmin}
+      />
       {/* {isLoggedIn
         ? isAdmin
           ? navigate("/adminUserList")
           : navigate("/mylist")
         : navigate("/")} */}
       {/* // {isAdmin ? navigate("/adminUserList") : navigate("/mylist")} */}
-      {console.log("왜>!", isLoggedIn)};
-      {isLoggedIn ? (
+      {console.log("왜>!", currentLoggedIn)};
+      {currentLoggedIn ? (
         isAdmin ? (
           <Navigate to="/adminUserList" replace={true} />
         ) : (
