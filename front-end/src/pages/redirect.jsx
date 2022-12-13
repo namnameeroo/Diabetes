@@ -1,7 +1,5 @@
 import React from "react";
 /* eslint-disable-next-line*/
-import { Navigate } from "react-router-dom";
-
 import Auth from "components/auth";
 
 const RedirectPage = ({ isLoggedIn }) => {
@@ -24,8 +22,8 @@ const RedirectPage = ({ isLoggedIn }) => {
         : navigate("/")} */}
       {/* // {isAdmin ? navigate("/adminUserList") : navigate("/mylist")} */}
 
-      <div>유저 이름 : {"빈값"}</div>
-      <div>유저 이름 : {"hi"}</div>
+      <div>유저 이름 : {"11:32"}</div>
+      <div>유저 이름 : {"redirect"}</div>
     </>
   );
 };
