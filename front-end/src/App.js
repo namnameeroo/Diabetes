@@ -8,7 +8,6 @@ function App() {
   /* eslint-disable*/
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const handleLogin = user => {
     console.log("handlelogin");
     if (user) {
