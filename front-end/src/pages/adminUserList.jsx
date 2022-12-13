@@ -1,15 +1,14 @@
 /* 관리자의 첫화면
  유저 리스트 */
 
- import React from "react";
- import { useState, useEffect } from "react";
+import React from "react";
+import { useState, useEffect } from "react";
 import "styles/main.css";
 import styled from "styled-components";
 import Top from "components/top";
 // import DB from "db.json";
 import axios from "axios";
 import Utils from "utils";
-
 
 const Table = styled.table`
   border-collapse: collapse;
@@ -55,20 +54,22 @@ const Table = styled.table`
   }
 `;
 
-const ListElement = (props) => {
+const ListElement = props => {
   console.log(props);
 
   // "2022-11-28T08:52:02.912246"
-  const dateArr = props.item.createdDate.split("T").map((v) => {
+  const dateArr = props.item.createdDate.split("T").map(v => {
     return v.split(".")[0];
   });
-  const createDate = dateArr[0] ? dateArr[0] : '-';
+  const createDate = dateArr[0] ? dateArr[0] : "-";
 
   return (
     <tr>
       <td className="user-name">{props.item.name}</td>
       <td className="user-id wide-col">{props.item.email}</td>
-      <td className="gender narrow-col">{props.item.gender ? props.item.gender.substr(0,1) : '-'}</td>
+      <td className="gender narrow-col">
+        {props.item.gender ? props.item.gender.substr(0, 1) : "-"}
+      </td>
       <td className="user-date wide-col">{createDate}</td>
       <td className="list-count narrow-col">{props.item.foodListCount}</td>
     </tr>
@@ -82,22 +83,22 @@ const Wrap = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   background-color: var(--white-color);
-  height: 460px;    /** 임시 */
+  height: 460px; /** 임시 */
 `;
 
 const UserlistPage = () => {
   const [userlist, setUserlist] = useState([]);
-
   // let userlist = DB.userlist;
 
-  console.log(userlist);
-  useEffect(()=>{
+  useEffect(() => {
     const fetchData = async () => {
       try {
-        await axios.get( Utils.baseUrl+`/api/v1/admin/users`, {withCredentials: true} ).then((res)=>{
-          setUserlist(res.data.result.content);
-        });
-      } catch (e){
+        await axios
+          .get(Utils.baseUrl + `/api/v1/admin/users`, { withCredentials: true })
+          .then(res => {
+            setUserlist(res.data.result.content);
+          });
+      } catch (e) {
         console.error(e);
         setUserlist([]);
       }
@@ -122,10 +123,8 @@ const UserlistPage = () => {
           </thead>
           <tbody>
             {userlist
-             ? userlist.map((i, k) => (
-              <ListElement key={k} item={i} />
-            ))
-            : "입력 내역이 없습니다."}
+              ? userlist.map((i, k) => <ListElement key={k} item={i} />)
+              : "입력 내역이 없습니다."}
           </tbody>
         </Table>
       </Wrap>
