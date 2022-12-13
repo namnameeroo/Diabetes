@@ -14,7 +14,7 @@ const AppRouter = ({ isLoggedIn, handleLogin }) => {
 
   return (
     <div>
-      {console.log("router의 현재 로그인 상태값: ", isLoggedIn)}
+      {/* {console.log("router의 현재 로그인 상태값: ", isLoggedIn) } */}
       <Routes>
         <Route path="/" exact element={<LoginPage isLoggedIn={isLoggedIn} />} />
         <Route
