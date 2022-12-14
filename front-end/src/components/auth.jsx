@@ -15,7 +15,9 @@ const Auth = () => {
   /* eslint-disable-next-line*/
   const [errorMsg, setErrorMsg] = useState("Auth 실패");
 
+  /* eslint-disable-next-line*/
   const [isAdmin, setIsAdmin] = useState(false);
+  /* eslint-disable-next-line*/
   const [isLogin, setIsLogin] = useState(false);
 
   /* eslint-disable-next-line*/
@@ -28,12 +30,15 @@ const Auth = () => {
             withCredentials: true
           })
           .then(res => {
+            const data = res.data.result;
             console.log(res.data.result);
             setIsAdmin(res.data.result.role == "ADMIN" && true);
             setIsLogin(true);
-            if (isAdmin) {
+            console.log("🚀 ~ file: auth.jsx:32 ~ getUser ~ data", data);
+
+            if (data.role == "ADMIN") {
               location.replace(Utils.baseUrl + `/adminUserList`);
-            } else if (isLogin) {
+            } else if (data.role == "USER") {
               location.replace(Utils.baseUrl + `/mylist`);
             }
           });
