@@ -2,7 +2,6 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 const ToggleButton = styled.button`
-
   &:hover {
     /* background: #63e6be; */
   }
@@ -25,10 +24,8 @@ const ToggleButton = styled.button`
   outline: none;
   display: flex;
 
-
-
   transition: 0.125s all ease-in;
-  ${(props) =>
+  ${props =>
     props.open &&
     css`
       background: #ff6b6b;
@@ -49,7 +46,7 @@ const InsertViewPostioner = styled.div`
   position: relative;
 `;
 const InsertView = styled.div`
-  background: #f8f9fa;
+  /* background: #f8f9fa; */
   padding-left: 32px;
   padding-top: 32px;
   padding-right: 32px;
@@ -61,21 +58,23 @@ const InsertView = styled.div`
 `;
 
 function ResultToggle(props) {
-
   return (
     <>
       {props.open && (
         <InsertViewPostioner>
           <InsertView>
-            <div id="result_content">{props.result}</div>
+            <div className="gl-result-content">{props.result}</div>
           </InsertView>
         </InsertViewPostioner>
       )}
       <div className="btn_wrap" id="btn_result_wrap">
-        <ToggleButton className="btn_result btn_text" id="btn_result" onClick={props.onToggle} open={props.open}>
-
+        <ToggleButton
+          className="btn_result btn_text"
+          id="btn_result"
+          onClick={props.onToggle}
+          open={props.open}
+        >
           {props.children}
-
         </ToggleButton>
       </div>
     </>

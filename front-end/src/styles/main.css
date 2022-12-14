@@ -201,3 +201,10 @@ table td:last-child {
 .gray-txt {
   color: var(--gray-font);
 }
+
+.gl-result-content {
+  font-family: monospace;
+  font-size: 30px;
+  text-align: center;
+  color: indianred;
+}
