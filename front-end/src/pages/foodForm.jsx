@@ -217,7 +217,7 @@ const InputForm = () => {
                     label="intake"
                     types="number"
                     onChangeInput={onChangeInputForNum}
-                    placeHolder={10}
+                    placeHolder={0}
                     value={inputs.intake}
                   />
                 </td>

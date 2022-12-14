@@ -1,7 +1,7 @@
 /* User 정보 들고 있는 컴포*/
 import React from "react";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+// import { Navigate } from "react-router-dom";
 
 import { useEffect } from "react";
 import { useState } from "react";
@@ -14,6 +14,7 @@ import Utils from "utils";
 const Auth = () => {
   /* eslint-disable-next-line*/
   const [errorMsg, setErrorMsg] = useState("Auth 실패");
+
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
 
@@ -30,13 +31,18 @@ const Auth = () => {
             console.log(res.data.result);
             setIsAdmin(res.data.result.role == "ADMIN" && true);
             setIsLogin(true);
-            location.replace(Utils.baseUrl + `mylist`);
+            if (isAdmin) {
+              location.replace(Utils.baseUrl + `/adminUserList`);
+            } else if (isLogin) {
+              location.replace(Utils.baseUrl + `/mylist`);
+            }
           });
       } catch (error) {
         console.error(error);
         location.replace(Utils.baseUrl + `login`);
         setIsAdmin(false);
         setIsLogin(false);
+        location.replace(Utils.baseUrl + `/login`);
       }
     };
 
@@ -45,12 +51,7 @@ const Auth = () => {
 
   return (
     <>
-      {
-        (console.log("🚀 ~ file: auth.jsx:47 ~ return ~ isAdmin", isAdmin),
-        console.log("🚀 ~ file: auth.jsx:48 ~ return ~ isLogin", isLogin))
-      }
-
-      {isLogin ? (
+      {/* {isLogin ? (
         isAdmin ? (
           <Navigate to="/adminUserList" replace={true} />
         ) : (
@@ -58,7 +59,7 @@ const Auth = () => {
         )
       ) : (
         <Navigate to="/foodForm" replace={true} />
-      )}
+      )} */}
     </>
   );
 };

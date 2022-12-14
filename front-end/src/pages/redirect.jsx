@@ -3,26 +3,11 @@ import React from "react";
 import Auth from "components/auth";
 
 const RedirectPage = ({ isLoggedIn }) => {
-  // const [init, setInit] = useState(false);
-  // const [currentUser, setCurrentUser] = useState(isLoggedIn);
   console.log("로그인 여부 in redirectPage: ", isLoggedIn);
-  /**
-   * 어드민
-   * @param {Boolean} role
-   */
-
   return (
     <>
       <Auth />
-
-      {/* {isLoggedIn
-        ? isAdmin
-          ? navigate("/adminUserList")
-          : navigate("/mylist")
-        : navigate("/")} */}
-      {/* // {isAdmin ? navigate("/adminUserList") : navigate("/mylist")} */}
-
-      <div>유저 이름 : {"11:32"}</div>
+      <div>유저 이름 : {"2022-12-14"}</div>
       <div>유저 이름 : {"redirect"}</div>
     </>
   );
