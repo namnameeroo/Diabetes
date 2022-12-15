@@ -120,7 +120,9 @@ const InputForm = ({ dataset }) => {
 
   // 기존 입력값 있을 때,
   useEffect(() => {
+    console.log("기존 입력값");
     if (dataset) {
+      console.log("🚀 ~ file: foodForm.jsx:124 ~ useEffect ~ dataset", dataset);
       setInputs({ ...dataset });
     }
   }, []);
@@ -203,13 +205,13 @@ const InputForm = ({ dataset }) => {
       await postData(inputs).then(
         () =>
           confirm("저장했습니다. 목록페이지로 이동합니다.") &&
-          navigate(Utils.baseUrl + `/mylist`)
+          navigate("/mylist")
       );
     } else if (formValidation()) {
       await postData(inputs).then(
         () =>
           confirm("저장했습니다. 목록페이지로 이동합니다.") &&
-          navigate(Utils.baseUrl + `/mylist`)
+          navigate("/mylist")
       );
     }
   };
@@ -395,7 +397,7 @@ const InfoForm = ({ foodId }) => {
 
   return (
     <>
-      <PageTitle>{dataset.name}</PageTitle>
+      <PageTitle>입력 정보 수정하기</PageTitle>
       <div id="info_container" className="container">
         <div id="info_inner" className="container_inner table_container">
           <Today />
