@@ -101,9 +101,9 @@ const onSubmit = e => {
   e.preventDefault(); // 폼전송시 리액트 상태 초기화를 막음
 };
 
+/* eslint-disable-next-line*/
 const InputForm = ({ dataset }) => {
   const [inputs, setInputs] = React.useState({
-    userId: 1,
     foodName: "",
     provider: "",
     entireWeight: "",
@@ -119,13 +119,13 @@ const InputForm = ({ dataset }) => {
   });
 
   // 기존 입력값 있을 때,
-  useEffect(() => {
-    console.log("기존 입력값");
-    if (dataset) {
-      console.log("🚀 ~ file: foodForm.jsx:124 ~ useEffect ~ dataset", dataset);
-      setInputs({ ...dataset });
-    }
-  }, []);
+  // useEffect(() => {
+  //   console.log("기존 입력값");
+  //   if (dataset) {
+  //     console.log("🚀 ~ file: foodForm.jsx:124 ~ useEffect ~ dataset", dataset);
+  //     setInputs({ ...dataset });
+  //   }
+  // }, []);
 
   // prettier-ignore
   /* eslint-disable-next-line*/
@@ -158,7 +158,6 @@ const InputForm = ({ dataset }) => {
   };
 
   const [toggleOpen, setToggleOpen] = useState(false);
-  // const [GL, setGL] = useState(0);
   const onToggle = () => {
     if (!formValidation()) {
       return;
@@ -183,7 +182,6 @@ const InputForm = ({ dataset }) => {
 
   const onChangeInputForNum = e => {
     const { name, value } = e.target;
-    // console.log(e.target, "target", value);
     if (isNaN(value)) {
       setMsg("숫자만 입력해주세요.");
     }
@@ -199,7 +197,7 @@ const InputForm = ({ dataset }) => {
   const handleSubmitClick = async () => {
     console.log("submit button clicked");
     inputs.name = inputs.foodName; // 키 달랐던 거 추가,
-    //
+
     if (inputs.gl === "" || !toggleOpen) {
       onToggle();
       await postData(inputs).then(
