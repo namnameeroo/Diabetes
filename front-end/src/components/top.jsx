@@ -6,7 +6,7 @@ import { HiOutlineSearch } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 
 const Header = styled.header`
-  height: 45px;
+  height: 40px;
   padding: 0.8em 10px;
   color: white;
   background: var(--point-color);
@@ -63,7 +63,7 @@ const Top = props => {
     <Header>
       <div>
         {Left}
-        <h1>{props.title}</h1>
+        <h3>{props.title}</h3>
       </div>
       <span>{Search}</span>
     </Header>
