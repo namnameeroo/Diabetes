@@ -44,10 +44,10 @@ const LoginContainer = () => {
       <div id="login_inner" className="container_inner">
         <div className="login_wrap">
           <div id="social_login_wrap">
-            <SocialButton id="login.google" name="google">
+            <SocialButton id="login-google" name="google">
               구글로 로그인
             </SocialButton>
-            <SocialButton id="login.kakao" name="kakao">
+            <SocialButton id="login-kakao" name="kakao">
               카카오 로그인
             </SocialButton>
           </div>
