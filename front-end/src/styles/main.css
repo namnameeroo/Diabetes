@@ -233,6 +233,6 @@ table td:last-child {
 }
 
 .link-for-test {
-  position: absolute;
-  bottom: -80px;
+  position: relative;
+  top: -80px;
 }
