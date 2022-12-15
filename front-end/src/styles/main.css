@@ -79,8 +79,9 @@ ul {
 }
 
 .page_title {
-  margin-top: 58px;
-  padding-bottom: 15px;
+  /* margin-top: 58px; */
+  margin-top: 90px;
+  /* padding-bottom: 15px; */
   box-sizing: border-box;
 }
 .page_title_inner {
@@ -194,6 +195,10 @@ table td:last-child {
 }
 .pad-right-10 {
   padding-right: 10px;
+}
+
+.margin-right-5 {
+  margin-right: 5px;
 }
 
 .right-align {

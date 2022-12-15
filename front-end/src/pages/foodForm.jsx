@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Utils from "utils";
+
+import Top from "components/top";
 import Footer from "components/footer";
 import ResultToggle from "components/toggle";
 import { getGl } from "components/gl";
@@ -201,15 +203,13 @@ const InputForm = ({ dataset }) => {
     if (inputs.gl === "" || !toggleOpen) {
       onToggle();
       await postData(inputs).then(
-        () =>
-          confirm("저장했습니다. 목록페이지로 이동합니다.") &&
-          navigate("/mylist")
+        () => confirm("저장했습니다. 목록페이지로 이동합니다.") && navigate(-1)
+        // 이전 페이지로 이동
       );
     } else if (formValidation()) {
       await postData(inputs).then(
-        () =>
-          confirm("저장했습니다. 목록페이지로 이동합니다.") &&
-          navigate("/mylist")
+        () => confirm("저장했습니다. 목록페이지로 이동합니다.") && navigate(-1)
+        // 이전 페이지로 이동
       );
     }
   };
@@ -396,6 +396,7 @@ const InfoForm = ({ foodId }) => {
   return (
     <>
       <PageTitle>입력 정보 수정하기</PageTitle>
+
       <div id="info_container" className="container">
         <div id="info_inner" className="container_inner table_container">
           <Today />
@@ -418,6 +419,7 @@ const FoodFormPage = () => {
 
   return (
     <div id="wrap" className="wrap">
+      <Top />
       {!foodId ? <MainForm /> : <InfoForm foodId={foodId} />}
       <Footer />
 

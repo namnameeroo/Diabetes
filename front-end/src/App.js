@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 
 function App() {
   /* eslint-disable*/
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const handleLogin = user => {
     console.log("handlelogin");
@@ -24,7 +23,7 @@ function App() {
         <AppRouter isLoggedIn={isLoggedIn} handleLogin={handleLogin} />
       </div>
 
-      <div className="link-for-test-">
+      <div className="link-for-test">
         <li>
           <Link to="/login">로그인페이지로</Link>
         </li>
