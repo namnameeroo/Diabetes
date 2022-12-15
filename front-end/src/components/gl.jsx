@@ -21,7 +21,7 @@ export const getGl = inputs => {
         : (newInputs[key] = calculator(value, proportion, "*"));
     }
   });
-  console.log(inputs, newInputs)
+  console.log(inputs, newInputs);
 
   // let result =
   //   3.2 + step1 -
@@ -56,7 +56,13 @@ export const getGl = inputs => {
   console.log(result);
   return [result, judges];
 };
-
+/**
+ * 소수의 곱셈이나 덧셈 수행
+ * @param {*} num1
+ * @param {*} num2
+ * @param {*} type
+ * @returns float
+ */
 export const calculator = (num1, num2, type) => {
   num1 = parseFloat(num1);
   num2 = parseFloat(num2);
