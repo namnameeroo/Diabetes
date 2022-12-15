@@ -114,6 +114,10 @@ ul {
   box-sizing: border-box;
 }
 
+button#login.kakao {
+  background-color: #fee500;
+}
+
 .btn_wrap {
   width: 100%;
   padding: 20px 0;
