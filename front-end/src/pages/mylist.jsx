@@ -140,7 +140,7 @@ const MylistPage = ({ isLoggedIn, isAdmin }) => {
     <>
       <div>
         {console.log("isLoggedIn: ", isLoggedIn)}
-        <Top title="입력 내역" />
+        <Top title="입력 내역" search={true} />
         <Wrap>
           <Table className="mylist-table">
             <thead>

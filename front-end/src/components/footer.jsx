@@ -7,7 +7,9 @@ const Footer = () => {
         <ul className="footer_info">
           <li>
             <span className="text">
-              사업자 정보 Sajang | 이메일 jaong@ja.com
+              사업자 gl@naver.com
+              <br />
+              연락처 02-123-1234
             </span>
           </li>
           <li>
