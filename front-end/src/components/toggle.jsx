@@ -44,17 +44,21 @@ const InsertViewPostioner = styled.div`
   bottom: 0;
   left: 0;
   position: relative;
+  padding-top: 20px;
 `;
-const InsertView = styled.div`
-  /* background: #f8f9fa; */
-  padding-left: 32px;
-  padding-top: 32px;
-  padding-right: 32px;
-  padding-bottom: 72px;
 
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
-  border-top: 1px solid #e9ecef;
+// 결과 토글 창
+const InsertView = styled.div`
+  background: white;
+  padding-left: 25px;
+  padding-top: 32px;
+  padding-right: 25px;
+  padding-bottom: 40px;
+
+  /* border-bottom-left-radius: 16px; */
+  /* border-bottom-right-radius: 16px; */
+  border-radius: 15px;
+  border: 1px solid #e9ecef;
 `;
 
 function ResultToggle(props) {
@@ -64,6 +68,15 @@ function ResultToggle(props) {
         <InsertViewPostioner>
           <InsertView>
             <div className="gl-result-content">{props.result}</div>
+            <div className="gl-result-content">
+              {props.gl.toString().slice(0, 8)}
+            </div>
+            <div className="gray-txt center-txt">
+              {props.result == "LOW" && "혈당 상승에 영향이 적은 음식입니다."}
+              {props.result == "HIGH" && "혈당 상승에 영향이 큰 음식입니다."}
+              {props.result == "MIDDLE" &&
+                "혈당 상승에 영향이 어느 정도 있는 음식입니다."}
+            </div>
           </InsertView>
         </InsertViewPostioner>
       )}
@@ -74,7 +87,7 @@ function ResultToggle(props) {
           onClick={props.onToggle}
           open={props.open}
         >
-          {props.children}
+          <div>{props.children}</div>
         </ToggleButton>
       </div>
     </>

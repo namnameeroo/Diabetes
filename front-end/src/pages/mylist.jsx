@@ -111,7 +111,10 @@ const ListElement = props => {
   );
 };
 
-const MylistPage = ({ isLoggedIn }) => {
+const MylistPage = ({ isLoggedIn, isAdmin }) => {
+  if (isAdmin) {
+    location.replace(Utils.baseUrl + `/adminUserList`);
+  }
   /* eslint-disable */
   const [foodlist, setFoodlist] = useState([]);
   // const foodlist = DB.foodlist.result; //임시 데이터

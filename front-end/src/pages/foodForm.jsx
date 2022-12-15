@@ -7,6 +7,8 @@ import Footer from "components/footer";
 import ResultToggle from "components/toggle";
 import { getGl } from "components/gl";
 
+import { useNavigate } from "react-router-dom";
+
 import "styles/main.css";
 
 const PageTitle = props => {
@@ -71,6 +73,9 @@ const getNumOnly = input => {
   } else {
     nums = parseFloat(nums);
   }
+  if (!nums) {
+    nums = 0;
+  }
   return nums;
 };
 
@@ -96,7 +101,7 @@ const onSubmit = e => {
   e.preventDefault(); // 폼전송시 리액트 상태 초기화를 막음
 };
 
-const InputForm = () => {
+const InputForm = ({ dataset }) => {
   const [inputs, setInputs] = React.useState({
     userId: 1,
     foodName: "",
@@ -112,6 +117,13 @@ const InputForm = () => {
     gl: "",
     result: ""
   });
+
+  // 기존 입력값 있을 때,
+  useEffect(() => {
+    if (dataset) {
+      setInputs({ ...dataset });
+    }
+  }, []);
 
   // prettier-ignore
   /* eslint-disable-next-line*/
@@ -131,26 +143,45 @@ const InputForm = () => {
     setInputs(nextInput);
   };
 
+  const formValidation = () => {
+    if (inputs.entireWeight === 0 || inputs.intake === 0) {
+      confirm("총량과 섭취량은 0일 수 없습니다.");
+      return false;
+    } else if (inputs.entireWeight === "" || inputs.intake === "") {
+      confirm("총량과 섭취량을 입력해주세요.");
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   const [toggleOpen, setToggleOpen] = useState(false);
   // const [GL, setGL] = useState(0);
   const onToggle = () => {
+    if (!formValidation()) {
+      return;
+    }
+
     setToggleOpen(!toggleOpen);
     const [newgl, newResult] = getGl(inputs);
-
     const nextInput = {
       ...inputs,
       ["gl"]: newgl,
       ["result"]: newResult
     };
+    console.log(
+      "🚀 ~ file: foodForm.jsx:148 ~ onToggle ~ newgl",
+      newgl,
+      newResult
+    );
 
-    console.log(newgl, newResult);
     setInputs(nextInput);
     console.log(inputs);
   };
 
   const onChangeInputForNum = e => {
     const { name, value } = e.target;
-    console.log(e.target, "target", value);
+    // console.log(e.target, "target", value);
     if (isNaN(value)) {
       setMsg("숫자만 입력해주세요.");
     }
@@ -162,11 +193,25 @@ const InputForm = () => {
     setToggleOpen(false);
     // 값이 변경되면 GL 결과를 다시 닫음
   };
-
+  const navigate = useNavigate();
   const handleSubmitClick = async () => {
     console.log("submit button clicked");
     inputs.name = inputs.foodName; // 키 달랐던 거 추가,
-    await postData(inputs).then(() => console.log("posted"));
+    //
+    if (inputs.gl === "" || !toggleOpen) {
+      onToggle();
+      await postData(inputs).then(
+        () =>
+          confirm("저장했습니다. 목록페이지로 이동합니다.") &&
+          navigate(Utils.baseUrl + `/mylist`)
+      );
+    } else if (formValidation()) {
+      await postData(inputs).then(
+        () =>
+          confirm("저장했습니다. 목록페이지로 이동합니다.") &&
+          navigate(Utils.baseUrl + `/mylist`)
+      );
+    }
   };
 
   return (
@@ -181,6 +226,7 @@ const InputForm = () => {
                   <InputCell
                     label="foodName"
                     onChangeInput={onChangeInput}
+                    placeHolder={"제품명을 적어주세요"}
                     value={inputs.foodName ? inputs.foodName : ""}
                   />
                 </td>
@@ -204,7 +250,8 @@ const InputForm = () => {
                     label="entireWeight"
                     types="number"
                     onChangeInput={onChangeInputForNum}
-                    value={inputs.entireWeight ? inputs.entireWeight : 0}
+                    placeHolder={0}
+                    value={inputs.entireWeight}
                   />
                 </td>
               </tr>
@@ -229,7 +276,8 @@ const InputForm = () => {
                     label="calories"
                     types="number"
                     onChangeInput={onChangeInputForNum}
-                    value={inputs.calories ? inputs.calories : 0}
+                    placeHolder={0}
+                    value={inputs.calories}
                   />
                 </td>
               </tr>
@@ -240,7 +288,8 @@ const InputForm = () => {
                     label="carbohydrate"
                     types="number"
                     onChangeInput={onChangeInputForNum}
-                    value={inputs.carbohydrate ? inputs.carbohydrate : 0}
+                    placeHolder={0}
+                    value={inputs.carbohydrate}
                   />
                 </td>
               </tr>
@@ -251,7 +300,8 @@ const InputForm = () => {
                     label="protein"
                     types="number"
                     onChangeInput={onChangeInputForNum}
-                    value={inputs.protein ? inputs.protein : 0}
+                    placeHolder={0}
+                    value={inputs.protein}
                   />
                 </td>
               </tr>
@@ -264,7 +314,8 @@ const InputForm = () => {
                     label="fat"
                     types="number"
                     onChangeInput={onChangeInputForNum}
-                    value={inputs.fat ? inputs.fat : 0}
+                    placeHolder={0}
+                    value={inputs.fat}
                   />
                 </td>
               </tr>
@@ -275,7 +326,8 @@ const InputForm = () => {
                     label="fiber"
                     types="number"
                     onChangeInput={onChangeInputForNum}
-                    value={inputs.fiber ? inputs.fiber : 0}
+                    placeHolder={0}
+                    value={inputs.fiber}
                   />
                 </td>
               </tr>
@@ -287,7 +339,8 @@ const InputForm = () => {
       <ResultToggle
         onToggle={onToggle}
         open={toggleOpen}
-        result={inputs.result + " " + inputs.gl}
+        result={inputs.result}
+        gl={inputs.gl}
       >
         결 과 보 기
       </ResultToggle>
@@ -317,6 +370,7 @@ const MainForm = () => {
 };
 
 const InfoForm = ({ foodId }) => {
+  const [dataset, setDataset] = useState({});
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -326,7 +380,11 @@ const InfoForm = ({ foodId }) => {
           })
           .then(res => {
             console.log(foodId, "getFoodInfo");
-            console.log(res);
+            setDataset({ ...res.data.result });
+            console.log(
+              "🚀 ~ file: foodForm.jsx:374 ~ InfoForm ~ dataset",
+              dataset
+            );
           });
       } catch (e) {
         console.error(e);
@@ -337,11 +395,11 @@ const InfoForm = ({ foodId }) => {
 
   return (
     <>
-      <PageTitle>foodName 입력 정보</PageTitle>
+      <PageTitle>{dataset.name}</PageTitle>
       <div id="info_container" className="container">
         <div id="info_inner" className="container_inner table_container">
           <Today />
-          <InputForm />
+          <InputForm dataset={dataset} />
         </div>
       </div>
     </>
