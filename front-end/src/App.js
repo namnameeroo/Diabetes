@@ -1,42 +1,26 @@
 import React from "react";
-import { createContext, useContext } from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import AppRouter from "components/router";
 import "styles/main.css";
-import { Link } from "react-router-dom";
-
-export const UserContext = createContext();
-
+import { CurrentUserProvider, initialUser } from "components/userContext";
 // export const LogginContext = createContext();
 
 function App() {
   /* eslint-disable*/
-  const initialUser = { email: "", role: "", auth: false };
-  const User = useContext(UserContext);
-  const [Login, setLogin] = useState(false);
-  useEffect(() => {
-    try {
-      if (User.email && User.auth) {
-        console.log(
-          "🚀 ~ file: App.js:19 ~ LoginState ~  User.auth",
-          User.auth
-        );
-        setLogin(true);
-      } else {
-        setLogin(false);
-      }
-    } catch (error) {
-      setLogin(false);
-      console.error(error);
-    }
-  }, User);
+  // const User = useContext(UserContext);
+
+  const [UserInfo, setUserInfo] = useState(initialUser.info);
+  const value = { info: UserInfo, setUser: setUserInfo };
+
+  console.log(UserInfo);
 
   return (
     <div>
-      <UserContext.Provider value={initialUser}>
+      <CurrentUserProvider value={value}>
         <div id="main-card">
-          <AppRouter Login={Login} />
+          <AppRouter />
         </div>
 
         <div className="link-for-test">
@@ -56,7 +40,7 @@ function App() {
             <Link to="/login/redirect">(어드민) 리다이렉트 페이지로</Link>
           </li>
         </div>
-      </UserContext.Provider>
+      </CurrentUserProvider>
     </div>
   );
 }

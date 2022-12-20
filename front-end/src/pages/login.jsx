@@ -61,6 +61,7 @@ function LoginPage() {
   return (
     <div id="wrap" className="wrap">
       <Header>혈당당</Header>
+
       <LoginContainer />
       <Footer />
     </div>

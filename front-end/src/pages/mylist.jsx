@@ -111,7 +111,7 @@ const ListElement = props => {
   );
 };
 
-const MylistPage = ({ isLoggedIn, isAdmin }) => {
+const MylistPage = ({ isAdmin }) => {
   if (isAdmin) {
     location.replace(Utils.baseUrl + `/adminUserList`);
   }
@@ -139,7 +139,6 @@ const MylistPage = ({ isLoggedIn, isAdmin }) => {
   return (
     <>
       <div>
-        {console.log("isLoggedIn: ", isLoggedIn)}
         <Top title="입력 내역" search={true} />
         <Wrap>
           <Table className="mylist-table">
