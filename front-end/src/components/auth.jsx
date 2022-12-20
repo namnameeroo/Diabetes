@@ -44,6 +44,7 @@ const Auth = () => {
             USER.role = data.role;
             USER.auth = true;
 
+            console.log(info);
             setUser({ info: USER });
 
             if (data.role == "ADMIN") {
