@@ -9,6 +9,9 @@ import "styles/main.css";
 import Top from "components/top";
 import RouteButton from "components/plusButton";
 
+import { useContext } from "react";
+import { UserContext } from "components/userContext";
+
 const Table = styled.table`
   border-collapse: collapse;
   text-align: left;
@@ -112,6 +115,9 @@ const ListElement = props => {
 };
 
 const MylistPage = ({ isAdmin }) => {
+  const User = useContext(UserContext);
+  console.log("🚀 ~ file: mylist.jsx:119 ~ MylistPage ~ User", User);
+
   if (isAdmin) {
     location.replace(Utils.baseUrl + `/adminUserList`);
   }
