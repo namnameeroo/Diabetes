@@ -2,7 +2,8 @@
 import React from "react";
 import axios from "axios";
 // import { Navigate } from "react-router-dom";
-
+import { useContext } from "react";
+import { UserContext } from "App";
 import { useEffect } from "react";
 import { useState } from "react";
 import Utils from "utils";
@@ -14,6 +15,7 @@ import Utils from "utils";
 const Auth = () => {
   /* eslint-disable-next-line*/
   const [errorMsg, setErrorMsg] = useState("Auth 실패");
+  const USER = useContext(UserContext);
 
   /* eslint-disable-next-line*/
   const [isAdmin, setIsAdmin] = useState(false);
@@ -35,6 +37,9 @@ const Auth = () => {
             setIsAdmin(res.data.result.role == "ADMIN" && true);
             setIsLogin(true);
             console.log("🚀 ~ file: auth.jsx:32 ~ getUser ~ data", data);
+            USER.email = data.email;
+            USER.role = data.role;
+            USER.auth = true;
 
             if (data.role == "ADMIN") {
               location.replace(Utils.baseUrl + `/adminUserList`);
@@ -44,6 +49,7 @@ const Auth = () => {
           });
       } catch (error) {
         console.error(error);
+        console.log(USER);
         location.replace(Utils.baseUrl + `login`);
         setIsAdmin(false);
         setIsLogin(false);
