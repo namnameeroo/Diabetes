@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
+
 import axios from "axios";
 import Utils from "utils";
 
@@ -407,27 +408,29 @@ const InfoForm = ({ foodId }) => {
   );
 };
 
-const FoodFormPage = () => {
+const FoodFormPage = ({ Login }) => {
   const { foodId } = useParams();
-
+  const LoggedIn = Login;
   /*
     const [visibility, setVisibility] = useState(false);
     const popupCloseHandler = (e) => {
       setVisibility(e);
     };
   */
+  console.log(LoggedIn);
 
   return (
-    <div id="wrap" className="wrap">
-      <Top />
-      {!foodId ? <MainForm /> : <InfoForm foodId={foodId} />}
-      <Footer />
-
-      {/* <CustomPopup onClose={popupCloseHandler} show={visibility} title="Hello Jeetendra"> */}
-      {/* <h1>Hello This is Popup Content Area</h1>
-        <h2>This is my lorem ipsum text here!</h2>
-      </CustomPopup> */}
-    </div>
+    <>
+      {LoggedIn ? (
+        <div id="wrap" className="wrap">
+          <Top />
+          {!foodId ? <MainForm /> : <InfoForm foodId={foodId} />}
+          <Footer />
+        </div>
+      ) : (
+        <Navigate to="/login" />
+      )}
+    </>
   );
 };
 
