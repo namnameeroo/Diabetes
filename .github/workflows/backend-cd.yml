@@ -42,11 +42,12 @@ jobs:
           target: "/home/ubuntu/diabetes/back_end/"
           strip_components: 3
 
-      # - name: Execute Server Init Script
-      #   uses: appleboy/ssh-action@master
-      #   with:
-      #     username: ubuntu
-      #     host: ${{ secrets.HOST }}
-      #     key: ${{ secrets.PASSWORD }}
-      #     script_stop: true
-      #     script: . /home/ubuntu/diabetes/backend/run.sh
+      - name: Execute Server Restart through SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.PASSWORD }}
+          script_stop: true
+          script: . /home/ubuntu/diabetes/back_end/run.sh
