@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.web.SecurityFilterChain;
 
 
@@ -20,9 +19,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-  //  private final ClientRegistrationRepository clientRegistrationRepository;
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
-    private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
+
     /*
      * security 설정 시, 사용할 인코더 설정
      * */
@@ -52,13 +50,10 @@ public class SecurityConfig {
                 .oauth2Login()
                 .defaultSuccessUrl("http://localhost:3000/login/redirect", true)
                 .failureUrl("http://localhost:3000/login")
-                //.successHandler(oAuth2AuthenticationSuccessHandler)
                 .authorizationEndpoint()
-              //  .authorizationRequestResolver(new CustomAuthorizationRequestResolver(this.clientRegistrationRepository))
                 .and()
                 .userInfoEndpoint();
-//                .and()
-//               ;
+
         http
                 .exceptionHandling()
                 .authenticationEntryPoint(customAuthenticationEntryPoint);	// 401 자동 구글 로그인 url로 이동하는 것 방지
