@@ -64,15 +64,19 @@ const ListElement = props => {
   const createDate = dateArr[0] ? dateArr[0] : "-";
 
   return (
-    <tr>
-      <td className="user-name">{props.item.name}</td>
-      <td className="user-id wide-col">{props.item.email}</td>
-      <td className="gender narrow-col">
-        {props.item.gender ? props.item.gender.substr(0, 1) : "-"}
-      </td>
-      <td className="user-date wide-col">{createDate}</td>
-      <td className="list-count narrow-col">{props.item.foodListCount}</td>
-    </tr>
+    <>
+      {props ? (
+        <tr>
+          <td className="user-name">{props.item.name}</td>
+          <td className="user-id wide-col">{props.item.email}</td>
+          <td className="gender narrow-col">
+            {props.item.gender ? props.item.gender.substr(0, 1) : "-"}
+          </td>
+          <td className="user-date wide-col">{createDate}</td>
+          <td className="list-count narrow-col">{props.item.foodListCount}</td>
+        </tr>
+      ) : null}
+    </>
   );
 };
 
