@@ -10,9 +10,12 @@ import Footer from "components/footer";
 import ResultToggle from "components/toggle";
 import { getGl } from "components/gl";
 
+import { UserContext } from "components/userContext";
+
 import { useNavigate } from "react-router-dom";
 
 import "styles/main.css";
+import { useContext } from "react";
 
 const PageTitle = props => {
   return (
@@ -408,20 +411,21 @@ const InfoForm = ({ foodId }) => {
   );
 };
 
-const FoodFormPage = ({ Login }) => {
+const FoodFormPage = () => {
   const { foodId } = useParams();
-  const LoggedIn = Login;
+  // const LoggedIn = Login;
+  const user = useContext(UserContext);
   /*
     const [visibility, setVisibility] = useState(false);
     const popupCloseHandler = (e) => {
       setVisibility(e);
     };
   */
-  console.log(LoggedIn);
+  console.log("login 상태 - foodForm jsx", user.info);
 
   return (
     <>
-      {LoggedIn ? (
+      {user ? (
         <div id="wrap" className="wrap">
           <Top />
           {!foodId ? <MainForm /> : <InfoForm foodId={foodId} />}
