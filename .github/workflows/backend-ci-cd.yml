@@ -7,7 +7,7 @@ on:
       - dev
     paths:
       - backend/**
-      - .github/workflows/backend-cd.yml # Github Actions 작업을 위한 포함
+      - .github/workflows/backend-ci-cd.yml # Github Actions 작업을 위한 포함
 
 jobs:
   build:
