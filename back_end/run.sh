@@ -18,4 +18,4 @@ else
 fi
 
 echo "> NEW JAR 배포"
-nohup java -jar -Dspring.config.location=./config/application-auth.yml,classpath:/application.yml -Dspring.profiles.active=prod $JAR_NAME &
+nohup java -jar -Dspring.config.location=./config/application-auth.yml,classpath:/application.yml -Dspring.profiles.active=prod $JAR_NAME  1>nohup/stdout.txt 2>nohup/stderr.txt &
