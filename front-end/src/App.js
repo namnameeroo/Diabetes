@@ -1,24 +1,24 @@
 import React from "react";
-import { useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import AppRouter from "components/router";
 import "styles/main.css";
-import { CurrentUserProvider, initialUser } from "components/userContext";
+
+import { CurrentUserProvider, UserContext } from "components/userContext";
 // export const LogginContext = createContext();
 
 function App() {
   /* eslint-disable*/
   // const User = useContext(UserContext);
+  // const [UserInfo, setUserInfo] = useState(initialUser.info);
+  const user = useContext(UserContext);
 
-  const [UserInfo, setUserInfo] = useState(initialUser.info);
-  const value = { info: UserInfo, setUser: setUserInfo };
-
-  console.log(UserInfo);
+  console.log("🚀 ~ file: App.js:17 ~ App ~ User", user);
 
   return (
     <div>
-      <CurrentUserProvider value={value}>
+      <CurrentUserProvider value={user}>
         <div id="main-card">
           <AppRouter />
         </div>
