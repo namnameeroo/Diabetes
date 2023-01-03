@@ -3,9 +3,7 @@ import React from "react";
 
 import Auth from "components/auth";
 
-const RedirectPage = ({ isLoggedIn }) => {
-  console.log("로그인 여부 in redirectPage: ", isLoggedIn);
-
+const RedirectPage = () => {
   return (
     <>
       <Auth />

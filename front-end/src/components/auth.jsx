@@ -18,6 +18,8 @@ const Auth = () => {
   /* eslint-disable-next-line*/
   const [errorMsg, setErrorMsg] = useState("Auth 실패");
   const USER = { email: "", role: "", auth: false };
+  const user = useContext(UserContext);
+  user.setUser("test plz");
 
   const [redirectUrl, setRedirectUrl] = useState(Utils.baseUrl);
   /* eslint-disable-next-line*/

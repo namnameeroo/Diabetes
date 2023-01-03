@@ -117,6 +117,12 @@ const ListElement = props => {
 const MylistPage = ({ isAdmin }) => {
   const User = useContext(UserContext);
   console.log("🚀 ~ file: mylist.jsx:119 ~ MylistPage ~ User", User);
+  // !! 모르겠다 오바쌈바
+  // const state = useContext(UserContext);
+  // {
+  //   state.setUser("test plz");
+  // }
+  // console.log(state.user, "in mylist");
 
   if (isAdmin) {
     location.replace(Utils.baseUrl + `/adminUserList`);
