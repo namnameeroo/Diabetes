@@ -55,4 +55,4 @@ jobs:
             cd ~/diabetes/back_end/
             ls -al
             chmod +x run.sh
-            ./run.sh
+            nohup ./run.sh
