@@ -51,8 +51,6 @@ jobs:
           key: ${{ secrets.PASSWORD }}
           script_stop: true
           script: |
-            whoami
             cd ~/diabetes/back_end/
-            ls -al
             chmod +x run.sh
             sh run.sh
