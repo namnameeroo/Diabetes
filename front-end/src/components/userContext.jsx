@@ -10,6 +10,8 @@ export const UserContext = createContext({
 
 export const CurrentUserProvider = ({ children }) => {
   const setUser = user => {
+    console.log("setting context");
+    console.log(user.info);
     setState({ ...state, user: user });
   };
 

@@ -102,7 +102,8 @@ const ListElement = props => {
       <tr
         className="hover-a"
         onClick={() => {
-          window.location = `/foodForm/` + props.item.id;
+          window.location = `/foodForm/info/` + props.item.id;
+          // Navigate 로 바꿔야 함
         }}
       >
         <td className="idx">{props.order + 1}</td>
@@ -114,22 +115,22 @@ const ListElement = props => {
   );
 };
 
-const MylistPage = ({ isAdmin }) => {
-  const User = useContext(UserContext);
-  console.log("🚀 ~ file: mylist.jsx:119 ~ MylistPage ~ User", User);
-  // !! 모르겠다 오바쌈바
-  // const state = useContext(UserContext);
-  // {
-  //   state.setUser("test plz");
-  // }
-  // console.log(state.user, "in mylist");
+const MylistPage = () => {
+  const { user } = useContext(UserContext); // !important
+  console.log("🚀 ~ file: mylist.jsx:119 ~ MylistPage ~ User", user);
 
-  if (isAdmin) {
-    location.replace(Utils.baseUrl + `/adminUserList`);
+  if (user.info.role == "ADMIN") {
+    console.log(
+      "🚀 ~ file: mylist.jsx:128 ~ MylistPage ~ user.info.role",
+      user.info.role,
+      "== ADMIN"
+    );
+
+    // location.replace(Utils.baseUrl + `/adminUserList`);
+    // 유저 목록 페이지로 이동?
   }
   /* eslint-disable */
   const [foodlist, setFoodlist] = useState([]);
-  // const foodlist = DB.foodlist.result; //임시 데이터
   const [foodIndex, setFoodIndex] = useState(0);
 
   useEffect(() => {

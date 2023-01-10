@@ -3,7 +3,6 @@ import React from "react";
 import axios from "axios";
 // import { Navigate } from "react-router-dom";
 import { useContext } from "react";
-
 import { UserContext } from "components/userContext";
 import { useState, useEffect } from "react";
 
@@ -15,20 +14,20 @@ import Utils from "utils";
  */
 
 const Auth = () => {
-  /* eslint-disable-next-line*/
-  const [errorMsg, setErrorMsg] = useState("Auth 실패");
+  // const [errorMsg, setErrorMsg] = useState("Auth 실패");
   const USER = { email: "", role: "", auth: false };
-  const user = useContext(UserContext);
-  user.setUser("test plz");
+  const { info, setUser } = useContext(UserContext);
 
+  /* eslint-disable-next-line*/
   const [redirectUrl, setRedirectUrl] = useState(Utils.baseUrl);
   /* eslint-disable-next-line*/
-  const { info, setUser } = useContext(UserContext);
+  // const { info, setUser } = useContext(UserContext);
   console.log("🚀 ~ file: auth.jsx:25 ~ Auth ~ info", info);
 
   /* eslint-disable-next-line*/
   useEffect(() => {
     const getUser = async () => {
+      console.log(info);
       console.log("getUser inner");
       try {
         await axios
@@ -52,12 +51,17 @@ const Auth = () => {
             if (data.role == "ADMIN") {
               setRedirectUrl(Utils.baseUrl + `/adminUserList`);
             } else if (data.role == "USER") {
-              setRedirectUrl(Utils.baseUrl + `/adminUserList`);
+              setRedirectUrl(Utils.baseUrl + `/mylist`);
             }
           });
       } catch (error) {
         console.error(error);
         setRedirectUrl(Utils.baseUrl + `/login`);
+        USER.email = "user email dummy";
+        USER.role = "ADMIN";
+        USER.auth = true;
+
+        setUser({ info: USER });
       }
     };
 
@@ -75,10 +79,10 @@ const Auth = () => {
             ) : (
               <Navigate to="/foodForm" replace={true} />
             )} */}
-      {/* <UserContext.Provider value={USER}> */}
-      {USER.info}
-      {location.replace(redirectUrl)}
-      {/* </UserContext.Provider> */}
+
+      {/* {location.replace(redirectUrl)} */}
+
+      {/* {USER.info} */}
     </>
   );
 };
