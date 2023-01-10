@@ -413,15 +413,14 @@ const InfoForm = ({ foodId }) => {
 
 const FoodFormPage = () => {
   const { foodId } = useParams();
-  // const LoggedIn = Login;
-  const user = useContext(UserContext);
+  const { user } = useContext(UserContext);
   /*
     const [visibility, setVisibility] = useState(false);
     const popupCloseHandler = (e) => {
       setVisibility(e);
     };
   */
-  console.log("login 상태 - foodForm jsx", user.info);
+  console.log("login 상태 - foodForm jsx", user.info.auth);
 
   return (
     <>

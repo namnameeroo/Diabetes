@@ -1,14 +1,17 @@
 import React from "react";
-/* eslint-disable-next-line*/
+// import Auth from "components/auth";
 
-import Auth from "components/auth";
+import { useContext } from "react";
+import { UserContext } from "components/userContext";
 
 const RedirectPage = () => {
+  const { user } = useContext(UserContext); // !important
+
   return (
     <>
-      <Auth />
-      <div>유저 이름 : {"2022-12-14"}</div>
-      <div>유저 이름 : {"redirect"}</div>
+      {/* <Auth /> */}
+      <div style={{ height: "50px" }}>유저 이름 : {user.info.email}</div>
+      <div style={{ height: "50px" }}>유저 이름 : {"redirect"}</div>
     </>
   );
 };

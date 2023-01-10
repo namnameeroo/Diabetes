@@ -3,8 +3,13 @@
 
 import React from "react";
 import { useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
 import "styles/main.css";
 import styled from "styled-components";
+
+import { useContext } from "react";
+import { UserContext } from "components/userContext";
+
 import Top from "components/top";
 // import DB from "db.json";
 import axios from "axios";
@@ -90,15 +95,23 @@ const Wrap = styled.div`
   height: 460px; /** 임시 */
 `;
 
+const NotAdmin = () => {
+  console.log("notAdmin! 권한이 없습니다.");
+  return <Navigate to="/login" />;
+};
+
 const UserlistPage = () => {
   const [userlist, setUserlist] = useState([]);
-  // let userlist = DB.userlist;
+  const { user } = useContext(UserContext); // !important
 
+  // user.info.role
   useEffect(() => {
     const fetchData = async () => {
       try {
         await axios
-          .get(Utils.baseUrl + `/api/v1/admin/users`, { withCredentials: true })
+          .get(Utils.baseUrl + `/api/v1/admin/users`, {
+            withCredentials: true
+          })
           .then(res => {
             setUserlist(res.data.result.content);
           });
@@ -111,28 +124,34 @@ const UserlistPage = () => {
   }, []);
 
   return (
-    <div>
-      <Top title="기록 현황" />
-      {/* 유저 현황 */}
-      <Wrap>
-        <Table className="user-table">
-          <thead>
-            <tr>
-              <th scope="cols">이름</th>
-              <th scope="cols">아이디</th>
-              <th scope="cols">성별</th>
-              <th scope="cols">가입일</th>
-              <th scope="cols">건수</th>
-            </tr>
-          </thead>
-          <tbody>
-            {userlist
-              ? userlist.map((i, k) => <ListElement key={k} item={i} />)
-              : "입력 내역이 없습니다."}
-          </tbody>
-        </Table>
-      </Wrap>
-    </div>
+    <>
+      {user == "USER" ? (
+        <NotAdmin />
+      ) : (
+        <div>
+          <Top title="기록 현황" />
+          {/* 유저 현황 */}
+          <Wrap>
+            <Table className="user-table">
+              <thead>
+                <tr>
+                  <th scope="cols">이름</th>
+                  <th scope="cols">아이디</th>
+                  <th scope="cols">성별</th>
+                  <th scope="cols">가입일</th>
+                  <th scope="cols">건수</th>
+                </tr>
+              </thead>
+              <tbody>
+                {userlist
+                  ? userlist.map((i, k) => <ListElement key={k} item={i} />)
+                  : "입력 내역이 없습니다."}
+              </tbody>
+            </Table>
+          </Wrap>
+        </div>
+      )}
+    </>
   );
 };
 export default UserlistPage;

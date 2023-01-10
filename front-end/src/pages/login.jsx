@@ -4,6 +4,9 @@ import "styles/main.css";
 import Utils from "utils";
 import Footer from "components/footer";
 
+import { useContext } from "react";
+import { UserContext } from "components/userContext";
+
 const Header = props => {
   return (
     <header className="header">
@@ -58,6 +61,15 @@ const LoginContainer = () => {
 };
 
 function LoginPage() {
+  const { user } = useContext(UserContext); // !important
+
+  // user.info.role
+  if (user) {
+    console.log(user, "user 있음");
+  } else {
+    console.log("user 없음");
+  }
+
   return (
     <div id="wrap" className="wrap">
       <Header>혈당당</Header>
