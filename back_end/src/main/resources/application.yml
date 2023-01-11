@@ -27,6 +27,10 @@ cors:
 server:
   port: 8080
 
+# 로그인 성공/실패 리디렉션 주소
+authRedirection:
+  successUrl: 'http://localhost:3000/login/redirect'
+  failureUrl: 'http://localhost:3000/login'
 ---
 # test 환경
 spring:
@@ -139,6 +143,11 @@ cors:
   allowedMethods: GET,POST,PUT,PATCH,DELETE,OPTIONS
   allowedHeaders: '*'
   maxAgeSec: 3600
+
+# 로그인 성공/실패 리디렉션 주소
+authRedirection:
+  successUrl: 'https://gl-diabetes.shop/login/redirect'
+  failureUrl: 'https://gl-diabetes.shop/login'
 
 # TODO 포트 설정 동적으로 할당 가능하게 변경할 필요
 server:

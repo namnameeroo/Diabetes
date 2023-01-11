@@ -1,4 +1,4 @@
-package com.diabetes.auth.config;
+package com.diabetes.common.properties;
 
 import lombok.Getter;
 import lombok.Setter;

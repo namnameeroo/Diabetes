@@ -3,6 +3,7 @@ package com.diabetes.auth.config;
 import com.diabetes.auth.security.CustomAuthenticationEntryPoint;
 import com.diabetes.auth.security.CustomAuthorizationRequestResolver;
 import com.diabetes.auth.security.OAuth2AuthenticationSuccessHandler;
+import com.diabetes.common.properties.RedirectProperties;
 import com.diabetes.user.domain.RoleType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +21,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+    private final RedirectProperties redirectProperties;
 
     /*
      * security 설정 시, 사용할 인코더 설정
@@ -48,8 +50,8 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .oauth2Login()
-                .defaultSuccessUrl("http://localhost:3000/login/redirect", true)
-                .failureUrl("http://localhost:3000/login")
+                .defaultSuccessUrl(redirectProperties.getSuccessUrl(), true)
+                .failureUrl(redirectProperties.getFailureUrl())
                 .authorizationEndpoint()
                 .and()
                 .userInfoEndpoint();

@@ -1,13 +1,14 @@
 package com.diabetes;
 
-import com.diabetes.auth.config.AuthProperties;
+import com.diabetes.common.properties.AuthProperties;
 import com.diabetes.common.properties.CorsProperties;
+import com.diabetes.common.properties.RedirectProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 
-@EnableConfigurationProperties({AuthProperties.class, CorsProperties.class})
+@EnableConfigurationProperties({AuthProperties.class, CorsProperties.class, RedirectProperties.class})
 @SpringBootApplication
 public class DiabetesApplication {
 
