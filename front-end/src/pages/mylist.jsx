@@ -119,7 +119,7 @@ const MylistPage = () => {
   const { user } = useContext(UserContext); // !important
   console.log("🚀 ~ file: mylist.jsx:119 ~ MylistPage ~ User", user);
 
-  if (user.info.role == "ADMIN") {
+  if (!!user && user.info.auth && user.info.role == "ADMIN") {
     console.log(
       "🚀 ~ file: mylist.jsx:128 ~ MylistPage ~ user.info.role",
       user.info.role,
@@ -128,6 +128,9 @@ const MylistPage = () => {
 
     // location.replace(Utils.baseUrl + `/adminUserList`);
     // 유저 목록 페이지로 이동?
+  } else {
+    // 잘못된 접근
+    console.error("wrong access");
   }
   /* eslint-disable */
   const [foodlist, setFoodlist] = useState([]);

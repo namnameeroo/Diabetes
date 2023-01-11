@@ -84,7 +84,27 @@ const ListElement = props => {
     </>
   );
 };
+const ListEmpty = () => {
+  useEffect(() => {
+    // confirm("내역이 없습니다.");
+    console.info("User List empty");
+  }, []);
 
+  const CSS_center = {
+    alignItems: "center",
+    textAlign: "center",
+    color: "gray"
+  };
+  return (
+    <tr style={CSS_center}>
+      <td className="user-name">-</td>
+      <td className="user-id wide-col">-</td>
+      <td className="gender narrow-col">-</td>
+      <td className="user-date wide-col">-</td>
+      <td className="list-count narrow-col">-</td>
+    </tr>
+  );
+};
 const Wrap = styled.div`
   margin-top: 75px;
   padding: 0 10px;
@@ -143,9 +163,11 @@ const UserlistPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {userlist
-                  ? userlist.map((i, k) => <ListElement key={k} item={i} />)
-                  : "입력 내역이 없습니다."}
+                {userlist.length != 0 ? (
+                  userlist.map((i, k) => <ListElement key={k} item={i} />)
+                ) : (
+                  <ListEmpty />
+                )}
               </tbody>
             </Table>
           </Wrap>

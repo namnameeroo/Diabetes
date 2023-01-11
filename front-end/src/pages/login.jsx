@@ -63,17 +63,15 @@ const LoginContainer = () => {
 function LoginPage() {
   const { user } = useContext(UserContext); // !important
 
-  // user.info.role
-  if (user) {
-    console.log(user, "user 있음");
+  if (user && user.info.auth) {
+    console.info(user, "User Auth Pass");
   } else {
-    console.log("user 없음");
+    console.info("User Auth Not Pass");
   }
 
   return (
     <div id="wrap" className="wrap">
       <Header>혈당당</Header>
-
       <LoginContainer />
       <Footer />
     </div>

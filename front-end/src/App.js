@@ -40,7 +40,7 @@ function App() {
             <Link to="/adminUserList">(어드민) 유저목록 페이지로</Link>
           </li>
           <li>
-            <Link to="/login/redirect">(어드민) 리다이렉트 페이지로</Link>
+            <Link to="/login/redirect"> 리다이렉트 페이지로</Link>
           </li>
         </div>
       </CurrentUserProvider>

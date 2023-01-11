@@ -359,7 +359,7 @@ const InputForm = ({ dataset }) => {
   );
 };
 
-const MainForm = () => {
+const NewForm = () => {
   return (
     <>
       <PageTitle>음식 정보 입력하기</PageTitle>
@@ -427,7 +427,7 @@ const FoodFormPage = () => {
       {user ? (
         <div id="wrap" className="wrap">
           <Top />
-          {!foodId ? <MainForm /> : <InfoForm foodId={foodId} />}
+          {!foodId ? <NewForm /> : <InfoForm foodId={foodId} />}
           <Footer />
         </div>
       ) : (
