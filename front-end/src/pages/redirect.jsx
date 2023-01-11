@@ -10,7 +10,9 @@ const RedirectPage = () => {
   return (
     <>
       {/* <Auth /> */}
-      <div style={{ height: "50px" }}>유저 이름 : {user.info.email}</div>
+      <div style={{ height: "50px" }}>
+        유저 이름 : {user ? user.info.email : null}
+      </div>
       <div style={{ height: "50px" }}>유저 이름 : {"redirect"}</div>
     </>
   );
