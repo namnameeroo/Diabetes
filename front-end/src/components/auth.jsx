@@ -59,7 +59,7 @@ const Auth = () => {
         setRedirectUrl(Utils.baseUrl + `/login`);
         USER.email = "user email dummy";
         USER.role = "ADMIN";
-        USER.auth = true;
+        USER.auth = false;
 
         setUser({ info: USER });
       }
