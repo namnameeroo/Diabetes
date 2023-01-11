@@ -6,7 +6,7 @@ on:
       - main
       - dev
     paths:
-      - backend/**
+      - back_end/**
       - .github/workflows/backend-ci-cd.yml # Github Actions 작업을 위한 포함
 
 jobs:
