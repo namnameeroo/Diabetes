@@ -2,15 +2,16 @@ package com.diabetes.common.config;
 
 import com.diabetes.common.properties.CorsProperties;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
-    private CorsProperties corsProperties;
+    private final CorsProperties corsProperties;
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
@@ -19,7 +20,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .allowedMethods(corsProperties.getAllowedMethods())
                 .allowedHeaders(corsProperties.getAllowedHeaders())
                 .allowCredentials(true)
-                //.exposedHeaders(JwtUtil.AUTHORIZATION_HEADER) // , "*"
                 .maxAge(corsProperties.getMaxAgeSec());
     }
 }
