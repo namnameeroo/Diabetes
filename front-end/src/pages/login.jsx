@@ -62,8 +62,7 @@ const LoginContainer = () => {
 
 function LoginPage() {
   const { user } = useContext(UserContext); // !important
-
-  if (user && user.info.auth) {
+  if (user && user.auth) {
     console.info(user, "User Auth Pass");
   } else {
     console.info("User Auth Not Pass");

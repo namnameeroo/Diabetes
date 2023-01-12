@@ -420,7 +420,7 @@ const FoodFormPage = () => {
       setVisibility(e);
     };
   */
-  console.log("login 상태 - foodForm jsx", user.info.auth);
+  console.log("login 상태 - foodForm jsx", user.auth);
 
   return (
     <>
