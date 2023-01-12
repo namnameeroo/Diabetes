@@ -16,18 +16,18 @@ import Utils from "utils";
 const Auth = () => {
   // const [errorMsg, setErrorMsg] = useState("Auth 실패");
   const USER = { email: "", role: "", auth: false };
-  const { info, setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   /* eslint-disable-next-line*/
   const [redirectUrl, setRedirectUrl] = useState(Utils.baseUrl);
   /* eslint-disable-next-line*/
   // const { info, setUser } = useContext(UserContext);
-  console.log("🚀 ~ file: auth.jsx:25 ~ Auth ~ info", info);
+  console.log("🚀 ~ file: auth.jsx:25 ~ Auth ~ user", user);
 
   /* eslint-disable-next-line*/
   useEffect(() => {
     const getUser = async () => {
-      console.log(info);
+      console.log(user);
       console.log("getUser inner");
       try {
         await axios
@@ -45,8 +45,8 @@ const Auth = () => {
             USER.role = data.role;
             USER.auth = true;
 
-            console.log(info);
-            setUser({ info: USER });
+            console.log(user);
+            setUser({ user: USER });
 
             if (data.role == "ADMIN") {
               setRedirectUrl(Utils.baseUrl + `/adminUserList`);
@@ -61,7 +61,7 @@ const Auth = () => {
         USER.role = "ADMIN";
         USER.auth = false;
 
-        setUser({ info: USER });
+        setUser(USER);
       }
     };
 

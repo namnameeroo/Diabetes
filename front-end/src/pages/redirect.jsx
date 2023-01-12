@@ -8,12 +8,16 @@ import { UserContext } from "components/userContext";
 
 const RedirectPage = () => {
   const { user } = useContext(UserContext); // !important
+  console.log(
+    "🚀 ~ file: redirect.jsx:11 ~ RedirectPage ~ user.auth",
+    user.auth
+  );
 
   return (
     <>
       {/* <Auth /> */}
       <div style={{ height: "50px" }}>
-        유저 이름 : {user ? user.info.email : null}
+        유저 이름 : {user ? user.email : null}
       </div>
       <div style={{ height: "50px" }}>유저 이름 : {"redirect"}</div>
 
@@ -21,8 +25,8 @@ const RedirectPage = () => {
           한 상태면 role에 따라 분기처리
       */}
 
-      {user.info.auth ? (
-        user.info.role == "USER" ? (
+      {user.auth ? (
+        user.role == "USER" ? (
           <Navigate to="/mylist" />
         ) : (
           <Navigate to="/adminUserList" />

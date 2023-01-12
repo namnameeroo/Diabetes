@@ -123,6 +123,10 @@ const NotAdmin = () => {
 const UserlistPage = () => {
   const [userlist, setUserlist] = useState([]);
   const { user } = useContext(UserContext); // !important
+  console.log(
+    "🚀 ~ file: adminUserList.jsx:126 ~ UserlistPage ~ user.auth",
+    user.auth
+  );
 
   // user.info.role
   useEffect(() => {
@@ -145,7 +149,7 @@ const UserlistPage = () => {
 
   return (
     <>
-      {user.info.role == "USER" ? (
+      {user.role == "USER" ? (
         <NotAdmin />
       ) : (
         <div>

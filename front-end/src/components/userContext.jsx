@@ -2,7 +2,7 @@ import React from "react";
 import { createContext, useState } from "react";
 
 export const UserContext = createContext({
-  info: { email: "", role: "", auth: false },
+  user: { email: "", role: "", auth: false },
   setUser: () => {}
 });
 
@@ -11,12 +11,12 @@ export const UserContext = createContext({
 export const CurrentUserProvider = ({ children }) => {
   const setUser = user => {
     console.log("setting context");
-    console.log(user.info);
+    console.log(user.user);
     setState({ ...state, user: user });
   };
 
   const initState = {
-    info: { email: "", role: "", auth: false },
+    user: { email: "", role: "", auth: false },
     setUser: setUser
   };
 
