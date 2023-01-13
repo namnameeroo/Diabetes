@@ -119,15 +119,11 @@ const MylistPage = () => {
   const { user } = useContext(UserContext); // !important
   console.log("🚀 ~ file: mylist.jsx:119 ~ MylistPage ~ User", user);
 
-  if (!!user && user.auth && user.role == "ADMIN") {
+  if (!!user && user.auth) {
     console.log(
       "🚀 ~ file: mylist.jsx:128 ~ MylistPage ~ user.role",
-      user.role,
-      "== ADMIN"
+      user.role
     );
-
-    // location.replace(Utils.baseUrl + `/adminUserList`);
-    // 유저 목록 페이지로 이동?
   } else {
     // 잘못된 접근
     console.error("wrong access");
