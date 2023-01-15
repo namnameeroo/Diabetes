@@ -28,13 +28,13 @@ public class User extends BaseTimeEntity {
 
     private String email;
     private String name;
-//    private String password;
 
     @Convert(converter = RoleTypeSetConverter.class)
     private Set<RoleType> roles = new HashSet<>();
 
     @Enumerated(EnumType.STRING)
     private UserStatus status;
+
     @Enumerated(EnumType.STRING)
     private GenderType gender;
     private String age;
@@ -46,9 +46,7 @@ public class User extends BaseTimeEntity {
     private AuthProviderType authProviderType;
 //    @Column(length = 512)
     private String accessToken;
-//
-//    @Column(length = 512)
-//    private String refreshToken;
+
 
     @OneToMany(mappedBy = "user")
     private List<Food> foodList;
@@ -84,6 +82,7 @@ public class User extends BaseTimeEntity {
                 .gender(this.gender)
                 .age(this.age)
                 .FoodListCount(this.foodList.size())
+                .createdDate(this.getCreatedDate())
                 .build();
     }
 }

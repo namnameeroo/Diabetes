@@ -1,15 +1,15 @@
 package com.diabetes.food.dto;
 
 import com.diabetes.food.GLResult;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-
 
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -30,7 +30,9 @@ public class FoodResDto {
     private Float intake;
     private Float gl;
     private GLResult result;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime modifiedDate;
 
 }
