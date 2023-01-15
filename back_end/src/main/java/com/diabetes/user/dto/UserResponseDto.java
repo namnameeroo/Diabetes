@@ -3,11 +3,12 @@ package com.diabetes.user.dto;
 import com.diabetes.user.domain.AuthProviderType;
 import com.diabetes.user.domain.RoleType;
 import com.diabetes.user.domain.User;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -38,4 +39,6 @@ public class UserResponseDto {
     private String age;
     private User.GenderType gender;
     private long FoodListCount;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+    private LocalDateTime createdDate;
 }
