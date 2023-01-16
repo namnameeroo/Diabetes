@@ -60,7 +60,6 @@ const Auth = () => {
         USER.email = "user email dummy";
         USER.role = "ADMIN";
         USER.auth = false;
-
         setUser({ user: USER });
       }
     };
