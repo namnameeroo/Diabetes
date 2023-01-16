@@ -508,15 +508,14 @@ const FilledForm = ({ foodId }) => {
           })
           .then(res => {
             console.log(foodId, "getFoodInfo");
-            setDataset({ ...res.result });
+            setDataset({ ...res.data.result });
+
             console.log(
               "🚀 ~ file: foodForm.jsx:374 ~ InfoForm ~ response",
-              res
-            );
+              res.data.result);
             console.log(
               "🚀 ~ file: foodForm.jsx:496 ~ FilledForm ~ dataset",
-              dataset
-            );
+              dataset);
           });
       } catch (e) {
         console.error(e);
