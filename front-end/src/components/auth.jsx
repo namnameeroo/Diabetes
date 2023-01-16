@@ -5,6 +5,7 @@ import axios from "axios";
 import { useContext } from "react";
 import { UserContext } from "components/userContext";
 import { useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
 
 import Utils from "utils";
 
@@ -82,6 +83,16 @@ const Auth = () => {
       {/* {location.replace(redirectUrl)} */}
 
       {/* {USER.info} */}
+
+      {user.auth ? (
+        user.role == "USER" ? (
+          <Navigate to="/mylist" />
+        ) : (
+          <Navigate to="/adminUserList" />
+        )
+      ) : (
+        <Navigate to="/login" />
+      )}
     </>
   );
 };
