@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import AppRouter from "components/router";
-import Auth from "components/auth";
+// import Auth from "components/auth";
 
 import "styles/main.css";
 
@@ -21,7 +21,7 @@ function App() {
   return (
     <div>
       <CurrentUserProvider value={user}>
-        <Auth />
+        {/* <Auth /> */}
         <div id="main-card">
           <AppRouter />
         </div>
