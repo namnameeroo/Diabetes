@@ -493,6 +493,7 @@ const InfoForm = ({ dataset, handleEditable }) => {
 
 const FilledForm = ({ foodId }) => {
   const [dataset, setDataset] = useState({});
+
   const [editable, setEditable] = useState(false);
   const handleEditable = bool => {
     setEditable(bool);
@@ -509,8 +510,8 @@ const FilledForm = ({ foodId }) => {
             console.log(foodId, "getFoodInfo");
             setDataset({ ...res.data.result });
             console.log(
-              "🚀 ~ file: foodForm.jsx:374 ~ InfoForm ~ dataset",
-              dataset
+              "🚀 ~ file: foodForm.jsx:374 ~ InfoForm ~ response",
+              res.data.result
             );
           });
       } catch (e) {
