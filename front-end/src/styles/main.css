@@ -164,9 +164,22 @@ button#login-kakao {
 .input_text {
   position: relative;
   overflow: hidden;
-  width: 95%;
-  height: 3em;
-  margin: 0 8px;
+  width: 98%;
+  height: 3.3em;
+  margin: 0 8px 8px 0;
+  padding: 5px 39px 5px 11px;
+  border: solid 1px #dadada;
+  background: #fff;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.info_text {
+  position: relative;
+  overflow: hidden;
+  width: 98%;
+  height: 3.3em;
+  margin: 0 8px 8px 0;
   padding: 5px 39px 5px 11px;
   border: solid 1px #dadada;
   background: #fff;
@@ -198,6 +211,18 @@ table td {
   max-width: 10px !important;
 } */
 
+.form-table tr {
+  display: flex;
+  flex-direction: row;
+  /* align-content: center; */
+  justify-content: center;
+  align-items: center;
+}
+
+.form-table td:first-child {
+  min-width: 15%;
+  max-width: 20%;
+}
 table td:last-child {
   flex-grow: 1;
   min-width: 60%;
