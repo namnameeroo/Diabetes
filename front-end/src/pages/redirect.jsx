@@ -2,20 +2,11 @@ import React from "react";
 
 import Auth from "components/auth";
 
-import { useContext } from "react";
-import { UserContext } from "components/userContext";
+// import { useState } from "react";
+// import { UserContext } from "components/userContext";
 
 const RedirectPage = () => {
-  const { user } = useContext(UserContext); // !important
-  console.log(
-    "🚀 ~ file: redirect.jsx:11 ~ RedirectPage ~ user.auth",
-    user.auth
-  );
-  // const [currentUser, setCurrentUser] = useState({
-  //   email: "",
-  //   role: "",
-  //   auth: false
-  // });
+  // const { user } = useContext(UserContext); // !important
   // if (currentUser != user) {
   //   setCurrentUser(user);
   // }
@@ -23,10 +14,10 @@ const RedirectPage = () => {
   return (
     <>
       <Auth />
-      {console.log(user, " user in redirect")}
 
       <div style={{ height: "50px" }}>
-        유저 이름 : {user ? user.email : null}
+        []
+        {/* 유저 이름 : {currentUser ? currentUser.email : null} */}
       </div>
       <div style={{ height: "50px" }}>유저 이름 : {"redirect"}</div>
 

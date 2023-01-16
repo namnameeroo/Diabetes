@@ -38,14 +38,12 @@ const Auth = () => {
           .then(res => {
             const data = res.data.result;
             console.log(res.data.result);
-            // setIsAdmin(res.data.result.role == "ADMIN" && true);
-
-            console.log("🚀 ~ file: auth.jsx:32 ~ getUser ~ data", data);
 
             USER.email = data.email;
             USER.role = data.role;
             USER.auth = true;
 
+            console.log("🚀 ~ file: auth.jsx:32 ~ getUser ~ data", data);
             console.log(user);
             setUser({ user: USER });
 
@@ -83,9 +81,9 @@ const Auth = () => {
       {/* {location.replace(redirectUrl)} */}
 
       {/* {USER.info} */}
-
-      {user.auth ? (
-        user.role == "USER" ? (
+      {console.log("row user in auth", USER)}
+      {USER.auth ? (
+        USER.role == "USER" ? (
           <Navigate to="/mylist" />
         ) : (
           <Navigate to="/adminUserList" />
