@@ -61,7 +61,7 @@ const Auth = () => {
         USER.role = "ADMIN";
         USER.auth = false;
 
-        setUser(USER);
+        setUser({ user: USER });
       }
     };
 
