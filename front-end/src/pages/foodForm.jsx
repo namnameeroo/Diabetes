@@ -375,13 +375,34 @@ const NewForm = ({ dataset }) => {
 };
 
 const InfoForm = ({ dataset, handleEditable }) => {
+  const [infos, setInfos] = useState({
+    foodName: "",
+    provider: "",
+    entireWeight: "",
+    calories: "",
+    carbohydrate: "",
+    protein: "",
+    fat: "",
+    fiber: "",
+    intake: "",
+    remains: "",
+    gl: "",
+    result: ""
+  });
+
   useEffect(() => {
-    console.log(dataset);
-  }, [dataset]);
+    if (dataset) {
+      console.log("🚀 ~ file: foodForm.jsx:395 ~ useEffect ~ dataset", dataset);
+      setInfos({ ...dataset });
+    }
+  }, []);
+
   const InfoCell = ({ label, value }) => {
     return (
       // <div className="input_item" id="input_item_id">
-      <div className="info_text" name={label} value={value}></div>
+      <div className="info_text" name={label}>
+        {value}
+      </div>
       // </div>
     );
   };
@@ -397,7 +418,7 @@ const InfoForm = ({ dataset, handleEditable }) => {
                 <td>
                   <InfoCell
                     label="foodName"
-                    value={dataset.foodName ? dataset.foodName : ""}
+                    value={infos.foodName ? infos.foodName : ""}
                   />
                 </td>
               </tr>
@@ -406,7 +427,7 @@ const InfoForm = ({ dataset, handleEditable }) => {
                 <td>
                   <InfoCell
                     label="provider"
-                    value={dataset.provider ? dataset.provider : ""}
+                    value={infos.provider ? infos.provider : ""}
                   />
                 </td>
               </tr>
@@ -418,7 +439,7 @@ const InfoForm = ({ dataset, handleEditable }) => {
                   <InfoCell
                     label="entireWeight"
                     types="number"
-                    value={dataset.entireWeight}
+                    value={infos.entireWeight ? infos.entireWeight : ""}
                   />
                 </td>
               </tr>
@@ -429,7 +450,7 @@ const InfoForm = ({ dataset, handleEditable }) => {
                   <InfoCell
                     label="intake"
                     types="number"
-                    value={dataset.intake}
+                    value={infos.intake ? infos.intake : ""}
                   />
                 </td>
               </tr>
@@ -439,7 +460,7 @@ const InfoForm = ({ dataset, handleEditable }) => {
                   <InfoCell
                     label="calories"
                     types="number"
-                    value={dataset.calories}
+                    value={infos.calories ? infos.calories : ""}
                   />
                 </td>
               </tr>
@@ -449,7 +470,7 @@ const InfoForm = ({ dataset, handleEditable }) => {
                   <InfoCell
                     label="carbohydrate"
                     types="number"
-                    value={dataset.carbohydrate}
+                    value={infos.carbohydrate ? infos.carbohydrate : ""}
                   />
                 </td>
               </tr>
@@ -459,7 +480,7 @@ const InfoForm = ({ dataset, handleEditable }) => {
                   <InfoCell
                     label="protein"
                     types="number"
-                    value={dataset.protein}
+                    value={infos.protein ? infos.protein : ""}
                   />
                 </td>
               </tr>
@@ -468,7 +489,11 @@ const InfoForm = ({ dataset, handleEditable }) => {
                   지방&nbsp; &nbsp; &nbsp; &nbsp; (g)
                 </td>
                 <td>
-                  <InfoCell label="fat" types="number" value={dataset.fat} />
+                  <InfoCell
+                    label="fat"
+                    types="number"
+                    value={infos.fat ? infos.fat : ""}
+                  />
                 </td>
               </tr>
               <tr>
@@ -477,7 +502,7 @@ const InfoForm = ({ dataset, handleEditable }) => {
                   <InfoCell
                     label="fiber"
                     types="number"
-                    value={dataset.fiber}
+                    value={infos.fiber ? infos.fiber : ""}
                   />
                 </td>
               </tr>
@@ -486,7 +511,7 @@ const InfoForm = ({ dataset, handleEditable }) => {
         </div>
       </form>
 
-      <ResultToggle result={dataset.result} gl={dataset.gl}>
+      <ResultToggle result={infos.result} gl={infos.gl}>
         결 과 보 기
       </ResultToggle>
       <SubmitButton handleSubmitClick={handleEditable}>수정 하기</SubmitButton>
@@ -496,7 +521,6 @@ const InfoForm = ({ dataset, handleEditable }) => {
 
 const FilledForm = ({ foodId }) => {
   const [dataset, setDataset] = useState({});
-
   const [editable, setEditable] = useState(false);
   const handleEditable = bool => {
     setEditable(bool);
