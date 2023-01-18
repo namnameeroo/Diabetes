@@ -376,8 +376,8 @@ const NewForm = ({ dataset }) => {
 
 const InfoForm = ({ dataset, handleEditable }) => {
   useEffect(() => {
-    console.info(dataset);
-  }, []);
+    console.log(dataset);
+  }, [dataset]);
   const InfoCell = ({ label, value }) => {
     return (
       // <div className="input_item" id="input_item_id">
@@ -512,8 +512,8 @@ const FilledForm = ({ foodId }) => {
           .then(res => {
             console.log(foodId, "getFoodInfo");
 
-            // setDataset(...res.data.result);
-            setDataset(...res.data.result);
+            setDataset({ ...res.data.result });
+            console.error("여기", dataset);
             console.log(
               "🚀 ~ file: foodForm.jsx:374 ~ InfoForm ~ response",
               res.data.result
