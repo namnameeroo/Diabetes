@@ -72,6 +72,7 @@ const InputCell = ({ label, onChangeInput, value, placeHolder }) => {
     </div>
   );
 };
+
 const getNumOnly = input => {
   let nums = input.replaceAll(/[^0-9.]*/g, "");
   if (nums.at(-1) === ".") {
@@ -125,13 +126,13 @@ const InputForm = ({ dataset }) => {
   });
 
   // 기존 입력값 있을 때,
-  // useEffect(() => {
-  //   console.log("기존 입력값");
-  //   if (dataset) {
-  //     console.log("🚀 ~ file: foodForm.jsx:124 ~ useEffect ~ dataset", dataset);
-  //     setInputs({ ...dataset });
-  //   }
-  // }, []);
+  useEffect(() => {
+    console.log("기존 입력값");
+    if (dataset) {
+      console.log("🚀 ~ file: foodForm.jsx:124 ~ useEffect ~ dataset", dataset);
+      setInputs({ ...dataset });
+    }
+  }, []);
 
   // prettier-ignore
   /* eslint-disable-next-line*/
@@ -222,7 +223,7 @@ const InputForm = ({ dataset }) => {
     <>
       <form onSubmit={onSubmit}>
         <div className="main_wrap table_wrap">
-          <table className="simple_font">
+          <table className="simple_font form-table">
             <tbody>
               <tr>
                 <td className="pad-right-10">제품명</td>
@@ -359,22 +360,145 @@ const InputForm = ({ dataset }) => {
   );
 };
 
-const NewForm = () => {
+const NewForm = ({ dataset }) => {
   return (
     <>
       <PageTitle>음식 정보 입력하기</PageTitle>
       <div id="main_form_container" className="container">
         <div id="main_form_inner" className="container_inner table_container">
           <Today />
-          <InputForm />
+          <InputForm dataset={dataset} />
         </div>
       </div>
     </>
   );
 };
 
-const InfoForm = ({ foodId }) => {
+const InfoForm = ({ dataset, handleEditable }) => {
+  const InfoCell = ({ label, value }) => {
+    return (
+      // <div className="input_item" id="input_item_id">
+      <div className="info_text" name={label} value={value}></div>
+      // </div>
+    );
+  };
+
+  return (
+    <>
+      <form onSubmit={onSubmit}>
+        <div className="main_wrap table_wrap">
+          <table className="simple_font form-table">
+            <tbody>
+              <tr>
+                <td className="pad-right-10 tr-title">제품명</td>
+                <td>
+                  <InfoCell
+                    label="foodName"
+                    value={dataset.foodName ? dataset.foodName : ""}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td className="pad-right-10">업체명</td>
+                <td>
+                  <InfoCell
+                    label="provider"
+                    value={dataset.provider ? dataset.provider : ""}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td className="pad-right-10">
+                  총량&nbsp; &nbsp; &nbsp; &nbsp;(g)
+                </td>
+                <td>
+                  <InfoCell
+                    label="entireWeight"
+                    types="number"
+                    value={dataset.entireWeight}
+                  />
+                </td>
+              </tr>
+
+              <tr>
+                <td className="pad-right-10">섭취량&nbsp; &nbsp; &nbsp;(%)</td>
+                <td>
+                  <InfoCell
+                    label="intake"
+                    types="number"
+                    value={dataset.intake}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td className="pad-right-10">칼로리&nbsp; &nbsp; &nbsp;(g)</td>
+                <td>
+                  <InfoCell
+                    label="calories"
+                    types="number"
+                    value={dataset.calories}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td className="pad-right-10">탄수화물 (g)</td>
+                <td>
+                  <InfoCell
+                    label="carbohydrate"
+                    types="number"
+                    value={dataset.carbohydrate}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td className="pad-right-10">단백질&nbsp; &nbsp; &nbsp;(g)</td>
+                <td>
+                  <InfoCell
+                    label="protein"
+                    types="number"
+                    value={dataset.protein}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td className="pad-right-10">
+                  지방&nbsp; &nbsp; &nbsp; &nbsp; (g)
+                </td>
+                <td>
+                  <InfoCell label="fat" types="number" value={dataset.fat} />
+                </td>
+              </tr>
+              <tr>
+                <td className="pad-right-10">식이섬유 (g)</td>
+                <td>
+                  <InfoCell
+                    label="fiber"
+                    types="number"
+                    value={dataset.fiber}
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </form>
+
+      <ResultToggle result={dataset.result} gl={dataset.gl}>
+        결 과 보 기
+      </ResultToggle>
+      <SubmitButton handleSubmitClick={handleEditable}>수정 하기</SubmitButton>
+    </>
+  );
+};
+
+const FilledForm = ({ foodId }) => {
   const [dataset, setDataset] = useState({});
+
+  const [editable, setEditable] = useState(false);
+  const handleEditable = bool => {
+    setEditable(bool);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -384,6 +508,7 @@ const InfoForm = ({ foodId }) => {
           })
           .then(res => {
             console.log(foodId, "getFoodInfo");
+
             // setDataset(...res.data.result);
             setDataset(res.data.result);
 
@@ -415,7 +540,12 @@ const InfoForm = ({ foodId }) => {
       <div id="info_container" className="container">
         <div id="info_inner" className="container_inner table_container">
           <Today />
-          <InputForm dataset={dataset} />
+          {!editable ? (
+            <InfoForm dataset={dataset} handleEditable={handleEditable} />
+          ) : (
+            <InputForm dataset={dataset} />
+          )}
+          {/* <InputForm dataset={dataset} /> */}
         </div>
       </div>
     </>
@@ -438,7 +568,7 @@ const FoodFormPage = () => {
       {user ? (
         <div id="wrap" className="wrap">
           <Top />
-          {!foodId ? <NewForm /> : <InfoForm foodId={foodId} />}
+          {!foodId ? <NewForm /> : <FilledForm foodId={foodId} />}
           <Footer />
         </div>
       ) : (
