@@ -9,14 +9,13 @@ export const UserContext = createContext({
 // const UseUserContext = () => useContext(UserContext);
 
 export const CurrentUserProvider = ({ children }) => {
-  const setUser = user => {
+  const setUser = newUser => {
     console.log("setting context");
-    // console.log(user);
     console.log(
-      "🚀 ~ file: userContext.jsx:13 ~ setUser ~ user.user",
-      user.user
+      "🚀 ~ file: userContext.jsx:15 ~ setUser ~ newUser.user",
+      newUser.user
     );
-    setState({ ...state, user: user.user });
+    setState({ ...state, user: newUser.user });
   };
 
   const initState = {

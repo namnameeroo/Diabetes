@@ -19,9 +19,9 @@ const AppRouter = () => {
     <div>
       {/* {console.log("router의 현재 로그인 상태값: ", isLoggedIn) } */}
       <Routes>
-        <Route path="/login/redirect" element={<RedirectPage />} />
         <Route path="/" exact element={<LoginPage />} />
         <Route path="/login" exact element={<LoginPage />} />
+        <Route path="/login/redirect" element={<RedirectPage />} />
         <Route path="/foodForm" element={<FoodFormPage />} />
         <Route path="/foodForm/info/:foodId" element={<FoodFormPage />} />
         {/* <Route path="/foodForm/edit/:foodId" element={<FoodFormPage />} /> */}

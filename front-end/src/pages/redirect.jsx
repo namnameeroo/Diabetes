@@ -24,7 +24,7 @@ const RedirectPage = () => {
       {/* 로그인 안 한 상태면, 로그인 페이지로
           한 상태면 role에 따라 분기처리
       */}
-      {/* 
+      {/*       
       {user.auth ? (
         user.role == "USER" ? (
           <Navigate to="/mylist" />
