@@ -60,13 +60,13 @@ const Table = styled.table`
 `;
 
 const ListElement = ({ item }) => {
-  console.log(item);
+  // console.log(item);
 
   // "2022-11-28T08:52:02.912246" 가입일
-  // const dateArr = item.createdDate.split("T").map(v => {
-  //   return v.split(".")[0];
-  // });
-  // const createDate = dateArr[0] ? dateArr[0] : "-";
+  const dateArr = item.createdDate.split("T").map(v => {
+    return v.split(".")[0];
+  });
+  const createDate = dateArr[0] ? dateArr[0] : "-";
 
   return (
     <>
@@ -77,10 +77,7 @@ const ListElement = ({ item }) => {
           <td className="gender narrow-col">
             {item.gender ? item.gender.substr(0, 1) : "-"}
           </td>
-          <td className="user-date wide-col">
-            {/* {createDate}  */}
-            가입일
-          </td>
+          <td className="user-date wide-col">{createDate}</td>
           <td className="list-count narrow-col">{item.foodListCount}</td>
         </tr>
       ) : null}
