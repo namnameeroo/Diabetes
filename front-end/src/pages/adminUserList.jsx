@@ -60,7 +60,7 @@ const Table = styled.table`
 `;
 
 const ListElement = ({ item }) => {
-  console.log(item);
+  // console.log(item);
 
   // "2022-11-28T08:52:02.912246" 가입일
   const dateArr = item.createdDate.split("T").map(v => {
