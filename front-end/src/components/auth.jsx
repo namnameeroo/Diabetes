@@ -21,15 +21,11 @@ const Auth = () => {
 
   /* eslint-disable-next-line*/
   const [redirectUrl, setRedirectUrl] = useState(Utils.baseUrl);
-  /* eslint-disable-next-line*/
-  // const { info, setUser } = useContext(UserContext);
-  console.log("🚀 ~ file: auth.jsx:25 ~ Auth ~ user", user);
 
   /* eslint-disable-next-line*/
   useEffect(() => {
+    console.log("123");
     const getUser = async () => {
-      console.log(user);
-      console.log("getUser inner");
       try {
         await axios
           .get(Utils.baseUrl + `/api/v1/users/me`, {
@@ -44,8 +40,8 @@ const Auth = () => {
             USER.auth = true;
 
             console.log("🚀 ~ file: auth.jsx:32 ~ getUser ~ data", data);
-            console.log(user);
             setUser({ user: USER });
+            console.log(user);
 
             if (data.role == "ADMIN") {
               setRedirectUrl(Utils.baseUrl + `/adminUserList`);
@@ -56,31 +52,22 @@ const Auth = () => {
       } catch (error) {
         console.error(error);
         setRedirectUrl(Utils.baseUrl + `/login`);
+
         USER.email = "user email dummy";
         USER.role = "ADMIN";
-        USER.auth = false;
+        USER.auth = true;
         setUser({ user: USER });
+
+        console.log(USER);
+        console.log(user);
       }
     };
 
     getUser();
-  }, []);
+  }, [user.email]);
 
   return (
     <>
-      {/* {isLogin ? (
-        isAdmin ? (
-          <Navigate to="/adminUserList" replace={true} />
-          ) : (
-            <Navigate to="/mylist" replace={true} />
-            )
-            ) : (
-              <Navigate to="/foodForm" replace={true} />
-            )} */}
-
-      {/* {location.replace(redirectUrl)} */}
-
-      {/* {USER.info} */}
       {console.log("row user in auth", USER)}
       {USER.auth ? (
         USER.role == "USER" ? (
