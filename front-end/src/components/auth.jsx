@@ -24,7 +24,6 @@ const Auth = () => {
 
   /* eslint-disable-next-line*/
   useEffect(() => {
-    console.log("123");
     const getUser = async () => {
       try {
         await axios
@@ -69,15 +68,7 @@ const Auth = () => {
   return (
     <>
       {console.log("row user in auth", USER)}
-      {USER.auth ? (
-        USER.role == "USER" ? (
-          <Navigate to="/mylist" />
-        ) : (
-          <Navigate to="/adminUserList" />
-        )
-      ) : (
-        <Navigate to="/login" />
-      )}
+      <Navigate to="/mylist" />
     </>
   );
 };

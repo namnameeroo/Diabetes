@@ -537,7 +537,6 @@ const FilledForm = ({ foodId }) => {
             console.log(foodId, "getFoodInfo");
 
             setDataset({ ...res.data.result });
-            console.error("여기", dataset);
             console.log(
               "🚀 ~ file: foodForm.jsx:374 ~ InfoForm ~ response",
               res.data.result
