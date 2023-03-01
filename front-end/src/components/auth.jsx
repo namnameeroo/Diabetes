@@ -15,7 +15,6 @@ import Utils from "utils";
  */
 
 const Auth = () => {
-  // const [errorMsg, setErrorMsg] = useState("Auth 실패");
   const USER = { email: "", role: "", auth: false };
   const { user, setUser } = useContext(UserContext);
 
@@ -42,11 +41,11 @@ const Auth = () => {
             setUser({ user: USER });
             console.log(user);
 
-            if (data.role == "ADMIN") {
-              setRedirectUrl(Utils.baseUrl + `/adminUserList`);
-            } else if (data.role == "USER") {
-              setRedirectUrl(Utils.baseUrl + `/mylist`);
-            }
+            // if (data.role == "ADMIN") {
+            //   setRedirectUrl(Utils.baseUrl + `/adminUserList`);
+            // } else if (data.role == "USER") {
+            //   setRedirectUrl(Utils.baseUrl + `/mylist`);
+            // }
           });
       } catch (error) {
         console.error(error);
@@ -56,9 +55,6 @@ const Auth = () => {
         USER.role = "ADMIN";
         USER.auth = true;
         setUser({ user: USER });
-
-        console.log(USER);
-        console.log(user);
       }
     };
 
@@ -67,7 +63,6 @@ const Auth = () => {
 
   return (
     <>
-      {console.log("row user in auth", USER)}
       <Navigate to="/mylist" />
     </>
   );
