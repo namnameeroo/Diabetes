@@ -142,6 +142,7 @@ const MylistPage = () => {
           });
       } catch (e) {
         console.error(e);
+        setFoodlist([]); // test 할 때만 주석처리
       }
     };
     fetchData();
