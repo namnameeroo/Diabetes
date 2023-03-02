@@ -37,9 +37,11 @@ const Table = styled.table`
   /* .hover-a:hover {
     color: blue;
   } */
-  tr:hover td {
-    color: blue;
-    background-color: gray;
+
+  tr.hover-a:hover {
+    color: #26266e;
+    background-color: #eac2c244;
+    box-shadow: 0px 1.2px 2px 0px #8c8c8c56;
   }
   td {
     text-align: center;
