@@ -37,9 +37,11 @@ const Table = styled.table`
   /* .hover-a:hover {
     color: blue;
   } */
-  tr:hover td {
-    color: blue;
-    background-color: gray;
+
+  tr.hover-a:hover {
+    color: #26266e;
+    background-color: #eac2c244;
+    box-shadow: 0px 1.2px 2px 0px #8c8c8c56;
   }
   td {
     text-align: center;
@@ -88,8 +90,6 @@ const Today = () => {
 };
 
 const ListElement = props => {
-  // setFoodIndex(foodIndex + 1);
-
   const dateArr = props.item.createdDate.split("T").map(v => {
     return v.split(".")[0];
   });
@@ -106,7 +106,7 @@ const ListElement = props => {
           // Navigate 로 바꿔야 함
         }}
       >
-        <td className="idx">{props.order + 1}</td>
+        <td className="idx">{props.order}</td>
         <td className="food-name">{props.item.name}</td>
         <td className="date-col">{createAt}</td>
         <td>{props.item.result}</td>
@@ -129,7 +129,136 @@ const MylistPage = () => {
     console.error("wrong access");
   }
   /* eslint-disable */
-  const [foodlist, setFoodlist] = useState([]);
+  const [foodlist, setFoodlist] = useState([
+    {
+      id: 17,
+      provider: "마켓오",
+      entireWeight: 500,
+      calories: 20,
+      protein: 5,
+      intake: 100,
+      gl: 3.02807,
+      result: "LOW",
+      createdDate: "2023-03-02T06:46:29",
+      modifiedDate: "2023-03-02T06:46:29"
+    },
+    {
+      id: 16,
+      provider: "비비고",
+      entireWeight: 100,
+      calories: 100,
+      carbohydrate: 10,
+      protein: 123,
+      fat: 230,
+      intake: 10,
+      gl: -7.37627,
+      result: "LOW",
+      createdDate: "2023-03-01T13:46:19",
+      modifiedDate: "2023-03-01T13:46:19"
+    },
+    {
+      id: 15,
+      name: "프로틴바",
+      provider: "마켓오",
+      entireWeight: 500,
+      calories: 20,
+      protein: 5,
+      intake: 100,
+      gl: 3.02807,
+      result: "LOW",
+      createdDate: "2023-02-16T05:55:20",
+      modifiedDate: "2023-02-16T05:55:20"
+    },
+    {
+      id: 14,
+      name: "된장찌개",
+      provider: "곱창집",
+      entireWeight: 500,
+      calories: 200,
+      carbohydrate: 10,
+      intake: 100,
+      gl: 4.85094,
+      result: "LOW",
+      createdDate: "2023-02-16T04:45:59",
+      modifiedDate: "2023-02-16T04:45:59"
+    },
+    {
+      id: 11,
+      name: "testinNamiServer",
+      provider: "who?",
+      entireWeight: 100,
+      calories: 540,
+      carbohydrate: 10,
+      protein: 20,
+      fat: 40,
+      intake: 50,
+      gl: 33,
+      result: "MIDDLE",
+      createdDate: "2023-02-12T08:08:32",
+      modifiedDate: "2023-02-12T08:08:32"
+    },
+    {
+      id: 10,
+      name: "케이크",
+      provider: "",
+      entireWeight: 150,
+      calories: 16,
+      carbohydrate: 17,
+      fat: 188,
+      intake: 100,
+      gl: -25.5408,
+      result: "LOW",
+      createdDate: "2022-12-18T10:04:08",
+      modifiedDate: "2022-12-18T10:04:08"
+    },
+    {
+      id: 7,
+      name: "된장찌개",
+      provider: "",
+      entireWeight: 500,
+      intake: 100,
+      gl: 3.2,
+      result: "LOW",
+      createdDate: "2022-12-15T05:08:08",
+      modifiedDate: "2022-12-15T05:08:08"
+    },
+    {
+      id: 6,
+      result: "LOW",
+      createdDate: "2022-12-15T04:23:56",
+      modifiedDate: "2022-12-15T04:23:56"
+    },
+    {
+      id: 5,
+      name: "곰국",
+      provider: "비비고",
+      entireWeight: 100,
+      calories: 100,
+      carbohydrate: 10,
+      protein: 123,
+      fat: 230,
+      intake: 10,
+      gl: -7.37627,
+      result: "LOW",
+      createdDate: "2022-12-15T03:21:01",
+      modifiedDate: "2022-12-15T03:21:01"
+    },
+    {
+      id: 4,
+      name: "곰국",
+      provider: "비비고",
+      entireWeight: 100,
+      calories: 100,
+      carbohydrate: 10,
+      protein: 123,
+      fat: 230,
+      intake: 10,
+      gl: -7.37627,
+      result: "LOW",
+      createdDate: "2022-12-15T03:20:56",
+      modifiedDate: "2022-12-15T03:20:56"
+    }
+  ]);
   const [foodIndex, setFoodIndex] = useState(0);
 
   useEffect(() => {
@@ -142,7 +271,7 @@ const MylistPage = () => {
           });
       } catch (e) {
         console.error(e);
-        setFoodlist([]); // test 할 때만 주석처리
+        // setFoodlist([]); // test 할 때만 주석처리
       }
     };
     fetchData();
@@ -165,7 +294,7 @@ const MylistPage = () => {
             <tbody>
               {foodlist
                 ? foodlist.map((i, k) => (
-                    <ListElement key={k} item={i} order={foodIndex} />
+                    <ListElement key={k} item={i} order={k + 1} />
                   ))
                 : "입력 내역이 없습니다."}
             </tbody>
