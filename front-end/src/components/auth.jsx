@@ -19,14 +19,14 @@ const Auth = () => {
   const { user, setUser } = useContext(UserContext);
 
   /* eslint-disable-next-line*/
-  const [redirectUrl, setRedirectUrl] = useState(Utils.baseUrl);
+  const [redirectUrl, setRedirectUrl] = useState(Utils.BASE_URL);
 
   /* eslint-disable-next-line*/
   useEffect(() => {
     const getUser = async () => {
       try {
         await axios
-          .get(Utils.baseUrl + `/api/v1/users/me`, {
+          .get(Utils.BASE_URL + `/api/v1/users/me`, {
             withCredentials: true
           })
           .then(res => {
@@ -49,7 +49,7 @@ const Auth = () => {
           });
       } catch (error) {
         console.error(error);
-        setRedirectUrl(Utils.baseUrl + `/login`);
+        setRedirectUrl(Utils.BASE_URL + `/login`);
 
         USER.email = "user email dummy";
         USER.role = "ADMIN";
