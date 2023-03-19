@@ -27,7 +27,6 @@ const SocialButton = props => {
   } else if (props.name === "kakao") {
     requestUrl = authUrl + "/kakao";
   }
-  console.log(props.loginButtonHandler);
 
   return (
     <button
@@ -87,10 +86,11 @@ function LoginPage() {
 
     if (isUserLoggedIn) {
       console.log("이미 로그인된 유저");
-    } else {
+      return;
+    } else if (requestUrl) {
       window.location.href = requestUrl;
+      return;
     }
-    return;
   };
 
   return (

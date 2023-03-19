@@ -10,15 +10,23 @@ import Utils from "utils";
  * @returns userData || null
  */
 export const getCurrentUser = async () => {
-  const userValidRes = await axios.get(`${Utils.BASE_URL}/api/v1/users/me`, {
-    withCredentials: true // 쿠키 정보 공유
-  });
+  try {
+    const userValidRes = await axios.get(`${Utils.BASE_URL}/api/v1/users/me`, {
+      withCredentials: true // 쿠키 정보 공유
+    });
 
-  if (userValidRes.ok) {
-    console.log(JSON.stringify(userValidRes.data));
-  } else {
-    console.log("getCurrentUser api fail");
+    console.log(
+      "🚀 ~ file: login.jsx:16 ~ getCurrentUser ~ userValidRes:",
+      userValidRes
+    );
+    if (userValidRes.ok) {
+      console.log(JSON.stringify(userValidRes.data));
+      return userValidRes;
+    } else {
+      console.log("getCurrentUser api fail");
+    }
+  } catch (error) {
+    console.error(error);
   }
-
-  return;
+  return null;
 };

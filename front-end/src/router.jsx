@@ -6,7 +6,7 @@ import LoginPage from "pages/LoginPage";
 import FoodFormPage from "pages/FoodFormPage";
 import MylistPage from "pages/MylistPage";
 import RedirectPage from "pages/RedirectPage";
-import AdminUserListPage from "pages/AdminUserlistPage";
+import UserlistPage from "pages/UserlistPage";
 // import AuthLayout from "layout/AuthLayout";
 const routerData = [
   {
@@ -59,7 +59,7 @@ const routerData = [
     id: 6,
     path: "/userlist",
     label: "사용자 조회 페이지",
-    element: <AdminUserListPage />,
+    element: <UserlistPage />,
     withAuth: true,
     isAdminPage: true
   }
