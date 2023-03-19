@@ -133,7 +133,7 @@ const UserlistPage = () => {
     const fetchData = async () => {
       try {
         await axios
-          .get(Utils.baseUrl + `/api/v1/admin/users`, {
+          .get(Utils.BASE_URL + `/api/v1/admin/users`, {
             withCredentials: true
           })
           .then(res => {

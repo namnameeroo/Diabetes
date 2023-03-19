@@ -1,6 +1,7 @@
 import React from "react";
-
-import Auth from "components/auth";
+// import { getCurrentUser } from "api/login";
+// import Auth from "components/auth";
+// import { useEffect } from "react";
 
 // import { useState } from "react";
 // import { UserContext } from "components/userContext";
@@ -13,7 +14,7 @@ const RedirectPage = () => {
 
   return (
     <>
-      <Auth />
+      {/* <Auth /> */}
       <div style={{ height: "50px" }}>
         []
         {/* 유저 이름 : {currentUser ? currentUser.email : null} */}

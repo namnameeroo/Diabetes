@@ -1,35 +1,115 @@
 import React from "react";
 // import { useState } from "react";
-import { Routes, Route } from "react-router-dom";
-import LoginPage from "pages/login";
-import FoodFormPage from "pages/foodForm";
-import MylistPage from "pages/mylist";
-import RedirectPage from "pages/redirect";
-import AdminUserListPage from "pages/adminUserList";
-import { useContext } from "react";
-import { UserContext } from "./userContext";
+import { createBrowserRouter, Link } from "react-router-dom";
 
-/* eslint-disable*/
-const AppRouter = () => {
-  // const [role, setRole] = useState(value);
-  const { user } = useContext(UserContext); // !important
-  // user.info.auth
+import LoginPage from "pages/LoginPage";
+import FoodFormPage from "pages/FoodFormPage";
+import MylistPage from "pages/MylistPage";
+import RedirectPage from "pages/RedirectPage";
+import AdminUserListPage from "pages/AdminUserlistPage";
+// import AuthLayout from "layout/AuthLayout";
+const routerData = [
+  {
+    id: 0,
+    path: "/",
+    label: "HOME",
+    element: (
+      <>
+        <div>home</div>
+      </>
+    ),
+    withAuth: false
+  },
+  {
+    id: 1,
+    path: "/login",
+    label: "Login 페이지",
+    element: <LoginPage />,
+    withAuth: false
+  },
+  {
+    id: 2,
+    path: "/login/redirect",
+    label: "리다이렉트 페이지",
+    element: <RedirectPage />,
+    withAuth: true
+  },
+  {
+    id: 3,
+    path: "/foodForm",
+    label: "음식 입력 페이지",
+    element: <FoodFormPage />,
+    withAuth: true
+  },
+  {
+    id: 4,
+    path: "/foodForm/info/:foodId",
+    label: "음식 입력 결과 페이지",
+    element: <FoodFormPage />,
+    withAuth: true
+  },
+  {
+    id: 5,
+    path: "/mylist",
+    label: "사용자의 입력 내역 페이지",
+    element: <MylistPage />,
+    withAuth: true
+  },
+  {
+    id: 6,
+    path: "/userlist",
+    label: "사용자 조회 페이지",
+    element: <AdminUserListPage />,
+    withAuth: true,
+    isAdminPage: true
+  }
+];
 
+const TestFooter = () => {
   return (
-    <div>
-      {/* {console.log("router의 현재 로그인 상태값: ", isLoggedIn) } */}
-      <Routes>
-        <Route path="/" exact element={<LoginPage />} />
-        <Route path="/login" exact element={<LoginPage />} />
-        <Route path="/login/redirect" element={<RedirectPage />} />
-        <Route path="/foodForm" element={<FoodFormPage />} />
-        <Route path="/foodForm/info/:foodId" element={<FoodFormPage />} />
-        {/* <Route path="/foodForm/edit/:foodId" element={<FoodFormPage />} /> */}
-        <Route path="/mylist" element={<MylistPage />} />
-        <Route path="/adminUserList" element={<AdminUserListPage />} />
-      </Routes>
+    <div className="link-for-test">
+      <li>
+        <Link to="/login">로그인페이지로</Link>
+      </li>
+      <li>
+        <Link to="/foodForm">입력페이지로</Link>
+      </li>
+      <li>
+        <Link to="/mylist">입력목록 페이지로</Link>
+      </li>
+      <li>
+        <Link to="/userlist">(어드민) 유저목록 페이지로</Link>
+      </li>
+      <li>
+        <Link to="/login/redirect"> 리다이렉트 페이지로</Link>
+      </li>
     </div>
   );
 };
+const routers = createBrowserRouter(
+  routerData.map(router => {
+    // if (router.withAuth) {
+    //   return {
+    //     path: router.path,
+    //     element: (
+    //       <AuthLayout
+    //         isAdminPage={router.isAdminPage ? router.isAdminPage : null}
+    //       >
+    //         {router.element}
+    //       </AuthLayout>
+    //     )
+    //   };
+    // }
+    return {
+      path: router.path,
+      element: (
+        <>
+          {router.element}
+          <TestFooter />
+        </>
+      )
+    };
+  })
+);
 
-export default AppRouter;
+export default routers;
