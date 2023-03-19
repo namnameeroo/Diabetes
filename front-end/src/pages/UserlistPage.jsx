@@ -124,7 +124,7 @@ const UserlistPage = () => {
   const [userlist, setUserlist] = useState([]);
   const { user } = useContext(UserContext); // !important
   console.log(
-    "🚀 ~ file: adminUserList.jsx:126 ~ UserlistPage ~ user.auth",
+    "🚀 ~ file: UserlistPage.jsx:126 ~ UserlistPage ~ user.auth",
     user.auth
   );
 
