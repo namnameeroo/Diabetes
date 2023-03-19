@@ -27,6 +27,7 @@ const SocialButton = props => {
   } else if (props.name === "kakao") {
     requestUrl = authUrl + "/kakao";
   }
+  console.log(props.loginButtonHandler);
 
   return (
     <button
@@ -41,7 +42,7 @@ const SocialButton = props => {
   );
 };
 
-const LoginContainer = loginButtonHandler => {
+const LoginContainer = ({ loginButtonHandler }) => {
   return (
     <div id="login-container" className="container">
       <div id="login_inner" className="container_inner">
