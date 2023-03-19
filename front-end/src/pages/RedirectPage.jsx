@@ -1,6 +1,7 @@
 import React from "react";
-
-import Auth from "components/auth";
+// import { getCurrentUser } from "api/login";
+// import Auth from "components/auth";
+// import { useEffect } from "react";
 
 // import { useState } from "react";
 // import { UserContext } from "components/userContext";
@@ -13,8 +14,7 @@ const RedirectPage = () => {
 
   return (
     <>
-      <Auth />
-
+      {/* <Auth /> */}
       <div style={{ height: "50px" }}>
         []
         {/* 유저 이름 : {currentUser ? currentUser.email : null} */}
@@ -24,6 +24,7 @@ const RedirectPage = () => {
       {/* 로그인 안 한 상태면, 로그인 페이지로
           한 상태면 role에 따라 분기처리
       */}
+
       {/*       
       {user.auth ? (
         user.role == "USER" ? (

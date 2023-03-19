@@ -34,7 +34,7 @@ const postData = async inputs => {
   // console.log("post data", inputs);
   try {
     await axios
-      .post(Utils.baseUrl + `/api/v1/foods`, inputs, { withCredentials: true })
+      .post(Utils.BASE_URL + `/api/v1/foods`, inputs, { withCredentials: true })
       .then(res => {
         console.log(res);
         if (res.status === 201) {
@@ -530,7 +530,7 @@ const FilledForm = ({ foodId }) => {
     const fetchData = async () => {
       try {
         await axios
-          .get(Utils.baseUrl + `/api/v1/foods/` + foodId, {
+          .get(Utils.BASE_URL + `/api/v1/foods/` + foodId, {
             withCredentials: true
           })
           .then(res => {

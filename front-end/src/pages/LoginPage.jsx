@@ -7,6 +7,8 @@ import Footer from "components/footer";
 import { useContext } from "react";
 import { UserContext } from "components/userContext";
 
+import { getCurrentUser } from "api/login";
+
 const Header = props => {
   return (
     <header className="header">
@@ -17,13 +19,13 @@ const Header = props => {
 
 const SocialButton = props => {
   // const [RequestURL, setRequestURL] = useState("");
-  let RequestUrl = "";
-  const authUrl = Utils.baseUrl + "/oauth2/authorization";
+  let requestUrl = "";
+  const authUrl = Utils.BASE_URL + "/oauth2/authorization";
 
   if (props.name === "google") {
-    RequestUrl = authUrl + "/google";
+    requestUrl = authUrl + "/google";
   } else if (props.name === "kakao") {
-    RequestUrl = authUrl + "/kakao";
+    requestUrl = authUrl + "/kakao";
   }
 
   return (
@@ -32,25 +34,31 @@ const SocialButton = props => {
       className="btn_login"
       id={props.id}
       name={props.name}
-      onClick={() => {
-        window.location.href = RequestUrl;
-      }}
+      onClick={() => props.loginButtonHandler(requestUrl)}
     >
       <span className="btn_text">{props.children}</span>
     </button>
   );
 };
 
-const LoginContainer = () => {
+const LoginContainer = loginButtonHandler => {
   return (
     <div id="login-container" className="container">
       <div id="login_inner" className="container_inner">
         <div className="login_wrap">
           <div id="social_login_wrap">
-            <SocialButton id="login-google" name="google">
+            <SocialButton
+              id="login-google"
+              name="google"
+              loginButtonHandler={loginButtonHandler}
+            >
               구글로 로그인
             </SocialButton>
-            <SocialButton id="login-kakao" name="kakao">
+            <SocialButton
+              id="login-kakao"
+              name="kakao"
+              loginButtonHandler={loginButtonHandler}
+            >
               카카오 로그인
             </SocialButton>
           </div>
@@ -68,10 +76,26 @@ function LoginPage() {
     console.info("User Auth Not Pass");
   }
 
+  const isLoggedIn = async () => {
+    const userProfileResponse = await getCurrentUser();
+    return userProfileResponse !== null;
+  };
+
+  const loginButtonHandler = async requestUrl => {
+    const isUserLoggedIn = await isLoggedIn();
+
+    if (isUserLoggedIn) {
+      console.log("이미 로그인된 유저");
+    } else {
+      window.location.href = requestUrl;
+    }
+    return;
+  };
+
   return (
     <div id="wrap" className="wrap">
       <Header>혈당당</Header>
-      <LoginContainer />
+      <LoginContainer loginButtonHandler={loginButtonHandler} />
       <Footer />
     </div>
   );

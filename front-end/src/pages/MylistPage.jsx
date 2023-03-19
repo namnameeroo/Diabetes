@@ -136,7 +136,7 @@ const MylistPage = () => {
     const fetchData = async () => {
       try {
         await axios
-          .get(Utils.baseUrl + `/api/v1/foods`, { withCredentials: true })
+          .get(Utils.BASE_URL + `/api/v1/foods`, { withCredentials: true })
           .then(res => {
             setFoodlist(res.data.result.content);
           });
