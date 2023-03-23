@@ -11,7 +11,7 @@ import Utils from "utils";
  */
 export const getCurrentUser = async () => {
   try {
-    const userValidRes = await axios.get(`${Utils.BASE_URL}/api/v1/users/me`, {
+    const userValidRes = await axios.get(Utils.BASE_URL + `/api/v1/users/me`, {
       withCredentials: true // 쿠키 정보 공유
     });
 
