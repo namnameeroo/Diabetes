@@ -13,11 +13,7 @@ const routerData = [
     id: 0,
     path: "/",
     label: "HOME",
-    element: (
-      <>
-        <div>home</div>
-      </>
-    ),
+    element: <LoginPage />,
     withAuth: false
   },
   {
