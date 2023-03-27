@@ -4,8 +4,8 @@ import "styles/main.css";
 import Utils from "utils";
 import Footer from "components/footer";
 
-import { useContext } from "react";
-import { UserContext } from "components/userContext";
+// import { useContext } from "react";
+// import { UserContext } from "components/userContext";
 
 import { getCurrentUser } from "api/login";
 
@@ -69,12 +69,12 @@ const LoginContainer = ({ loginButtonHandler }) => {
 };
 
 function LoginPage() {
-  const { user } = useContext(UserContext); // !important
-  if (user && user.auth) {
-    console.info(user, "User Auth Pass");
-  } else {
-    console.info("User Auth Not Pass");
-  }
+  // const { user } = useContext(UserContext); // !important
+  // if (user && user.auth) {
+  //   console.info(user, "User Auth Pass");
+  // } else {
+  //   console.info("User Auth Not Pass");
+  // }
 
   const isLoggedIn = async () => {
     const userProfileResponse = await getCurrentUser();
