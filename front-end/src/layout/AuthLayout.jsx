@@ -24,9 +24,9 @@ const AuthLayout = ({ children, isAdminPage }) => {
     fetchUserProfile();
   }, [children]);
 
-  if (isAdminPage && userProfile.userInfo.role != "Admin") {
+  if (isAdminPage && userProfile.role != "Admin") {
     alert("권한이 없습니다.");
-    // routeTo("/mylist");
+    routeTo("/mylist");
     return;
   }
 
