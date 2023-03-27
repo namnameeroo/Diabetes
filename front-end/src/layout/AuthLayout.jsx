@@ -8,6 +8,7 @@ const AuthLayout = ({ children, isAdminPage }) => {
   const [userProfile, setUserProfile] = useState({
     userInfo: { role: "user" }
   });
+  const ADMIN = "ADMIN";
   const { routeTo } = useRouter();
   const fetchUserProfile = useCallback(async () => {
     const userProfileResponse = await getCurrentUser();
@@ -24,7 +25,7 @@ const AuthLayout = ({ children, isAdminPage }) => {
     fetchUserProfile();
   }, [children]);
 
-  if (isAdminPage && userProfile.role != "Admin") {
+  if (isAdminPage && userProfile.role != ADMIN) {
     alert("권한이 없습니다.");
     routeTo("/mylist");
     return;

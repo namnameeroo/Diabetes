@@ -2,11 +2,9 @@ import axios from "axios";
 import Utils from "utils";
 
 /**
- *
  * @typedef {Object} userData
  * @property {name}
  * @property {token}
- *
  * @returns userData || null
  */
 export const getCurrentUser = async () => {
@@ -15,21 +13,15 @@ export const getCurrentUser = async () => {
       withCredentials: true // 쿠키 정보 공유
     });
 
-    console.log(
-      "🚀 ~ file: login.jsx:16 ~ getCurrentUser ~ userValidRes:",
-      userValidRes
-    );
-
-    // 반환값 체크
+    // 세션의 user validation 체크
     if (userValidRes.status == "200") {
-      console.log(userValidRes.data.result);
-      console.log("getCurrentUser api success");
-
+      console.log("getCurrentUser success");
       return userValidRes.data.result;
     } else {
-      console.log("getCurrentUser api fail");
+      console.log("getCurrentUser fail");
     }
   } catch (error) {
+    // 쿠키 없을 때 주로 여기로 걸림
     console.error(error);
   }
   return null;
