@@ -9,9 +9,6 @@ import "styles/main.css";
 import Top from "components/top";
 import RouteButton from "components/plusButton";
 
-import { useContext } from "react";
-import { UserContext } from "components/userContext";
-
 const Table = styled.table`
   border-collapse: collapse;
   text-align: left;
@@ -116,18 +113,6 @@ const ListElement = props => {
 };
 
 const MylistPage = () => {
-  const { user } = useContext(UserContext); // !important
-  console.log("🚀 ~ file: mylist.jsx:119 ~ MylistPage ~ User", user);
-
-  if (!!user && user.auth) {
-    console.log(
-      "🚀 ~ file: mylist.jsx:128 ~ MylistPage ~ user.role",
-      user.role
-    );
-  } else {
-    // 잘못된 접근
-    console.error("wrong access");
-  }
   /* eslint-disable */
   const [foodlist, setFoodlist] = useState([]);
   const [foodIndex, setFoodIndex] = useState(0);

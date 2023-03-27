@@ -1,7 +1,6 @@
 /* User 정보 들고 있는 컴포*/
 import React from "react";
 import axios from "axios";
-// import { Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "components/userContext";
 import { useState, useEffect } from "react";
@@ -42,7 +41,7 @@ const Auth = () => {
             console.log(user);
 
             // if (data.role == "ADMIN") {
-            //   setRedirectUrl(Utils.baseUrl + `/adminUserList`);
+            //   setRedirectUrl(Utils.baseUrl + `/userlist`);
             // } else if (data.role == "USER") {
             //   setRedirectUrl(Utils.baseUrl + `/mylist`);
             // }

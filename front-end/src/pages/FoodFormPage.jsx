@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import axios from "axios";
 import Utils from "utils";
@@ -10,12 +10,9 @@ import Footer from "components/footer";
 import ResultToggle from "components/toggle";
 import { getGl } from "components/gl";
 
-import { UserContext } from "components/userContext";
-
 import { useNavigate } from "react-router-dom";
 
 import "styles/main.css";
-import { useContext } from "react";
 
 const PageTitle = props => {
   return (
@@ -570,26 +567,14 @@ const FilledForm = ({ foodId }) => {
 
 const FoodFormPage = () => {
   const { foodId } = useParams();
-  const { user } = useContext(UserContext);
-  /*
-    const [visibility, setVisibility] = useState(false);
-    const popupCloseHandler = (e) => {
-      setVisibility(e);
-    };
-  */
-  console.log("login 상태 - foodForm jsx", user.auth);
 
   return (
     <>
-      {user ? (
-        <div id="wrap" className="wrap">
-          <Top />
-          {!foodId ? <NewForm /> : <FilledForm foodId={foodId} />}
-          <Footer />
-        </div>
-      ) : (
-        <Navigate to="/login" />
-      )}
+      <div id="wrap" className="wrap">
+        <Top />
+        {!foodId ? <NewForm /> : <FilledForm foodId={foodId} />}
+        <Footer />
+      </div>
     </>
   );
 };

@@ -17,9 +17,11 @@ export const getCurrentUser = async () => {
 
     console.log(
       "🚀 ~ file: login.jsx:16 ~ getCurrentUser ~ userValidRes:",
-      userValidRes
+      JSON.stringify(userValidRes)
     );
-    if (userValidRes.ok) {
+
+    // 반환값 체크
+    if (userValidRes.statusText == "OK") {
       console.log(JSON.stringify(userValidRes.data));
       return userValidRes;
     } else {
