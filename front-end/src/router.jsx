@@ -7,7 +7,7 @@ import FoodFormPage from "pages/FoodFormPage";
 import MylistPage from "pages/MylistPage";
 import RedirectPage from "pages/RedirectPage";
 import UserlistPage from "pages/UserlistPage";
-// import AuthLayout from "layout/AuthLayout";
+import AuthLayout from "layout/AuthLayout";
 const routerData = [
   {
     id: 0,
@@ -84,27 +84,28 @@ const TestFooter = () => {
 };
 const routers = createBrowserRouter(
   routerData.map(router => {
-    // if (router.withAuth) {
-    //   return {
-    //     path: router.path,
-    //     element: (
-    //       <AuthLayout
-    //         isAdminPage={router.isAdminPage ? router.isAdminPage : null}
-    //       >
-    //         {router.element}
-    //       </AuthLayout>
-    //     )
-    //   };
-    // }
-    return {
-      path: router.path,
-      element: (
-        <>
-          {router.element}
-          <TestFooter />
-        </>
-      )
-    };
+    if (router.withAuth) {
+      return {
+        path: router.path,
+        element: (
+          <AuthLayout
+            isAdminPage={router.isAdminPage ? router.isAdminPage : null}
+          >
+            {router.element}
+          </AuthLayout>
+        )
+      };
+    } else {
+      return {
+        path: router.path,
+        element: (
+          <>
+            {router.element}
+            <TestFooter />
+          </>
+        )
+      };
+    }
   })
 );
 
