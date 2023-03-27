@@ -17,13 +17,15 @@ export const getCurrentUser = async () => {
 
     console.log(
       "🚀 ~ file: login.jsx:16 ~ getCurrentUser ~ userValidRes:",
-      JSON.stringify(userValidRes)
+      userValidRes
     );
 
     // 반환값 체크
-    if (userValidRes.statusText == "OK") {
-      console.log(JSON.stringify(userValidRes.data));
-      return userValidRes;
+    if (userValidRes.status == "200") {
+      console.log(userValidRes.data.result);
+      console.log("getCurrentUser api success");
+
+      return userValidRes.data.result;
     } else {
       console.log("getCurrentUser api fail");
     }
