@@ -1,6 +1,6 @@
 import React from "react";
 // import { useState } from "react";
-import { createBrowserRouter, Link } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 
 import LoginPage from "pages/LoginPage";
 import FoodFormPage from "pages/FoodFormPage";
@@ -61,27 +61,6 @@ const routerData = [
   }
 ];
 
-const TestFooter = () => {
-  return (
-    <div className="link-for-test">
-      <li>
-        <Link to="/login">로그인페이지로</Link>
-      </li>
-      <li>
-        <Link to="/foodForm">입력페이지로</Link>
-      </li>
-      <li>
-        <Link to="/mylist">입력목록 페이지로</Link>
-      </li>
-      <li>
-        <Link to="/userlist">(어드민) 유저목록 페이지로</Link>
-      </li>
-      <li>
-        <Link to="/login/redirect"> 리다이렉트 페이지로</Link>
-      </li>
-    </div>
-  );
-};
 const routers = createBrowserRouter(
   routerData.map(router => {
     if (router.withAuth) {
@@ -98,12 +77,7 @@ const routers = createBrowserRouter(
     } else {
       return {
         path: router.path,
-        element: (
-          <>
-            {router.element}
-            <TestFooter />
-          </>
-        )
+        element: router.element
       };
     }
   })
