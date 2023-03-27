@@ -69,13 +69,7 @@ const LoginContainer = ({ loginButtonHandler }) => {
 };
 
 function LoginPage() {
-  // const { user } = useContext(UserContext); // !important
-  // if (user && user.auth) {
-  //   console.info(user, "User Auth Pass");
-  // } else {
-  //   console.info("User Auth Not Pass");
-  // }
-
+  // 유저 정보 api 요청, null check
   const isLoggedIn = async () => {
     const userProfileResponse = await getCurrentUser();
     return userProfileResponse !== null;
