@@ -1,4 +1,5 @@
 import React from "react";
+/* eslint-disable */
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
@@ -6,86 +7,17 @@ import axios from "axios";
 import Utils from "utils";
 
 import Top from "components/top";
+import PageTitle from "components/pageTitle";
 import Footer from "components/footer";
 import ResultToggle from "components/toggle";
 import { getGl } from "components/gl";
 
 import { useNavigate } from "react-router-dom";
+import db from "db.json";
+import { FORM_ITEMS } from "const/formItems";
 
 import "styles/main.css";
 
-const PageTitle = props => {
-  return (
-    <h3 className="page_title">
-      <div className="page_title_inner">{props.children}</div>
-    </h3>
-  );
-};
-
-const PopUpSuccess = msg => {
-  // 모달로 바꿔야 함
-  alert(msg);
-};
-
-const postData = async inputs => {
-  // console.log("post data", inputs);
-  try {
-    await axios
-      .post(Utils.BASE_URL + `/api/v1/foods`, inputs, { withCredentials: true })
-      .then(res => {
-        console.log(res);
-        if (res.status === 201) {
-          PopUpSuccess("결과가 저장되었습니다.");
-        }
-      });
-  } catch (e) {
-    console.error(e);
-  }
-};
-
-const Today = () => {
-  let now = new Date();
-  let todayYear = now.getFullYear();
-  let todayMonth = now.getMonth() + 1;
-  let todayDay = now.getDate();
-
-  return (
-    <div className="right-align small-txt gray-txt">
-      작성일 : {[todayYear, todayMonth, todayDay].join("-")}
-    </div>
-  );
-};
-
-const InputCell = ({ label, onChangeInput, value, placeHolder }) => {
-  return (
-    <div className="input_item" id="input_item_id">
-      <input
-        className="input_text"
-        name={label}
-        onChange={onChangeInput}
-        value={value}
-        placeholder={placeHolder}
-      ></input>
-    </div>
-  );
-};
-
-const getNumOnly = input => {
-  let nums = input.replaceAll(/[^0-9.]*/g, "");
-  if (nums.at(-1) === ".") {
-    return parseInt(nums).toString() + ".";
-  } else {
-    nums = parseFloat(nums);
-  }
-  if (!nums) {
-    nums = 0;
-  }
-  return nums;
-};
-
-/**
- * EVENT
- */
 const SubmitButton = props => {
   return (
     <div className="btn_wrap">
@@ -100,15 +32,50 @@ const SubmitButton = props => {
     </div>
   );
 };
+const handleSubmitClick = async e => {
+  console.log(e.target, "submit target check");
+  console.log("저장합니다.");
 
-const onSubmit = e => {
-  e.preventDefault(); // 폼전송시 리액트 상태 초기화를 막음
+  // if (inputs.gl === "" || !toggleOpen) {
+  //   onToggle();
+  //   const post = await postFood(inputs);
+  //   if (post) {
+  //     () => confirm("저장했습니다. 목록페이지로 이동합니다.") && navigate(-1);
+  //     // 이전 페이지로 이동
+  //   }
+  // } else if (formValidation()) {
+  //   const post = await postFood(inputs);
+  //   if (post) {
+  //     () => confirm("저장했습니다. 목록페이지로 이동합니다.") && navigate(-1);
+  //     // 이전 페이지로 이동
+  //   }
+  // }
+
+  /**
+   * 저장 후 액션을 'food/info/:id' 로 이동하도록 하기
+   * => 수정하기 버튼 && readonly 인지 확인
+   */
 };
 
-/* eslint-disable-next-line*/
-const InputForm = ({ dataset }) => {
-  const [inputs, setInputs] = React.useState({
-    foodName: "",
+const FormContent = ({ dataset, isEditable }) => {
+  // const [infos, setInfos] = useState({
+  // foodName: "",
+  // provider: "",
+  // entireWeight: "",
+  // calories: "",
+  // carbohydrate: "",
+  // protein: "",
+  // fat: "",
+  // fiber: "",
+  // intake: "",
+  // remains: "",
+  // gl: "",
+  // result: ""
+  // });
+
+  const [inputs, setInputs] = useState({
+    name: "", // == foodName, 반환 데이터 키가 name
+    // foodName: "",
     provider: "",
     entireWeight: "",
     calories: "",
@@ -122,22 +89,34 @@ const InputForm = ({ dataset }) => {
     result: ""
   });
 
-  // 기존 입력값 있을 때,
   useEffect(() => {
-    console.log("기존 입력값");
+    // dataset 세팅
     if (dataset) {
-      console.log("🚀 ~ file: foodForm.jsx:124 ~ useEffect ~ dataset", dataset);
+      console.log(
+        "🚀 ~ file: FoodFormTest.jsx:80 ~ useEffect ~ dataset:",
+        dataset
+      );
       setInputs({ ...dataset });
     }
-  }, []);
+  }, [dataset]);
 
-  // prettier-ignore
   /* eslint-disable-next-line*/
-  const {userId, foodName, provider, entireWeight, calories, carbohydrate, protein, fat, fiber, intake, remains, gl, result} = inputs;
-
-  const setMsg = msg => {
-    console.log(msg);
-  };
+  // const {
+  //   userId,
+  //   name,
+  //   foodName,
+  //   provider,
+  //   entireWeight,
+  //   calories,
+  //   carbohydrate,
+  //   protein,
+  //   fat,
+  //   fiber,
+  //   intake,
+  //   remains,
+  //   gl,
+  //   result
+  // } = inputs;
 
   const onChangeInput = e => {
     const { name, value } = e.target;
@@ -147,6 +126,33 @@ const InputForm = ({ dataset }) => {
       [name]: value
     };
     setInputs(nextInput);
+  };
+
+  const onChangeInputForNum = e => {
+    const getNumOnly = content => {
+      let nums = content.replaceAll(/[^0-9.]*/g, "");
+      if (nums.at(-1) === ".") {
+        return parseInt(nums).toString() + ".";
+      } else {
+        nums = parseFloat(nums);
+      }
+      if (!nums) {
+        nums = 0;
+      }
+      return nums;
+    };
+
+    const { name, value } = e.target;
+    if (isNaN(value)) {
+      setMsg("숫자만 입력해주세요.");
+    }
+    const nextInput = {
+      ...inputs,
+      [name]: getNumOnly(value)
+    };
+    setInputs(nextInput);
+    // setToggleOpen(false);
+    // 값이 변경되면 GL 결과를 다시 닫음
   };
 
   const formValidation = () => {
@@ -181,39 +187,11 @@ const InputForm = ({ dataset }) => {
     );
 
     setInputs(nextInput);
-    console.log(inputs);
+    console.log(JSON.stringify(inputs));
   };
 
-  const onChangeInputForNum = e => {
-    const { name, value } = e.target;
-    if (isNaN(value)) {
-      setMsg("숫자만 입력해주세요.");
-    }
-    const nextInput = {
-      ...inputs,
-      [name]: getNumOnly(value)
-    };
-    setInputs(nextInput);
-    setToggleOpen(false);
-    // 값이 변경되면 GL 결과를 다시 닫음
-  };
-  const navigate = useNavigate();
-  const handleSubmitClick = async () => {
-    console.log("submit button clicked");
-    inputs.name = inputs.foodName; // 키 달랐던 거 추가,
-
-    if (inputs.gl === "" || !toggleOpen) {
-      onToggle();
-      await postData(inputs).then(
-        () => confirm("저장했습니다. 목록페이지로 이동합니다.") && navigate(-1)
-        // 이전 페이지로 이동
-      );
-    } else if (formValidation()) {
-      await postData(inputs).then(
-        () => confirm("저장했습니다. 목록페이지로 이동합니다.") && navigate(-1)
-        // 이전 페이지로 이동
-      );
-    }
+  const onSubmit = e => {
+    e.preventDefault(); // 폼전송시 리액트 상태 초기화를 막음
   };
 
   return (
@@ -222,361 +200,97 @@ const InputForm = ({ dataset }) => {
         <div className="main_wrap table_wrap">
           <table className="simple_font form-table">
             <tbody>
-              <tr>
-                <td className="pad-right-10">제품명</td>
-                <td>
-                  <InputCell
-                    label="foodName"
-                    onChangeInput={onChangeInput}
-                    placeHolder={"제품명을 적어주세요"}
-                    value={inputs.foodName ? inputs.foodName : ""}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td className="pad-right-10">업체명</td>
-                <td>
-                  <InputCell
-                    label="provider"
-                    onChangeInput={onChangeInput}
-                    value={inputs.provider ? inputs.provider : ""}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td className="pad-right-10">
-                  총량&nbsp; &nbsp; &nbsp; &nbsp;(g)
-                </td>
-                <td>
-                  <InputCell
-                    label="entireWeight"
-                    types="number"
-                    onChangeInput={onChangeInputForNum}
-                    placeHolder={0}
-                    value={inputs.entireWeight}
-                  />
-                </td>
-              </tr>
-
-              <tr>
-                <td className="pad-right-10">섭취량&nbsp; &nbsp; &nbsp;(%)</td>
-                <td>
-                  {/* <InputCell label="intake" types="number" onChangeInput={onChangeInputForNum} value={inputs.intake ? inputs.intake : 0} /> */}
-                  <InputCell
-                    label="intake"
-                    types="number"
-                    onChangeInput={onChangeInputForNum}
-                    placeHolder={0}
-                    value={inputs.intake}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td className="pad-right-10">칼로리&nbsp; &nbsp; &nbsp;(g)</td>
-                <td>
-                  <InputCell
-                    label="calories"
-                    types="number"
-                    onChangeInput={onChangeInputForNum}
-                    placeHolder={0}
-                    value={inputs.calories}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td className="pad-right-10">탄수화물 (g)</td>
-                <td>
-                  <InputCell
-                    label="carbohydrate"
-                    types="number"
-                    onChangeInput={onChangeInputForNum}
-                    placeHolder={0}
-                    value={inputs.carbohydrate}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td className="pad-right-10">단백질&nbsp; &nbsp; &nbsp;(g)</td>
-                <td>
-                  <InputCell
-                    label="protein"
-                    types="number"
-                    onChangeInput={onChangeInputForNum}
-                    placeHolder={0}
-                    value={inputs.protein}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td className="pad-right-10">
-                  지방&nbsp; &nbsp; &nbsp; &nbsp; (g)
-                </td>
-                <td>
-                  <InputCell
-                    label="fat"
-                    types="number"
-                    onChangeInput={onChangeInputForNum}
-                    placeHolder={0}
-                    value={inputs.fat}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td className="pad-right-10">식이섬유 (g)</td>
-                <td>
-                  <InputCell
-                    label="fiber"
-                    types="number"
-                    onChangeInput={onChangeInputForNum}
-                    placeHolder={0}
-                    value={inputs.fiber}
-                  />
-                </td>
-              </tr>
+              {FORM_ITEMS.map((item, key) => {
+                return (
+                  <tr key={key}>
+                    <td className="pad-right-10 space-between">
+                      <span>{item.title}</span>
+                      <span className="gray-txt">{item.unitsign}</span>
+                    </td>
+                    <td>
+                      <div className="input_item" id="input_item_id">
+                        <input
+                          className="input_text"
+                          name={item.label}
+                          onChange={
+                            item.types == "number"
+                              ? onChangeInputForNum
+                              : onChangeInput
+                          }
+                          value={inputs[item.label] ? inputs[item.label] : ""}
+                          placeholder={item.placeholder && item.placeholder}
+                          types={item.types && item.types}
+                          disabled={!isEditable}
+                        ></input>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
       </form>
 
-      <ResultToggle
-        onToggle={onToggle}
-        open={toggleOpen}
-        result={inputs.result}
-        gl={inputs.gl}
-      >
+      <ResultToggle result={inputs.result} gl={inputs.gl}>
         결 과 보 기
       </ResultToggle>
-      <SubmitButton handleSubmitClick={handleSubmitClick}>저 장</SubmitButton>
-
-      {/*  모달... <button onClick={(e) => setVisibility(!visibility)}>Toggle Popup</button>
-        <CustomPopup onClose={popupCloseHandler} show={visibility} title="Hello Jeetendra">
-          <h1>Hello This is Popup Content Area</h1>
-          <h2>This is my lorem ipsum text here!</h2>
-        </CustomPopup> */}
     </>
   );
 };
 
-const NewForm = ({ dataset }) => {
-  return (
-    <>
-      <PageTitle>음식 정보 입력하기</PageTitle>
-      <div id="main_form_container" className="container">
-        <div id="main_form_inner" className="container_inner table_container">
-          <Today />
-          <InputForm dataset={dataset} />
-        </div>
-      </div>
-    </>
-  );
-};
-
-const InfoForm = ({ dataset, handleEditable }) => {
-  const [infos, setInfos] = useState({
-    foodName: "",
-    provider: "",
-    entireWeight: "",
-    calories: "",
-    carbohydrate: "",
-    protein: "",
-    fat: "",
-    fiber: "",
-    intake: "",
-    remains: "",
-    gl: "",
-    result: ""
-  });
-
-  useEffect(() => {
-    if (dataset) {
-      console.log("🚀 ~ file: foodForm.jsx:395 ~ useEffect ~ dataset", dataset);
-      setInfos({ ...dataset });
-    }
-  }, []);
-
-  const InfoCell = ({ label, value }) => {
-    return (
-      // <div className="input_item" id="input_item_id">
-      <div className="info_text" name={label}>
-        {value}
-      </div>
-      // </div>
-    );
-  };
-
-  return (
-    <>
-      <form onSubmit={onSubmit}>
-        <div className="main_wrap table_wrap">
-          <table className="simple_font form-table">
-            <tbody>
-              <tr>
-                <td className="pad-right-10 tr-title">제품명</td>
-                <td>
-                  <InfoCell
-                    label="foodName"
-                    value={infos.foodName ? infos.foodName : ""}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td className="pad-right-10">업체명</td>
-                <td>
-                  <InfoCell
-                    label="provider"
-                    value={infos.provider ? infos.provider : ""}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td className="pad-right-10">
-                  총량&nbsp; &nbsp; &nbsp; &nbsp;(g)
-                </td>
-                <td>
-                  <InfoCell
-                    label="entireWeight"
-                    types="number"
-                    value={infos.entireWeight ? infos.entireWeight : ""}
-                  />
-                </td>
-              </tr>
-
-              <tr>
-                <td className="pad-right-10">섭취량&nbsp; &nbsp; &nbsp;(%)</td>
-                <td>
-                  <InfoCell
-                    label="intake"
-                    types="number"
-                    value={infos.intake ? infos.intake : ""}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td className="pad-right-10">칼로리&nbsp; &nbsp; &nbsp;(g)</td>
-                <td>
-                  <InfoCell
-                    label="calories"
-                    types="number"
-                    value={infos.calories ? infos.calories : ""}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td className="pad-right-10">탄수화물 (g)</td>
-                <td>
-                  <InfoCell
-                    label="carbohydrate"
-                    types="number"
-                    value={infos.carbohydrate ? infos.carbohydrate : ""}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td className="pad-right-10">단백질&nbsp; &nbsp; &nbsp;(g)</td>
-                <td>
-                  <InfoCell
-                    label="protein"
-                    types="number"
-                    value={infos.protein ? infos.protein : ""}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td className="pad-right-10">
-                  지방&nbsp; &nbsp; &nbsp; &nbsp; (g)
-                </td>
-                <td>
-                  <InfoCell
-                    label="fat"
-                    types="number"
-                    value={infos.fat ? infos.fat : ""}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td className="pad-right-10">식이섬유 (g)</td>
-                <td>
-                  <InfoCell
-                    label="fiber"
-                    types="number"
-                    value={infos.fiber ? infos.fiber : ""}
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </form>
-
-      <ResultToggle result={infos.result} gl={infos.gl}>
-        결 과 보 기
-      </ResultToggle>
-      <SubmitButton handleSubmitClick={handleEditable}>수정 하기</SubmitButton>
-    </>
-  );
-};
-
-const FilledForm = ({ foodId }) => {
-  const [dataset, setDataset] = useState({});
-  const [editable, setEditable] = useState(false);
-  const handleEditable = bool => {
-    setEditable(bool);
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await axios
-          .get(Utils.BASE_URL + `/api/v1/foods/` + foodId, {
-            withCredentials: true
-          })
-          .then(res => {
-            console.log(foodId, "getFoodInfo");
-
-            setDataset({ ...res.data.result });
-            console.log(
-              "🚀 ~ file: foodForm.jsx:374 ~ InfoForm ~ response",
-              res.data.result
-            );
-          });
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    fetchData();
-  }, []);
-
-  return (
-    <>
-      <PageTitle>입력 정보 수정하기</PageTitle>
-
-      <div id="info_container" className="container">
-        <div id="info_inner" className="container_inner table_container">
-          <Today />
-          {!editable ? (
-            <InfoForm dataset={dataset} handleEditable={handleEditable} />
-          ) : (
-            <InputForm dataset={dataset} />
-          )}
-          {/* <InputForm dataset={dataset} /> */}
-        </div>
-      </div>
-    </>
-  );
-};
-
-const FoodFormPage = () => {
+const FoodFormTest = () => {
   const { foodId } = useParams();
+  const [isReadOnly, setIsReadOnly] = useState(false);
+  const [dataset, setDataset] = useState({});
+
+  const handleEditable = bool => {
+    // setIsReadOnly(!bool);
+    setIsReadOnly(false);
+    console.log(isReadOnly);
+  };
+
+  useEffect(() => {
+    if (foodId) {
+      // fetch 요청
+      // data setting
+      console.log(db.foodlist); // !!!! 여기 제거 해야 함
+      setDataset(db.foodlist.result[0]); // !!!! 여기 제거
+      setIsReadOnly(true);
+    } else {
+      setIsReadOnly(false);
+    }
+  }, [foodId]);
 
   return (
     <>
       <div id="wrap" className="wrap">
         <Top />
-        {!foodId ? <NewForm /> : <FilledForm foodId={foodId} />}
+
+        <PageTitle>{foodId ? "입력값 수정하기" : "새로  입력하기"}</PageTitle>
+
+        <div id="info_container" className="container">
+          <div id="info_inner" className="container_inner table_container">
+            <FormContent
+              dataset={dataset ? dataset : null}
+              isEditable={isReadOnly ? false : true}
+            />
+
+            {isReadOnly ? (
+              <SubmitButton handleSubmitClick={handleEditable}>
+                수 정 하 기
+              </SubmitButton>
+            ) : (
+              <SubmitButton handleSubmitClick={handleSubmitClick}>
+                저 장 하 기
+              </SubmitButton>
+            )}
+          </div>
+        </div>
+
         <Footer />
       </div>
     </>
   );
 };
-
-export default FoodFormPage;
+export default FoodFormTest;
