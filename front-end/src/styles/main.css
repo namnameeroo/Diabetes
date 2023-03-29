@@ -166,7 +166,7 @@ button#login-kakao {
   overflow: hidden;
   width: 98%;
   height: 3.3em;
-  margin: 0 8px 8px 0;
+  /* margin: 0 8px 8px 0;  => tr 로 이동*/
   padding: 5px 39px 5px 11px;
   border: solid 1px #dadada;
   background: #fff;
@@ -217,11 +217,13 @@ table td {
   /* align-content: center; */
   justify-content: center;
   align-items: center;
+  margin: 0 8px 8px 0;
 }
 
 .form-table td:first-child {
-  min-width: 15%;
-  max-width: 20%;
+  /* min-width: 15%; */
+  /* max-width: 20%; */
+  width: 19%;
 }
 table td:last-child {
   flex-grow: 1;
@@ -260,4 +262,9 @@ table td:last-child {
 .link-for-test {
   position: relative;
   top: -80px;
+}
+
+.space-between {
+  display: flex;
+  justify-content: space-between;
 }

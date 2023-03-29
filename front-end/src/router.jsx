@@ -1,13 +1,17 @@
 import React from "react";
-// import { useState } from "react";
-import { createBrowserRouter, Link } from "react-router-dom";
+
+import { createBrowserRouter } from "react-router-dom";
 
 import LoginPage from "pages/LoginPage";
+/*eslint-disable */
 import FoodFormPage from "pages/FoodFormPage";
 import MylistPage from "pages/MylistPage";
 import RedirectPage from "pages/RedirectPage";
 import UserlistPage from "pages/UserlistPage";
 import AuthLayout from "layout/AuthLayout";
+
+/*eslint-disable */
+import FoodFormTest from "pages/FoodFormTest";
 const routerData = [
   {
     id: 0,
@@ -34,15 +38,17 @@ const routerData = [
     id: 3,
     path: "/foodForm",
     label: "음식 입력 페이지",
-    element: <FoodFormPage />,
-    withAuth: true
+    // element: <FoodFormPage />, // 여기도
+    element: <FoodFormTest />, // 여기도
+    withAuth: false // !!!! 여기 제거 해야 함
   },
   {
     id: 4,
     path: "/foodForm/info/:foodId",
     label: "음식 입력 결과 페이지",
-    element: <FoodFormPage />,
-    withAuth: true
+    // element: <FoodFormPage />,
+    element: <FoodFormTest />,
+    withAuth: false // !!!! 여기 제거 해야 함
   },
   {
     id: 5,
@@ -61,27 +67,6 @@ const routerData = [
   }
 ];
 
-const TestFooter = () => {
-  return (
-    <div className="link-for-test">
-      <li>
-        <Link to="/login">로그인페이지로</Link>
-      </li>
-      <li>
-        <Link to="/foodForm">입력페이지로</Link>
-      </li>
-      <li>
-        <Link to="/mylist">입력목록 페이지로</Link>
-      </li>
-      <li>
-        <Link to="/userlist">(어드민) 유저목록 페이지로</Link>
-      </li>
-      <li>
-        <Link to="/login/redirect"> 리다이렉트 페이지로</Link>
-      </li>
-    </div>
-  );
-};
 const routers = createBrowserRouter(
   routerData.map(router => {
     if (router.withAuth) {
@@ -98,12 +83,7 @@ const routers = createBrowserRouter(
     } else {
       return {
         path: router.path,
-        element: (
-          <>
-            {router.element}
-            <TestFooter />
-          </>
-        )
+        element: router.element
       };
     }
   })
