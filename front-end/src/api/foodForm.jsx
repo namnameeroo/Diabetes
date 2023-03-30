@@ -51,10 +51,10 @@ export const getFoodById = async foodId => {
   return null;
 };
 
-export const updateFood = async inputs => {
+export const updateFood = async ({ inputs, foodId }) => {
   try {
-    const postFoodRes = await axios.post(
-      Utils.BASE_URL + `/api/v1/foods`,
+    const postFoodRes = await axios.put(
+      Utils.BASE_URL + `/api/v1/foods` + foodId,
       inputs,
       { withCredentials: true }
     );

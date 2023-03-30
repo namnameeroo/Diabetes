@@ -80,7 +80,7 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
 
     if (fetchedData.hasOwnProperty("id") && fetchedData.id) {
       // fetch data 인지, new data 인지 구분
-      const updateRes = await updateFood(inputs);
+      const updateRes = await updateFood(inputs, fetchedData.id);
       if (updateRes) {
         () => confirm("저장했습니다.") && navigate("/foodForm/info/" + "1");
       }
@@ -258,21 +258,20 @@ const FoodFormTest = () => {
 
   useEffect(() => {
     if (foodId) {
-      // fetch 요청
       const getFoodResult = async () => {
         const getFoodResponse = await getFoodById(foodId);
         console.log(
           "🚀 ~ file: FoodFormPage.jsx:260 ~ getFoodResult ~ getFoodResponse:",
           getFoodResponse
         );
-        return getFoodResponse;
       };
 
-      const newFetchedData = getFoodResult();
-      // const newFetchedData = db.foodlist.result[0]; // TODO 제거
-      if (newFetchedData) {
-        setFetchedData(newFetchedData);
+      const fetchedDataRes = getFoodResult();
+      // const fetchedDataRes = db.foodlist.result[0]; // TODO 제거
+      if (fetchedDataRes) {
+        setFetchedData(fetchedDataRes);
         setIsReadOnly(true);
+        console.log("food get api 성공");
       } else {
         console.log("food get api 실패");
       }
