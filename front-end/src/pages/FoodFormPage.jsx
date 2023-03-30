@@ -11,7 +11,7 @@ import PageTitle from "components/pageTitle";
 import Footer from "components/footer";
 import ResultToggle from "components/toggle";
 import { getGl } from "components/gl";
-import postFood from "api/postFood";
+import { postFood } from "api/form";
 
 import { useNavigate } from "react-router-dom";
 import db from "db.json";
@@ -72,6 +72,8 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
    */
   const handleSubmitClick = async e => {
     console.log("저장합니다.");
+    // fetch data 인지, new data 인지 구분해서 api 요청해야 함.
+
     if (inputs.gl === "" || !toggleOpen) {
       // gl결과값 있는 지 확인, toggle open
       onToggle();
@@ -110,7 +112,6 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
 
   const onChangeInput = e => {
     const { name, value } = e.target;
-    console.log(e.target, "target");
     const nextInput = {
       ...inputs,
       [name]: value

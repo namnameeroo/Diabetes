@@ -12,27 +12,24 @@ const PopUpSuccess = msg => {
  *           carbonhydrate, protein, fat, intake, gl,
  *           result, createdDate, modifiedDate}
  * @param {*} inputData
- * @returns boolean
+ * @returns id
  */
-
-const postFood = async inputs => {
+export const postFood = async inputs => {
   try {
     const postFoodRes = await axios
       .post(Utils.BASE_URL + `/api/v1/foods`, inputs, { withCredentials: true })
       .then(res => {
         console.log(res);
-        console.log(JSON.parse(res));
+        console.log(JSON.stringify(res)); // TODO: 제거
       });
-    if (postFoodRes.status == "200") {
+    if (postFoodRes.data.message == "SUCCESS") {
       // status 확인 필요
       PopUpSuccess("결과가 저장되었습니다.");
       return true;
     }
-    console.log(postFoodRes.status); // 제거 예정
+    console.log(postFoodRes.status); // TODO: 제거
     return false;
   } catch (e) {
     console.error(e);
   }
 };
-
-export default postFood;
