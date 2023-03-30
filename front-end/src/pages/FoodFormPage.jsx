@@ -70,30 +70,28 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
    * 저장 버튼 누르면, form에 입력되어 있는 데이터 POST 전송
    * @param {*} e
    */
-  const handleSubmitClick = async e => {
-    console.log("저장합니다.", " is it fetched? => ", fetchedData);
 
+  const handleSubmitClickForUpdate = async () => {
     onToggle();
-    // if (inputs.gl === "" || !toggleOpen) {
-    // gl결과값 있는 지 확인, toggle open
-    // }
+    // fetch data 인지, new data 인지 구분
+    const updateRes = await updateFood(inputs, fetchedData.id);
 
-    if (fetchedData.hasOwnProperty("id") && fetchedData.id) {
-      // fetch data 인지, new data 인지 구분
-      const updateRes = await updateFood(inputs, fetchedData.id);
-      if (updateRes) {
-        () => confirm("저장했습니다.") && navigate("/foodForm/info/" + "1");
-      }
-    } else {
-      const postRes = await postFood(inputs);
-      if (postRes) {
-        () => confirm("저장했습니다.") && navigate("/foodForm/info/" + "1");
-      }
-      /**
-       * 저장 후 액션을 'food/info/:id' 로 이동하도록 하기
-       * navigate("/foodForm/info/" + foodId); 로 이동
-       * => 수정하기 버튼 && readonly 인지 확인
-       */
+    if (updateRes) {
+      () => confirm("저장했습니다.") && navigate("/foodForm/info/" + "1");
+    }
+    /**
+     * 저장 후 액션을 'food/info/:id' 로 이동하도록 하기
+     * navigate("/foodForm/info/" + foodId); 로 이동
+     * => 수정하기 버튼 && readonly 인지 확인
+     */
+  };
+
+  const handleSubmitClickForPost = async () => {
+    onToggle();
+    // fetch data 인지, new data 인지 구분
+    const postRes = await postFood(inputs);
+    if (postRes) {
+      () => confirm("저장했습니다.") && navigate("/foodForm/info/" + "1");
     }
   };
 
@@ -234,7 +232,11 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
       </ResultToggle>
 
       {isEditable ? (
-        <SubmitButton handleSubmitClick={handleSubmitClick}>
+        <SubmitButton
+          handleSubmitClick={
+            fetchedData ? handleSubmitClickForUpdate : handleSubmitClickForPost
+          }
+        >
           저 장 하 기
         </SubmitButton>
       ) : (
