@@ -33,3 +33,21 @@ export const postFood = async inputs => {
     console.error(e);
   }
 };
+
+export const getFoodById = async foodId => {
+  const getFoodByIdRes = await axios
+    .get(Utils.BASE_URL + `/api/v1/foods/` + foodId, {
+      withCredentials: true
+    })
+    .then(res => {
+      console.log(res);
+    });
+
+  try {
+    const result = getFoodByIdRes(); // 표시할 데이터 반환
+    return result;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};

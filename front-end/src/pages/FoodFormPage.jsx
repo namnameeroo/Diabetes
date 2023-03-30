@@ -11,7 +11,7 @@ import PageTitle from "components/pageTitle";
 import Footer from "components/footer";
 import ResultToggle from "components/toggle";
 import { getGl } from "components/gl";
-import { postFood } from "api/form";
+import { postFood, getFoodById } from "api/foodForm";
 
 import { useNavigate } from "react-router-dom";
 import db from "db.json";
@@ -255,10 +255,22 @@ const FoodFormTest = () => {
   useEffect(() => {
     if (foodId) {
       // fetch 요청
-      // data setting
-      console.log(db.foodlist); // !!!! 여기 제거 해야 함
-      setFetchedData(db.foodlist.result[0]); // !!!! 여기 제거
-      setIsReadOnly(true);
+      const getFoodResult = async () => {
+        const getFoodResponse = await getFoodById(foodId);
+        console.log(
+          "🚀 ~ file: FoodFormPage.jsx:260 ~ getFoodResult ~ getFoodResponse:",
+          getFoodResponse
+        );
+        return getFoodResponse;
+      };
+
+      const newFetchedData = getFoodResult();
+      if (newFetchedData) {
+        setFetchedData(newFetchedData);
+        setIsReadOnly(true);
+      } else {
+        console.log("food get api 실패");
+      }
     } else {
       setIsReadOnly(false);
     }
@@ -273,7 +285,9 @@ const FoodFormTest = () => {
         <div id="info_container" className="container">
           <div id="info_inner" className="container_inner table_container">
             <FormContent
-              fetchedData={fetchedData ? fetchedData : null}
+              fetchedData={
+                Object.keys(fetchedData).length != 0 ? fetchedData : null
+              }
               isEditable={isReadOnly ? false : true}
               handleEditable={handleEditable}
             />
