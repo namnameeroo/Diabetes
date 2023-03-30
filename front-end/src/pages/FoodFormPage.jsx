@@ -11,7 +11,7 @@ import PageTitle from "components/pageTitle";
 import Footer from "components/footer";
 import ResultToggle from "components/toggle";
 import { getGl } from "components/gl";
-import { postFood, getFoodById } from "api/foodForm";
+import { postFood, getFoodById, updateFood } from "api/foodForm";
 
 import { useNavigate } from "react-router-dom";
 import db from "db.json";
@@ -71,24 +71,29 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
    * @param {*} e
    */
   const handleSubmitClick = async e => {
-    console.log("저장합니다.");
-    // fetch data 인지, new data 인지 구분해서 api 요청해야 함.
+    console.log("저장합니다.", " is it fetched? => ", fetchedData);
 
-    if (inputs.gl === "" || !toggleOpen) {
-      // gl결과값 있는 지 확인, toggle open
-      onToggle();
-    }
-    if (formValidation()) {
+    onToggle();
+    // if (inputs.gl === "" || !toggleOpen) {
+    // gl결과값 있는 지 확인, toggle open
+    // }
+
+    if (fetchedData.hasOwnProperty("id") && fetchedData.id) {
+      // fetch data 인지, new data 인지 구분
+      const updateRes = await updateFood(inputs);
+      if (updateRes) {
+        () => confirm("저장했습니다.") && navigate("/foodForm/info/" + "1");
+      }
+    } else {
       const postRes = await postFood(inputs);
       if (postRes) {
         () => confirm("저장했습니다.") && navigate("/foodForm/info/" + "1");
-        /**
-         * 저장 후 액션을 'food/info/:id' 로 이동하도록 하기
-         * navigate("/foodForm/info/" + foodId); 로 이동
-         *
-         * => 수정하기 버튼 && readonly 인지 확인
-         */
       }
+      /**
+       * 저장 후 액션을 'food/info/:id' 로 이동하도록 하기
+       * navigate("/foodForm/info/" + foodId); 로 이동
+       * => 수정하기 버튼 && readonly 인지 확인
+       */
     }
   };
 
@@ -249,7 +254,6 @@ const FoodFormTest = () => {
   const handleEditable = bool => {
     // setIsReadOnly(!bool);
     setIsReadOnly(false);
-    console.log(isReadOnly);
   };
 
   useEffect(() => {
@@ -265,6 +269,7 @@ const FoodFormTest = () => {
       };
 
       const newFetchedData = getFoodResult();
+      // const newFetchedData = db.foodlist.result[0]; // TODO 제거
       if (newFetchedData) {
         setFetchedData(newFetchedData);
         setIsReadOnly(true);

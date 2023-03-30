@@ -15,6 +15,13 @@ export const FORM_ITEMS = [
     types: ""
   },
   {
+    title: "총량",
+    unitsign: "(g)",
+    label: "entireWeight",
+    placeholder: "0",
+    types: "number"
+  },
+  {
     title: "섭취량",
     unitsign: "(%)",
     label: "intake",
