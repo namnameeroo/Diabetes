@@ -11,6 +11,7 @@ import PageTitle from "components/pageTitle";
 import Footer from "components/footer";
 import ResultToggle from "components/toggle";
 import { getGl } from "components/gl";
+import postFood from "api/postFood";
 
 import { useNavigate } from "react-router-dom";
 import db from "db.json";
@@ -32,47 +33,8 @@ const SubmitButton = props => {
     </div>
   );
 };
-const handleSubmitClick = async e => {
-  console.log(e.target, "submit target check");
-  console.log("저장합니다.");
 
-  // if (inputs.gl === "" || !toggleOpen) {
-  //   onToggle();
-  //   const post = await postFood(inputs);
-  //   if (post) {
-  //     () => confirm("저장했습니다. 목록페이지로 이동합니다.") && navigate(-1);
-  //     // 이전 페이지로 이동
-  //   }
-  // } else if (formValidation()) {
-  //   const post = await postFood(inputs);
-  //   if (post) {
-  //     () => confirm("저장했습니다. 목록페이지로 이동합니다.") && navigate(-1);
-  //     // 이전 페이지로 이동
-  //   }
-  // }
-
-  /**
-   * 저장 후 액션을 'food/info/:id' 로 이동하도록 하기
-   * => 수정하기 버튼 && readonly 인지 확인
-   */
-};
-
-const FormContent = ({ dataset, isEditable }) => {
-  // const [infos, setInfos] = useState({
-  // foodName: "",
-  // provider: "",
-  // entireWeight: "",
-  // calories: "",
-  // carbohydrate: "",
-  // protein: "",
-  // fat: "",
-  // fiber: "",
-  // intake: "",
-  // remains: "",
-  // gl: "",
-  // result: ""
-  // });
-
+const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
   const [inputs, setInputs] = useState({
     name: "", // == foodName, 반환 데이터 키가 name
     // foodName: "",
@@ -89,16 +51,44 @@ const FormContent = ({ dataset, isEditable }) => {
     result: ""
   });
 
+  /**
+   * fetch된 데이터 존재하면, input 미리 채우기
+   */
   useEffect(() => {
     // dataset 세팅
-    if (dataset) {
+    if (fetchedData) {
       console.log(
         "🚀 ~ file: FoodFormTest.jsx:80 ~ useEffect ~ dataset:",
-        dataset
+        fetchedData
       );
-      setInputs({ ...dataset });
+      setInputs({ ...fetchedData });
     }
-  }, [dataset]);
+  }, [fetchedData]);
+
+  const navigate = useNavigate();
+  /**
+   * 저장 버튼 누르면, form에 입력되어 있는 데이터 POST 전송
+   * @param {*} e
+   */
+  const handleSubmitClick = async e => {
+    console.log("저장합니다.");
+    if (inputs.gl === "" || !toggleOpen) {
+      // gl결과값 있는 지 확인, toggle open
+      onToggle();
+    }
+    if (formValidation()) {
+      const postRes = await postFood(inputs);
+      if (postRes) {
+        () => confirm("저장했습니다.") && navigate("/foodForm/info/" + "1");
+        /**
+         * 저장 후 액션을 'food/info/:id' 로 이동하도록 하기
+         * navigate("/foodForm/info/" + foodId); 로 이동
+         *
+         * => 수정하기 버튼 && readonly 인지 확인
+         */
+      }
+    }
+  };
 
   /* eslint-disable-next-line*/
   // const {
@@ -143,9 +133,10 @@ const FormContent = ({ dataset, isEditable }) => {
     };
 
     const { name, value } = e.target;
-    if (isNaN(value)) {
-      setMsg("숫자만 입력해주세요.");
-    }
+    // if (isNaN(value)) {
+    //   setMsg("숫자만 입력해주세요.");
+    // }
+
     const nextInput = {
       ...inputs,
       [name]: getNumOnly(value)
@@ -172,8 +163,8 @@ const FormContent = ({ dataset, isEditable }) => {
     if (!formValidation()) {
       return;
     }
-
     setToggleOpen(!toggleOpen);
+
     const [newgl, newResult] = getGl(inputs);
     const nextInput = {
       ...inputs,
@@ -191,7 +182,7 @@ const FormContent = ({ dataset, isEditable }) => {
   };
 
   const onSubmit = e => {
-    e.preventDefault(); // 폼전송시 리액트 상태 초기화를 막음
+    e.preventDefault(); // 폼전송시 리액트 상태 초기화 방지
   };
 
   return (
@@ -235,6 +226,16 @@ const FormContent = ({ dataset, isEditable }) => {
       <ResultToggle result={inputs.result} gl={inputs.gl}>
         결 과 보 기
       </ResultToggle>
+
+      {isEditable ? (
+        <SubmitButton handleSubmitClick={handleSubmitClick}>
+          저 장 하 기
+        </SubmitButton>
+      ) : (
+        <SubmitButton handleSubmitClick={handleEditable}>
+          수 정 하 기
+        </SubmitButton>
+      )}
     </>
   );
 };
@@ -242,7 +243,7 @@ const FormContent = ({ dataset, isEditable }) => {
 const FoodFormTest = () => {
   const { foodId } = useParams();
   const [isReadOnly, setIsReadOnly] = useState(false);
-  const [dataset, setDataset] = useState({});
+  const [fetchedData, setFetchedData] = useState({});
 
   const handleEditable = bool => {
     // setIsReadOnly(!bool);
@@ -255,7 +256,7 @@ const FoodFormTest = () => {
       // fetch 요청
       // data setting
       console.log(db.foodlist); // !!!! 여기 제거 해야 함
-      setDataset(db.foodlist.result[0]); // !!!! 여기 제거
+      setFetchedData(db.foodlist.result[0]); // !!!! 여기 제거
       setIsReadOnly(true);
     } else {
       setIsReadOnly(false);
@@ -266,25 +267,15 @@ const FoodFormTest = () => {
     <>
       <div id="wrap" className="wrap">
         <Top />
-
         <PageTitle>{foodId ? "입력값 수정하기" : "새로  입력하기"}</PageTitle>
 
         <div id="info_container" className="container">
           <div id="info_inner" className="container_inner table_container">
             <FormContent
-              dataset={dataset ? dataset : null}
+              fetchedData={fetchedData ? fetchedData : null}
               isEditable={isReadOnly ? false : true}
+              handleEditable={handleEditable}
             />
-
-            {isReadOnly ? (
-              <SubmitButton handleSubmitClick={handleEditable}>
-                수 정 하 기
-              </SubmitButton>
-            ) : (
-              <SubmitButton handleSubmitClick={handleSubmitClick}>
-                저 장 하 기
-              </SubmitButton>
-            )}
           </div>
         </div>
 
