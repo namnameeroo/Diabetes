@@ -2,7 +2,7 @@ export const FORM_ITEMS = [
   {
     title: "제품명",
     unitsign: null,
-    // label: "foodName",
+    // label: "foodName", 나중에 키 이거로 바꾸는 게 좋을듯
     label: "name",
     placeholder: "제품명을 적어주세요",
     types: ""
