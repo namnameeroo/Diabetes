@@ -35,19 +35,39 @@ export const postFood = async inputs => {
 };
 
 export const getFoodById = async foodId => {
-  const getFoodByIdRes = await axios
-    .get(Utils.BASE_URL + `/api/v1/foods/` + foodId, {
+  const getFoodByIdRes = await axios.get(
+    Utils.BASE_URL + `/api/v1/foods/` + foodId,
+    {
       withCredentials: true
-    })
-    .then(res => {
-      console.log(res);
-    });
+    }
+  );
 
+  if (getFoodByIdRes.data.message == "SUCCESS") {
+    // 표시할 데이터 반환
+    console.log("getFood success");
+    return getFoodByIdRes.data.result;
+  }
+  console.log("getFood fail");
+  return null;
+};
+
+export const updateFood = async ({ inputs, foodId }) => {
   try {
-    const result = getFoodByIdRes(); // 표시할 데이터 반환
-    return result;
-  } catch (error) {
-    console.log(error);
-    return null;
+    const postFoodRes = await axios.put(
+      Utils.BASE_URL + `/api/v1/foods` + foodId,
+      inputs,
+      { withCredentials: true }
+    );
+
+    console.log(postFoodRes.data.result);
+    if (postFoodRes.data.message == "SUCCESS") {
+      // status 확인 필요
+      PopUpSuccess("업데이트 되었습니다.");
+      return true;
+    }
+
+    return false;
+  } catch (e) {
+    console.error(e);
   }
 };
