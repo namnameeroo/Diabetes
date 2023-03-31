@@ -1,11 +1,6 @@
 import axios from "axios";
 import Utils from "utils";
 
-const PopUpSuccess = msg => {
-  // 모달로 바꿔야 함
-  alert(msg);
-};
-
 /**
  * @typedef {Object} inputData
  * @property {id, name, provider, entireWeight,
@@ -22,8 +17,6 @@ export const postFood = async inputs => {
   );
 
   if ((await postFoodRes.data.message) == "SUCCESS") {
-    PopUpSuccess("결과가 저장되었습니다.");
-    // return true; // TODO: foodId 반환으로 바꾸기
     return postFoodRes.data.result.id;
   }
   // return false;
@@ -70,9 +63,6 @@ export const updateFood = async inputs => {
 
   console.log(JSON.stringify(updateFoodRes.data.result));
   if (updateFoodRes.data.message == "SUCCESSFULLY UPDATE") {
-    // status 확인 필요
-    PopUpSuccess("업데이트 되었습니다.");
-    // return true;
     return updateFoodRes.data.result.id;
   }
 

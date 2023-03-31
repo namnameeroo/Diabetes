@@ -4,9 +4,6 @@ import "styles/main.css";
 import Utils from "utils";
 import Footer from "components/footer";
 
-// import { useContext } from "react";
-// import { UserContext } from "components/userContext";
-
 import { getCurrentUser } from "api/login";
 
 const Header = props => {
