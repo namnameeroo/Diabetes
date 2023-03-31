@@ -74,7 +74,7 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
   const handleSubmitClickForUpdate = async () => {
     onToggle();
     // fetch data 인지, new data 인지 구분
-    const updateRes = await updateFood(inputs, fetchedData.id);
+    const updateRes = await updateFood(inputs);
 
     if (updateRes) {
       () => confirm("저장했습니다.") && navigate("/foodForm/info/" + "1");
@@ -227,7 +227,12 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
         </div>
       </form>
 
-      <ResultToggle result={inputs.result} gl={inputs.gl}>
+      <ResultToggle
+        onToggle={onToggle}
+        open={toggleOpen}
+        result={inputs.result}
+        gl={inputs.gl}
+      >
         결 과 보 기
       </ResultToggle>
 
