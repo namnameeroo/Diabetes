@@ -254,7 +254,7 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
           저 장 하 기
         </SubmitButton>
       ) : (
-        <SubmitButton handleSubmitClick={handleEditable}>
+        <SubmitButton handleSubmitClick={handleEditable} id="edit-button">
           수 정 하 기
         </SubmitButton>
       )}

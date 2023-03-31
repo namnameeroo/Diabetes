@@ -9,6 +9,7 @@ import MylistPage from "pages/MylistPage";
 import RedirectPage from "pages/RedirectPage";
 import UserlistPage from "pages/UserlistPage";
 import AuthLayout from "layout/AuthLayout";
+import LogoutButton from "components/logoutButton";
 
 /*eslint-disable */
 // import FoodFormTest from "pages/FoodFormTest";
@@ -77,6 +78,7 @@ const routers = createBrowserRouter(
             isAdminPage={router.isAdminPage ? router.isAdminPage : null}
           >
             {router.element}
+            <LogoutButton />
           </AuthLayout>
         )
       };

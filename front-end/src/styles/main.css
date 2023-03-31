@@ -139,6 +139,10 @@ button#login-kakao {
   background-color: var(--point-color);
   box-sizing: border-box;
 }
+
+.btn_submit#edit-button {
+  background-color: #ff23239c;
+}
 .btn_result {
   display: block;
   width: 100%;
