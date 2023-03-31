@@ -6,7 +6,7 @@ import { useRouter } from "hooks/useRouter";
 
 const AuthLayout = ({ children, isAdminPage }) => {
   const [userProfile, setUserProfile] = useState({
-    userInfo: { role: "user" }
+    userInfo: { role: "USER" }
   });
   const ADMIN = "ADMIN";
   const { routeTo } = useRouter();
@@ -18,7 +18,16 @@ const AuthLayout = ({ children, isAdminPage }) => {
       console.log("user profile : null");
       return routeTo("/login");
     }
-    setUserProfile(userProfileResponse);
+
+    console.log(
+      "🚀 ~ file: AuthLayout.jsx:22 ~ fetchUserProfile ~ userProfile:",
+      userProfile
+    );
+    console.log(
+      "🚀 ~ file: AuthLayout.jsx:22 ~ fetchUserProfile ~ userProfileResponse:",
+      userProfileResponse
+    );
+    setUserProfile({ ...userProfileResponse });
   }, []);
 
   useEffect(() => {
