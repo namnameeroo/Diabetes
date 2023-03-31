@@ -40,16 +40,14 @@ const routerData = [
     path: "/foodForm",
     label: "음식 입력 페이지",
     element: <FoodFormPage />, // 여기도
-    // element: <FoodFormTest />, // 여기도
-    withAuth: false // !!!! 여기 제거 해야 함
+    withAuth: true // !!!! test : false
   },
   {
     id: 4,
     path: "/foodForm/info/:foodId",
     label: "음식 입력 결과 페이지",
     element: <FoodFormPage />,
-    // element: <FoodFormTest />,
-    withAuth: false // !!!! 여기 제거 해야 함
+    withAuth: true // !!!! 여기 제거 해야 함
   },
   {
     id: 5,
