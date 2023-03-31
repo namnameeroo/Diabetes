@@ -54,15 +54,16 @@ export const getFoodById = async foodId => {
     // 표시할 데이터 반환
     console.log("getFood success");
     return getFoodByIdRes.data.result;
+  } else {
+    console.log("getFood fail");
+    return null;
   }
-  console.log("getFood fail");
-  return null;
 };
 
-export const updateFood = async ({ inputs, foodId }) => {
+export const updateFood = async inputs => {
   try {
     const postFoodRes = await axios.put(
-      Utils.BASE_URL + `/api/v1/foods` + foodId,
+      Utils.BASE_URL + `/api/v1/foods/` + inputs.id,
       inputs,
       { withCredentials: true }
     );
