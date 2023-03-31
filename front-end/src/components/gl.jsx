@@ -4,7 +4,12 @@ export const getGl = inputs => {
    */
   const proportion = parseFloat(inputs.intake / 100).toFixed(3); // 연산 확인 필요
   console.log(proportion, ": 섭취 비율");
-  const newInputs = {};
+  const newInputs = {
+    carbohydrate: 0,
+    fat: 0,
+    protein: 0,
+    fiber: 0
+  };
 
   /*
   Object.entries(inputs).forEach(([key, value]) => {
