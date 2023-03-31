@@ -62,14 +62,14 @@ export const getFoodById = async foodId => {
 
 export const updateFood = async inputs => {
   try {
-    const postFoodRes = await axios.put(
+    const updateFoodRes = await axios.put(
       Utils.BASE_URL + `/api/v1/foods/` + inputs.id,
       inputs,
       { withCredentials: true }
     );
 
-    console.log(postFoodRes.data.result);
-    if (postFoodRes.data.message == "SUCCESS") {
+    console.log(updateFoodRes.data.result);
+    if (updateFoodRes.data.message == "SUCCESS") {
       // status 확인 필요
       PopUpSuccess("업데이트 되었습니다.");
       return true;
