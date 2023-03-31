@@ -119,7 +119,15 @@ ul {
   background-color: var(--point-color);
   box-sizing: border-box;
 }
-
+.btn_menu {
+  display: block;
+  width: 100%;
+  padding: 13px 0 13px;
+  border-radius: 6px;
+  border: solid 1px rgba(0, 0, 0, 0.15);
+  background-color: var(--point-color);
+  box-sizing: border-box;
+}
 button#login-kakao {
   background-color: #fee500;
 }
@@ -153,6 +161,10 @@ button#login-kakao {
   box-sizing: border-box;
 }
 .btn_login:first-child {
+  margin-bottom: 5px;
+}
+
+.btn_menu {
   margin-bottom: 5px;
 }
 
