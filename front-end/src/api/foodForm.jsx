@@ -16,16 +16,19 @@ const PopUpSuccess = msg => {
  */
 export const postFood = async inputs => {
   try {
-    const postFoodRes = await axios
-      .post(Utils.BASE_URL + `/api/v1/foods`, inputs, { withCredentials: true })
-      .then(res => {
-        console.log(res);
-        console.log(JSON.stringify(res)); // TODO: 제거
-      });
-    if (postFoodRes.data.message == "SUCCESS") {
-      // status 확인 필요
+    const postFoodRes = await axios.post(
+      Utils.BASE_URL + `/api/v1/foods`,
+      inputs,
+      { withCredentials: true }
+    );
+    // .then(res => {
+    //   // console.log(res);
+    //   // console.log(JSON.stringify(res)); // TODO: 제거
+    // });
+
+    if ((await postFoodRes.data.message) == "SUCCESS") {
       PopUpSuccess("결과가 저장되었습니다.");
-      return true;
+      return true; // TODO: foodId 반환으로 바꾸기
     }
     console.log(postFoodRes.status); // TODO: 제거
     return false;
@@ -34,6 +37,11 @@ export const postFood = async inputs => {
   }
 };
 
+/**
+ *
+ * @param {*} foodId
+ * @returns foodInfo || null
+ */
 export const getFoodById = async foodId => {
   const getFoodByIdRes = await axios.get(
     Utils.BASE_URL + `/api/v1/foods/` + foodId,
