@@ -14,7 +14,12 @@ export const getGl = inputs => {
 
   Object.entries(inputs).forEach(([key, value]) => {
     console.info(value);
-    if (key != "foodName" && key != "provider" && key != "userId") {
+    if (
+      key == "carbohydrate" ||
+      key == "fat" ||
+      key == "protein" ||
+      key == "fiber"
+    ) {
       // filter 로 개선하면 좋을 듯
       !value || value === 0
         ? (newInputs[key] = 0)
