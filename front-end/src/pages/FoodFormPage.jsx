@@ -67,17 +67,19 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
 
   const navigate = useNavigate();
   /**
-   * 저장 버튼 누르면, form에 입력되어 있는 데이터 POST 전송
-   * @param {*} e
+   * 저장 버튼 누르면, form에 입력되어 있는 데이터를 PUT 전송
    */
-
   const handleSubmitClickForUpdate = async () => {
     onToggle();
-    // fetch data 인지, new data 인지 구분
-    const updateRes = await updateFood(inputs);
-
-    if (updateRes) {
-      () => confirm("저장했습니다.") && navigate("/foodForm/info/" + "1");
+    try {
+      const updateRes = await updateFood(inputs);
+      if (updateRes) {
+        confirm("변경 내용을 저장했습니다.") &&
+          navigate("/foodForm/info/" + updateRes);
+      }
+    } catch (error) {
+      confirm("변경에 실패했습니다.");
+      console.error("UPDATE FAIL");
     }
     /**
      * 저장 후 액션을 'food/info/:id' 로 이동하도록 하기
@@ -86,18 +88,25 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
      */
   };
 
+  /**
+   * 저장 버튼 누르면, form에 입력되어 있는 데이터를 POST 전송
+   */
   const handleSubmitClickForPost = async () => {
     onToggle();
-    // fetch data 인지, new data 인지 구분
-    const postRes = await postFood(inputs);
-    if (postRes) {
-      () => confirm("저장했습니다.") && navigate("/foodForm/info/" + "1");
+    try {
+      const postRes = await postFood(inputs);
+      if (postRes) {
+        confirm("저장했습니다.") && navigate("/foodForm/info/" + postRes);
+      }
+    } catch (error) {
+      console.error("POST FAIL");
+      confirm("저장에 실패했습니다.");
     }
   };
 
   /* eslint-disable-next-line*/
   // const {
-  //   userId,
+  //   id, (foodId)
   //   name,
   //   foodName,
   //   provider,
