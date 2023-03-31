@@ -27,13 +27,13 @@ export const getGl = inputs => {
     }
   });
   console.log(inputs, newInputs);
-
-  // let result =
-  //   3.2 + step1 -
-  //   0.205486363 * newInputs.fat -
-  //   0.006877061 * newInputs.protein * newInputs.protein -
-  //   0.012675566 * newInputs.fiber * newInputs.fiber;
-
+  /* 계산식
+    let result =
+      3.2 + step1 -
+      0.205486363 * newInputs.fat -
+      0.006877061 * newInputs.protein * newInputs.protein -
+      0.012675566 * newInputs.fiber * newInputs.fiber;
+  */
   const step1 = calculator(
     0.393566429,
     parseFloat(newInputs.carbohydrate) - parseFloat(newInputs.fiber),
@@ -51,16 +51,18 @@ export const getGl = inputs => {
     "*"
   );
 
-  let result = 3.2 + step1 - step2 - step3 - step4;
+  let gl_result = 3.2 + step1 - step2 - step3 - step4;
 
+  // TODO: 섭취비율 반영 해야하는지?
   if (inputs.carbohydrate - inputs.fiber >= 10) {
-    result += 3.2;
+    gl_result += 3.2;
   }
 
-  let judges = result >= 20 ? "HIGH" : result > 10 ? "MIDDLE" : "LOW";
-  console.log(result);
-  return [result, judges];
+  let judges = gl_result >= 20 ? "HIGH" : gl_result > 10 ? "MIDDLE" : "LOW";
+  console.log(gl_result);
+  return [gl_result, judges];
 };
+
 /**
  * 소수의 곱셈이나 덧셈 수행
  * @param {*} num1
@@ -71,7 +73,7 @@ export const getGl = inputs => {
 export const calculator = (num1, num2, type) => {
   num1 = parseFloat(num1);
   num2 = parseFloat(num2);
-  console.log(num1, num2);
+
   if (type === "*") {
     console.log("cal:", parseFloat(num1 * num2).toFixed(10));
     return parseFloat(parseFloat(num1 * num2).toFixed(10));
