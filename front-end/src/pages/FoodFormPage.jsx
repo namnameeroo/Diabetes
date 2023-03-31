@@ -266,17 +266,20 @@ const FoodFormTest = () => {
           "🚀 ~ file: FoodFormPage.jsx:260 ~ getFoodResult ~ getFoodResponse:",
           getFoodResponse
         );
+
+        if (getFoodResponse) {
+          setFetchedData(getFoodResponse);
+          setIsReadOnly(true);
+          console.log("food get api 성공");
+        } else {
+          console.log("food get api 실패");
+        }
       };
 
-      const fetchedDataRes = getFoodResult();
+      // const fetchedDataRes = getFoodResult();
       // const fetchedDataRes = db.foodlist.result[0]; // TODO 제거
-      if (fetchedDataRes) {
-        setFetchedData(fetchedDataRes);
-        setIsReadOnly(true);
-        console.log("food get api 성공");
-      } else {
-        console.log("food get api 실패");
-      }
+      // console.log(fetchedDataRes);
+      getFoodResult();
     } else {
       setIsReadOnly(false);
     }
