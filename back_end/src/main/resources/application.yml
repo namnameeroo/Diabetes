@@ -132,14 +132,14 @@ spring:
         format_sql: true
 logging:
   level:
-    #    root: DEBUG
+    root: DEBUG
     org:
       springframework:
         security: DEBUG
 
 # cors 설정
 cors:
-  allowedOrigins: 'http://localhost:80'
+  allowedOrigins: 'https://gl-diabetes.shop'
   allowedMethods: GET,POST,PUT,PATCH,DELETE,OPTIONS
   allowedHeaders: '*'
   maxAgeSec: 3600

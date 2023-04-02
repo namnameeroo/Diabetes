@@ -3,12 +3,8 @@
 
 import React from "react";
 import { useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
 import "styles/main.css";
 import styled from "styled-components";
-
-import { useContext } from "react";
-import { UserContext } from "components/userContext";
 
 import Top from "components/top";
 // import DB from "db.json";
@@ -60,13 +56,11 @@ const Table = styled.table`
 `;
 
 const ListElement = ({ item }) => {
-  console.log(item);
-
   // "2022-11-28T08:52:02.912246" 가입일
-  // const dateArr = item.createdDate.split("T").map(v => {
-  //   return v.split(".")[0];
-  // });
-  // const createDate = dateArr[0] ? dateArr[0] : "-";
+  const dateArr = item.createdDate.split("T").map(v => {
+    return v.split(".")[0];
+  });
+  const createDate = dateArr[0] ? dateArr[0] : "-";
 
   return (
     <>
@@ -77,10 +71,7 @@ const ListElement = ({ item }) => {
           <td className="gender narrow-col">
             {item.gender ? item.gender.substr(0, 1) : "-"}
           </td>
-          <td className="user-date wide-col">
-            {/* {createDate}  */}
-            가입일
-          </td>
+          <td className="user-date wide-col">{createDate}</td>
           <td className="list-count narrow-col">{item.foodListCount}</td>
         </tr>
       ) : null}
@@ -118,25 +109,14 @@ const Wrap = styled.div`
   height: 460px; /** 임시 */
 `;
 
-const NotAdmin = () => {
-  console.log("notAdmin! 권한이 없습니다.");
-  return <Navigate to="/login" />;
-};
-
 const UserlistPage = () => {
   const [userlist, setUserlist] = useState([]);
-  const { user } = useContext(UserContext); // !important
-  console.log(
-    "🚀 ~ file: adminUserList.jsx:126 ~ UserlistPage ~ user.auth",
-    user.auth
-  );
 
-  // user.info.role
   useEffect(() => {
     const fetchData = async () => {
       try {
         await axios
-          .get(Utils.baseUrl + `/api/v1/admin/users`, {
+          .get(Utils.BASE_URL + `/api/v1/admin/users`, {
             withCredentials: true
           })
           .then(res => {
@@ -152,34 +132,30 @@ const UserlistPage = () => {
 
   return (
     <>
-      {user.role == "USER" ? (
-        <NotAdmin />
-      ) : (
-        <div>
-          <Top title="기록 현황" />
-          {/* 유저 현황 */}
-          <Wrap>
-            <Table className="user-table">
-              <thead>
-                <tr>
-                  <th scope="cols">이름</th>
-                  <th scope="cols">아이디</th>
-                  <th scope="cols">성별</th>
-                  <th scope="cols">가입일</th>
-                  <th scope="cols">건수</th>
-                </tr>
-              </thead>
-              <tbody>
-                {userlist.length != 0 ? (
-                  userlist.map((i, k) => <ListElement key={k} item={i} />)
-                ) : (
-                  <ListEmpty />
-                )}
-              </tbody>
-            </Table>
-          </Wrap>
-        </div>
-      )}
+      <div>
+        <Top title="기록 현황" />
+        {/* 유저 현황 */}
+        <Wrap>
+          <Table className="user-table">
+            <thead>
+              <tr>
+                <th scope="cols">이름</th>
+                <th scope="cols">아이디</th>
+                <th scope="cols">성별</th>
+                <th scope="cols">가입일</th>
+                <th scope="cols">건수</th>
+              </tr>
+            </thead>
+            <tbody>
+              {userlist.length != 0 ? (
+                userlist.map((i, k) => <ListElement key={k} item={i} />)
+              ) : (
+                <ListEmpty />
+              )}
+            </tbody>
+          </Table>
+        </Wrap>
+      </div>
     </>
   );
 };

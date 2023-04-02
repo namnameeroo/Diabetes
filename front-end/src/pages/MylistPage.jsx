@@ -9,9 +9,6 @@ import "styles/main.css";
 import Top from "components/top";
 import RouteButton from "components/plusButton";
 
-import { useContext } from "react";
-import { UserContext } from "components/userContext";
-
 const Table = styled.table`
   border-collapse: collapse;
   text-align: left;
@@ -37,9 +34,11 @@ const Table = styled.table`
   /* .hover-a:hover {
     color: blue;
   } */
-  tr:hover td {
-    color: blue;
-    background-color: gray;
+
+  tr.hover-a:hover {
+    color: #26266e;
+    background-color: #eac2c244;
+    box-shadow: 0px 1.2px 2px 0px #8c8c8c56;
   }
   td {
     text-align: center;
@@ -88,8 +87,6 @@ const Today = () => {
 };
 
 const ListElement = props => {
-  // setFoodIndex(foodIndex + 1);
-
   const dateArr = props.item.createdDate.split("T").map(v => {
     return v.split(".")[0];
   });
@@ -106,7 +103,7 @@ const ListElement = props => {
           // Navigate 로 바꿔야 함
         }}
       >
-        <td className="idx">{props.order + 1}</td>
+        <td className="idx">{props.order}</td>
         <td className="food-name">{props.item.name}</td>
         <td className="date-col">{createAt}</td>
         <td>{props.item.result}</td>
@@ -116,18 +113,6 @@ const ListElement = props => {
 };
 
 const MylistPage = () => {
-  const { user } = useContext(UserContext); // !important
-  console.log("🚀 ~ file: mylist.jsx:119 ~ MylistPage ~ User", user);
-
-  if (!!user && user.auth) {
-    console.log(
-      "🚀 ~ file: mylist.jsx:128 ~ MylistPage ~ user.role",
-      user.role
-    );
-  } else {
-    // 잘못된 접근
-    console.error("wrong access");
-  }
   /* eslint-disable */
   const [foodlist, setFoodlist] = useState([]);
   const [foodIndex, setFoodIndex] = useState(0);
@@ -136,7 +121,7 @@ const MylistPage = () => {
     const fetchData = async () => {
       try {
         await axios
-          .get(Utils.baseUrl + `/api/v1/foods`, { withCredentials: true })
+          .get(Utils.BASE_URL + `/api/v1/foods`, { withCredentials: true })
           .then(res => {
             setFoodlist(res.data.result.content);
           });
@@ -165,7 +150,7 @@ const MylistPage = () => {
             <tbody>
               {foodlist
                 ? foodlist.map((i, k) => (
-                    <ListElement key={k} item={i} order={foodIndex} />
+                    <ListElement key={k} item={i} order={k + 1} />
                   ))
                 : "입력 내역이 없습니다."}
             </tbody>

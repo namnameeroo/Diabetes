@@ -119,7 +119,15 @@ ul {
   background-color: var(--point-color);
   box-sizing: border-box;
 }
-
+.btn_menu {
+  display: block;
+  width: 100%;
+  padding: 13px 0 13px;
+  border-radius: 6px;
+  border: solid 1px rgba(0, 0, 0, 0.15);
+  background-color: var(--point-color);
+  box-sizing: border-box;
+}
 button#login-kakao {
   background-color: #fee500;
 }
@@ -139,6 +147,10 @@ button#login-kakao {
   background-color: var(--point-color);
   box-sizing: border-box;
 }
+
+.btn_submit#edit-button {
+  background-color: #ff23239c;
+}
 .btn_result {
   display: block;
   width: 100%;
@@ -149,6 +161,10 @@ button#login-kakao {
   box-sizing: border-box;
 }
 .btn_login:first-child {
+  margin-bottom: 5px;
+}
+
+.btn_menu {
   margin-bottom: 5px;
 }
 
@@ -164,9 +180,22 @@ button#login-kakao {
 .input_text {
   position: relative;
   overflow: hidden;
-  width: 95%;
-  height: 3em;
-  margin: 0 8px;
+  width: 98%;
+  height: 3.3em;
+  /* margin: 0 8px 8px 0;  => tr 로 이동*/
+  padding: 5px 39px 5px 11px;
+  border: solid 1px #dadada;
+  background: #fff;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.info_text {
+  position: relative;
+  overflow: hidden;
+  width: 98%;
+  height: 3.3em;
+  margin: 0 8px 8px 0;
   padding: 5px 39px 5px 11px;
   border: solid 1px #dadada;
   background: #fff;
@@ -198,6 +227,20 @@ table td {
   max-width: 10px !important;
 } */
 
+.form-table tr {
+  display: flex;
+  flex-direction: row;
+  /* align-content: center; */
+  justify-content: center;
+  align-items: center;
+  margin: 0 8px 8px 0;
+}
+
+.form-table td:first-child {
+  /* min-width: 15%; */
+  /* max-width: 20%; */
+  width: 19%;
+}
 table td:last-child {
   flex-grow: 1;
   min-width: 60%;
@@ -235,4 +278,9 @@ table td:last-child {
 .link-for-test {
   position: relative;
   top: -80px;
+}
+
+.space-between {
+  display: flex;
+  justify-content: space-between;
 }
