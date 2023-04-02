@@ -55,8 +55,8 @@ public class Food extends BaseTimeEntity {
     }
 
     public Food modify(FoodReqDto dto) {
-//        this.name = dto.getName();
-//        this.provider = dto.getProvider();
+        this.name = dto.getName();
+        this.provider = dto.getProvider();
         this.entireWeight = dto.getEntireWeight()==null ? this.entireWeight : dto.getEntireWeight();
         this.calories = dto.getCalories()==null ? this.calories : dto.getCalories();
         this.carbohydrate = dto.getCarbohydrate()==null ? this.carbohydrate : dto.getCarbohydrate();
