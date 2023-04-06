@@ -106,3 +106,4 @@ dist
 
 # User
 temporary/
+.DS_Store
