@@ -59,8 +59,8 @@ const RedirectPage = () => {
           </div>
         </div>
       </div>
-      <div style={{ height: "500px" }}>
-        {/* <a href="/login">
+      {/* <div style={{ height: "500px" }}> */}
+      {/* <a href="/login">
           login
           <br />
         </a>
@@ -76,11 +76,7 @@ const RedirectPage = () => {
           유저 현황
           <br />
         </a> */}
-        <a href="/">
-          관리 계정 신청
-          <br />
-        </a>
-      </div>
+      {/* </div> */}
     </>
   );
 };
