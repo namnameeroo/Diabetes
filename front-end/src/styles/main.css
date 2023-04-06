@@ -97,7 +97,7 @@ ul {
 }
 
 .container_inner {
-  padding: 20px 28px;
+  padding: 0px 28px 20px 28px;
 }
 
 #login-container {
@@ -215,7 +215,7 @@ button#login-kakao {
 table {
   /* background: rgb(255, 250, 250); */
   /* padding: 0 20px; */
-  font-size: 12px;
+  font-size: 14px;
   text-align: left;
   border-spacing: 0 10px;
 }
@@ -233,17 +233,17 @@ table td {
   /* align-content: center; */
   justify-content: center;
   align-items: center;
-  margin: 0 8px 8px 0;
+  margin: 0 0 8px 0;
 }
 
 .form-table td:first-child {
   /* min-width: 15%; */
   /* max-width: 20%; */
-  width: 19%;
+  width: 25%;
 }
 table td:last-child {
   flex-grow: 1;
-  min-width: 60%;
+  min-width: 50%;
 }
 .pad-right-10 {
   padding-right: 10px;

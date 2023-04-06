@@ -41,19 +41,22 @@ const Top = props => {
   let Left = "";
   let Search = "";
   const navigate = useNavigate();
-  const goBack = () => {
+  const goBack = backTo => {
     try {
-      navigate(-1);
+      backTo ? navigate(backTo) : navigate(-1);
     } catch (error) {
       // user일 때
       navigate("/mylist");
     }
   };
-  if (!props.leftbutton) {
-    Left = (
-      <FiChevronLeft className="react-fcon" id="left-arrow" onClick={goBack} />
-    );
-  }
+
+  Left = (
+    <FiChevronLeft
+      className="react-fcon"
+      id="left-arrow"
+      onClick={() => goBack(props.backTo)}
+    />
+  );
 
   // 잘 안 먹음
   if (props.search == true) {

@@ -22,7 +22,7 @@ const deleteCookie = () => {
   // document.cookie = "JSESSIONID" + "=; expires=Thu, 01 Jan 1999 00:00:10 GMT;";
   document.cookie =
     "JSESSIONID" +
-    "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=gl-diabetes.shop;path=/;";
+    "=; expires=Thu, 01 Jan 1970 00:00:01 GMT; domain=gl-diabetes.shop; path=/;";
   console.log("로그아웃 - ");
 };
 
