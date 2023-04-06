@@ -63,6 +63,14 @@ const routerData = [
     element: <UserlistPage />,
     withAuth: true,
     isAdminPage: true
+  },
+  {
+    id: 7,
+    path: "/userlist/:userId",
+    label: "사용자별 입력 페이지",
+    element: <MylistPage />,
+    withAuth: true,
+    isAdminPage: true
   }
 ];
 

@@ -5,6 +5,7 @@ import styled from "styled-components";
 import axios from "axios";
 import Utils from "utils";
 import "styles/main.css";
+import { useParams } from "react-router-dom";
 
 import Top from "components/top";
 import RouteButton from "components/plusButton";
@@ -114,23 +115,44 @@ const ListElement = props => {
 
 const MylistPage = () => {
   /* eslint-disable */
+  const { userId } = useParams();
   const [foodlist, setFoodlist] = useState([]);
   const [foodIndex, setFoodIndex] = useState(0);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await axios
-          .get(Utils.BASE_URL + `/api/v1/foods`, { withCredentials: true })
-          .then(res => {
-            setFoodlist(res.data.result.content);
-          });
-      } catch (e) {
-        console.error(e);
-        setFoodlist([]); // test 할 때만 주석처리
-      }
-    };
-    fetchData();
+    if (!userId) {
+      const getMyFoodData = async () => {
+        try {
+          await axios
+            .get(Utils.BASE_URL + `/api/v1/foods`, { withCredentials: true })
+            .then(res => {
+              setFoodlist(res.data.result.content);
+            });
+        } catch (e) {
+          console.error(e);
+          setFoodlist([]); // test 할 때만 주석처리
+        }
+      };
+      getMyFoodData();
+    } else {
+      const getUserFoodData = async () => {
+        try {
+          await axios
+            .get(
+              Utils.BASE_URL +
+                `/api/v1/admin/foods?userId=${userId}&page=0&sort=modifiedDate,asc&sort=provider,asc`,
+              { withCredentials: true }
+            )
+            .then(res => {
+              setFoodlist(res.data.result.content);
+            });
+        } catch (e) {
+          console.error(e);
+          setFoodlist([]); // test 할 때만 주석처리
+        }
+      };
+      getUserFoodData();
+    }
   }, []);
 
   return (
@@ -155,7 +177,7 @@ const MylistPage = () => {
                 : "입력 내역이 없습니다."}
             </tbody>
           </Table>
-          <RouteButton goToPage={"/foodForm"} />
+          {!userId && <RouteButton goToPage={"/foodForm"} />}
         </Wrap>
       </div>
     </>
