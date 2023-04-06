@@ -5,7 +5,8 @@ import Utils from "utils";
 import Footer from "components/footer";
 
 import { getCurrentUser } from "api/login";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+import { useRouter } from "hooks/useRouter";
 
 const Header = props => {
   return (
@@ -73,13 +74,14 @@ function LoginPage() {
     return userProfileResponse !== null;
   };
 
-  const navigate = useNavigate();
+  const { routeTo } = useRouter();
+  // const navigate = useNavigate();
   const loginButtonHandler = async requestUrl => {
     const isUserLoggedIn = await isLoggedIn();
 
     if (isUserLoggedIn) {
       console.log("이미 로그인된 유저");
-      navigate("/login/redirect");
+      routeTo("/login/redirect");
       return;
     } else if (requestUrl) {
       window.location.href = requestUrl;
