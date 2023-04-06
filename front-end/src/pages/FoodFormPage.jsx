@@ -3,9 +3,6 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import axios from "axios";
-import Utils from "utils";
-
 import Top from "components/top";
 import PageTitle from "components/pageTitle";
 import Footer from "components/footer";

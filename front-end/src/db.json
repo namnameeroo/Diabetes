@@ -12,10 +12,10 @@
     }
   ],
 
-  "foodlist": 
-  {
+  "foodlist": {
     "message": "SUCCESS",
-    "result": [{
+    "result": [
+      {
         "id": 3,
         "name": "testtest",
         "provider": "who?",
@@ -29,83 +29,92 @@
         "result": "MIDDLE",
         "createdDate": "2022-11-17T17:46:13.951085",
         "modifiedDate": "2022-11-17T17:46:13.951085"
-    }, 
-    {
-      "id": "0",
-      "name": "gogi",
-      "provider": "참조은",
-      "entireWeight": 100,
-      "calories": 540,
-      "carbohydrate": 10,
-      "protein": 20,
-      "fat": 40,
-      "fiber": 10,
-      "intake": 50,
-      "remains": 10,
-      "gl": 33,
-      "result": "MIDDLE",
-      "createdDate": "2022-11-20T17:46:13.951085",
-      "modifiedDate": "2022-11-21T17:46:13.951085"
-
-    }
-  ]
+      },
+      {
+        "id": "0",
+        "name": "gogi",
+        "provider": "참조은",
+        "entireWeight": 100,
+        "calories": 540,
+        "carbohydrate": 10,
+        "protein": 20,
+        "fat": 40,
+        "fiber": 10,
+        "intake": 50,
+        "remains": 10,
+        "gl": 33,
+        "result": "MIDDLE",
+        "createdDate": "2022-11-20T17:46:13.951085",
+        "modifiedDate": "2022-11-21T17:46:13.951085"
+      }
+    ]
   },
-  
-  
-  "userlist":
-    {"result": {
+
+  "userlist": {
+    "result": {
       "content": [
-          {
-              "id": 2,
-              "authId": "134",
-              "email": "hanah2@example.com",
-              "name": "han3",
-              "authProvider": "DEFAULT",
-              "age": null,
-              "gender": null,
-              "foodListCount": 0
-          },
-          {
-              "id": 1,
-              "authId": "12",
-              "email": "hanah@example.com",
-              "name": "hana",
-              "authProvider": "DEFAULT",
-              "age": null,
-              "gender": null,
-              "foodListCount": 2
-          }
-          ,
-          
-            {
-              "name": "이하이",
-              "id": "hi@mail.com",
-              "gender": "F",
-              "date": "2022-10-10",
-              "count": "2"
-            },
-            {
-              "name": "최안경",
-              "id": "glasses@mail.com",
-              "gender": "F",
-              "date": "2022-01-10",
-              "count": "4"
-            },
-            {
-              "name": "Ahn Yeah",
-              "id": "Nono@mail.com",
-              "gender": "F",
-              "date": "2022-12-01",
-              "count": "0"
-            },
-            {
-              "name": "소시지",
-              "id": "cowww@mail.com",
-              "gender": "M",
-              "date": "2000-05-15",
-              "count": "2"
-            }
-          
+        {
+          "id": 2,
+          "authId": "134",
+          "email": "hanah2@example.com",
+          "name": "han3",
+          "authProvider": "DEFAULT",
+          "age": null,
+          "gender": null,
+          "foodListCount": 0,
+          "createdDate": "2022-11-28T08:52:02.912246"
+        },
+        {
+          "id": 1,
+          "authId": "12",
+          "email": "hanah@example.com",
+          "name": "hana",
+          "authProvider": "DEFAULT",
+          "age": null,
+          "gender": null,
+          "foodListCount": 2,
+          "createdDate": "2022-11-28T08:52:02.912246"
+        },
+        {
+          "id": 3,
+
+          "name": "이하이",
+          "email": "hi@mail.com",
+          "gender": "F",
+          "date": "2022-10-10",
+          "count": "2",
+          "createdDate": "2022-11-28T08:52:02.912246"
+        },
+        {
+          "id": 4,
+
+          "name": "최안경",
+          "email": "glasses@mail.com",
+          "gender": "F",
+          "date": "2022-01-10",
+          "count": "4",
+          "createdDate": "2022-11-28T08:52:02.912246"
+        },
+        {
+          "id": 5,
+
+          "name": "Ahn Yeah",
+          "email": "Nono@mail.com",
+          "gender": "F",
+          "date": "2022-12-01",
+          "count": "0",
+          "createdDate": "2022-11-28T08:52:02.912246"
+        },
+        {
+          "id": 6,
+
+          "name": "소시지",
+          "email": "cowww@mail.com",
+          "gender": "M",
+          "date": "2000-05-15",
+          "count": "2",
+          "createdDate": "2022-11-28T08:52:02.912246"
+        }
       ],
       "first": true,
       "last": true,
@@ -116,6 +125,6 @@
       "pageNumber": 0,
       "pageSize": 10,
       "offset": 0
-  }}
-
+    }
+  }
 }

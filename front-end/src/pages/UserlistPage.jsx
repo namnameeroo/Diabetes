@@ -10,6 +10,7 @@ import Top from "components/top";
 // import DB from "db.json";
 import axios from "axios";
 import Utils from "utils";
+import { useNavigate } from "react-router-dom";
 
 const Table = styled.table`
   border-collapse: collapse;
@@ -61,11 +62,16 @@ const ListElement = ({ item }) => {
     return v.split(".")[0];
   });
   const createDate = dateArr[0] ? dateArr[0] : "-";
+  const navigate = useNavigate();
+  const userClickHandler = userId => {
+    console.log(userId);
+    navigate("/userlist/" + userId);
+  };
 
   return (
     <>
       {item ? (
-        <tr>
+        <tr onClick={() => userClickHandler(item.id)}>
           <td className="user-name">{item.name}</td>
           <td className="user-id wide-col">{item.email}</td>
           <td className="gender narrow-col">
@@ -125,6 +131,7 @@ const UserlistPage = () => {
       } catch (e) {
         console.error(e);
         setUserlist([]);
+        // setUserlist(DB.userlist.result.content); // TODO: !!디버깅
       }
     };
     fetchData();
