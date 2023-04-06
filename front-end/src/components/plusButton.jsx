@@ -13,8 +13,8 @@ const CircleButton = styled.button`
   }
   z-index: 5;
   cursor: pointer;
-  width: 70px;
-  height: 70px;
+  width: 70px !important;
+  height: 70px !important;
   display: block;
   align-items: center;
   justify-content: center;
@@ -33,7 +33,7 @@ const CircleButton = styled.button`
   /* justify-content: center; */
 
   transition: 0.125s all ease-in;
-  ${(props) =>
+  ${props =>
     props.open &&
     css`
       background: #ff6b6b;
