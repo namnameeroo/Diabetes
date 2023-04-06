@@ -1,15 +1,15 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import "../styles/main.css";
-import { MdAdd } from "react-icons/md";
+// import { MdAdd } from "react-icons/md";
 
 const CircleButton = styled.button`
   background: var(--point-color);
   &:hover {
-    background: #63e6be;
+    background: #f6b607;
   }
   &:active {
-    background: #20c997;
+    background: #e2a805;
   }
   z-index: 5;
   cursor: pointer;
@@ -19,19 +19,15 @@ const CircleButton = styled.button`
   text-align: center;
   align-items: center;
   justify-content: center;
-  font-size: 40px;
   position: sticky;
   left: 73%;
   bottom: 15%;
-  /* bottom: 25px; */
 
   color: white;
   border-radius: 50%;
   border: none;
   outline: none;
   display: flex;
-  /* align-items: center; */
-  /* justify-content: center; */
 
   transition: 0.125s all ease-in;
   ${props =>
@@ -44,10 +40,10 @@ const CircleButton = styled.button`
       transform: translate(-50%, 50%) rotate(45deg);
     `}
 
-  svg {
+  div {
     font-size: 1.8em;
     padding: 0;
-    margin: 0.22em 0 0 0;
+    /* margin: 0.22em 0 0 0; */
   }
 `;
 
@@ -85,7 +81,7 @@ const RouteButton = ({ goToPage }) => {
   return (
     <>
       <CircleButton onClick={() => (window.location.href = goToPage)}>
-        <MdAdd />
+        <div>+</div>
       </CircleButton>
     </>
   );
