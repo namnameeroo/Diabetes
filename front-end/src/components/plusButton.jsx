@@ -13,9 +13,10 @@ const CircleButton = styled.button`
   }
   z-index: 5;
   cursor: pointer;
-  width: 70px !important;
-  height: 70px !important;
-  display: block;
+  width: 55.5px !important;
+  height: 55.5px !important;
+  display: inline-block;
+  text-align: center;
   align-items: center;
   justify-content: center;
   font-size: 40px;
@@ -44,10 +45,9 @@ const CircleButton = styled.button`
     `}
 
   svg {
-    /* height: 25px;
-    width: 25px; */
-    height: 1em;
-    width: 1em;
+    font-size: 1.8em;
+    padding: 0;
+    margin: 0.22em 0 0 0;
   }
 `;
 
