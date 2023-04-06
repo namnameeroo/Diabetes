@@ -18,7 +18,7 @@ const CircleButton = styled.button`
   display: block;
   align-items: center;
   justify-content: center;
-  font-size: 60px;
+  font-size: 40px;
   position: sticky;
   left: 73%;
   bottom: 15%;
