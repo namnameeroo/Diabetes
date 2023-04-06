@@ -42,6 +42,13 @@ const CircleButton = styled.button`
       }
       transform: translate(-50%, 50%) rotate(45deg);
     `}
+
+  svg {
+    /* height: 25px;
+    width: 25px; */
+    height: 1em;
+    width: 1em;
+  }
 `;
 
 /*
