@@ -71,14 +71,6 @@ const Wrap = styled.div`
   height: 750px; /** 임시 */
 `;
 
-/**
- * props = {
- *  id: 1,
- *  name: "foodName",
- *  calories : 540,
- * ...
- */
-
 const Today = () => {
   let now = new Date();
   let todayYear = now.getFullYear();

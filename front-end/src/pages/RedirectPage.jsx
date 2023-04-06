@@ -59,24 +59,6 @@ const RedirectPage = () => {
           </div>
         </div>
       </div>
-      {/* <div style={{ height: "500px" }}> */}
-      {/* <a href="/login">
-          login
-          <br />
-        </a>
-        <a href="/foodForm">
-          입력 폼
-          <br />
-        </a>
-        <a href="/mylist">
-          입력 현황
-          <br />
-        </a>
-        <a href="/userlist">
-          유저 현황
-          <br />
-        </a> */}
-      {/* </div> */}
     </>
   );
 };
