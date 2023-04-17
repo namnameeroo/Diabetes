@@ -26,13 +26,13 @@ const AuthLayout = ({ children, isAdminPage }) => {
 
     console.log(
       "🚀 ~ file: AuthLayout.jsx:22 ~ fetchUserProfile ~ userProfile:",
-      userProfile,
+      JSON.stringify(userProfile),
       "ADMIN 으로 떠야함"
     );
   }, []);
 
-  useEffect(async () => {
-    await fetchUserProfile();
+  useEffect(() => {
+    fetchUserProfile();
     if (isAdminPage && userProfile.role != ADMIN) {
       alert("권한이 없습니다.");
       routeTo(-1);
