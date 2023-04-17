@@ -126,7 +126,9 @@ const UserlistPage = () => {
             withCredentials: true
           })
           .then(res => {
-            setUserlist(res.data.result.content);
+            const dataset = res.data.result.content.filter(v => v.id > 19);
+            setUserlist(dataset);
+            // setUserlist(res.data.result.content);
             console.log(res.data.result.content);
           });
       } catch (e) {
