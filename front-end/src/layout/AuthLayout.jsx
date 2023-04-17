@@ -6,7 +6,16 @@ import { useRouter } from "hooks/useRouter";
 
 const AuthLayout = ({ children, isAdminPage }) => {
   const [userProfile, setUserProfile] = useState({
-    userInfo: { role: "USER" }
+    id: 0,
+    authId: "",
+    email: "",
+    name: "",
+    authProvider: "",
+    role: "",
+    age: "",
+    gender: "",
+    createdDate: "",
+    foodListCount: 0
   });
   const ADMIN = "ADMIN";
   const { routeTo } = useRouter();
