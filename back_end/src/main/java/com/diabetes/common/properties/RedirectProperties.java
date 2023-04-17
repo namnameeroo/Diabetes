@@ -11,4 +11,5 @@ public class RedirectProperties {
 
     private String successUrl;
     private String failureUrl;
+    private String logoutUrl;
 }

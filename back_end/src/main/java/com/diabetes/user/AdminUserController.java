@@ -3,7 +3,6 @@ package com.diabetes.user;
 import com.diabetes.common.dto.CommonResponse;
 import com.diabetes.common.dto.CustomPageDto;
 import com.diabetes.user.dto.AdminSecretDto;
-import com.diabetes.user.dto.UserDto;
 import com.diabetes.user.dto.UserResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,8 +11,6 @@ import org.springframework.data.domain.*;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.constraints.AssertTrue;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -25,7 +22,6 @@ public class AdminUserController {
     @Value("${admin.secret}")
     private String adminSecret;
 
-    // TODO 필터링
     @GetMapping("/users")
     public CommonResponse<CustomPageDto> getUserListForAdmin(@PageableDefault(sort="modifiedDate", direction = Sort.Direction.DESC) Pageable pageable) {
 

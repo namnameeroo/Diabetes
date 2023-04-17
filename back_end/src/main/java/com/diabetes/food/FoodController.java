@@ -8,12 +8,11 @@ import com.diabetes.food.dto.FoodResDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -32,10 +31,8 @@ public class FoodController {
      * 유저 정보 기준 등록했던 음식 리스트 조회
      */
     @GetMapping("/foods")
-    public ResponseEntity<?> getFoodList(Authentication authentication,
+    public ResponseEntity<?> getFoodList(@AuthenticationPrincipal UserPrincipal userPrincipal,
                                          @PageableDefault(sort="modifiedDate", direction = Sort.Direction.DESC) Pageable pageable) {
-
-        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 
         Long userId = userPrincipal.getId();
         Page<FoodResDto> foodList = foodService.getFoodList(userId, pageable);
@@ -47,12 +44,10 @@ public class FoodController {
      * 특정 등록 음식 조회
      */
     @GetMapping("/foods/{foodId}")
-    public ResponseEntity<?> getFoodDetailInfo(@PathVariable Long foodId, Authentication authentication) {
+    public ResponseEntity<?> getFoodDetailInfo(@AuthenticationPrincipal UserPrincipal userPrincipal,
+                                               @PathVariable Long foodId) {
 
-//        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-//        FoodDto foodDto = foodService.getFoodInfo(foodId, userPrincipal.getId());
-        FoodResDto foodDto = foodService.getFoodInfoByFoodId(foodId);
-
+        FoodResDto foodDto = foodService.getFoodInfo(foodId, userPrincipal.getId());
         return ResponseEntity.ok(new CommonResponse<>("SUCCESS", foodDto));
     }
 
@@ -60,10 +55,10 @@ public class FoodController {
      * 음식 정보 등록
      */
     @PostMapping("/foods")
-    public ResponseEntity<?> saveFoodInfo(@RequestBody FoodReqDto foodDto, Authentication authentication) {
+    public ResponseEntity<?> saveFoodInfo(@AuthenticationPrincipal UserPrincipal userPrincipal,
+                                          @RequestBody FoodReqDto foodDto) {
 
-        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-//        foodDto.checkUserId(userPrincipal.getId());
+        //foodDto.checkUserId(userPrincipal.getId());
         foodDto.assignUserId(userPrincipal.getId());
         FoodResDto savedFoodDto = foodService.saveFoodInfo(foodDto);
 
@@ -80,10 +75,9 @@ public class FoodController {
      * 음식 정보 삭제
      */
     @DeleteMapping("/foods/{foodId}")
-    public ResponseEntity<?> deleteFoodInfo(@PathVariable Long foodId, Authentication authentication) {
+    public ResponseEntity<?> deleteFoodInfo(@AuthenticationPrincipal UserPrincipal userPrincipal,
+                                            @PathVariable Long foodId) {
 
-        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-        // Boolean result = foodService.updateFoodInfoDeletedByFoodId(foodId);
         Boolean result = foodService.updateFoodInfoDeleted(foodId, userPrincipal.getId());
         return ResponseEntity.ok(new CommonResponse<Long>("SUCCESSFULLY DELETED BY ID", foodId));
     }
@@ -92,9 +86,9 @@ public class FoodController {
      * 음식 정보 수정
      */
     @PutMapping("/foods/{foodId}")
-    public ResponseEntity<?> updateFoodInfo(@PathVariable Long foodId, @RequestBody FoodReqDto dto, Authentication authentication) {
-
-        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+    public ResponseEntity<?> updateFoodInfo(@AuthenticationPrincipal UserPrincipal userPrincipal,
+                                            @PathVariable Long foodId,
+                                            @RequestBody FoodReqDto dto) {
 
         FoodResDto foodDto = foodService.updateFoodInfo(foodId, userPrincipal.getId(), dto);
         return ResponseEntity.ok(new CommonResponse<>("SUCCESSFULLY UPDATE", foodDto));

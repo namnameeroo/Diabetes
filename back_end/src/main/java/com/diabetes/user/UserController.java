@@ -20,18 +20,18 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/users/me")
-    public CommonResponse<UserResponseDto> getCurrentUserInfo(Principal principal, @AuthenticationPrincipal UserPrincipal userPrincipal) {
+    public CommonResponse<UserResponseDto> getCurrentUserInfo(@AuthenticationPrincipal UserPrincipal userPrincipal) {
 
-        UserResponseDto userResponseDto = userService.findUserById(userPrincipal.getId()); //findUserByAuthId(principal.getName());
+        UserResponseDto userResponseDto = userService.findUserById(userPrincipal.getId());
         return new CommonResponse<>("User Info getting by UserEmail", userResponseDto);
     }
 
     @PutMapping("/users/me")
-    public CommonResponse<UserResponseDto> modifyCurrentUserInfo(@RequestBody UserRequestDto requestDto, @AuthenticationPrincipal UserPrincipal userPrincipal) {
+    public CommonResponse<UserResponseDto> modifyCurrentUserInfo(@RequestBody UserRequestDto requestDto,
+                                                                 @AuthenticationPrincipal UserPrincipal userPrincipal) {
         Long userId = userPrincipal.getId();
 //        requestDto.checkUserId(userPrincipal.getId());
-
-        UserResponseDto userResponseDto = userService.updateUserInfo(userId, requestDto); //findUserByAuthId(principal.getName());
+        UserResponseDto userResponseDto = userService.updateUserInfo(userId, requestDto);
         return new CommonResponse<>("Updated User Info Successfully", userResponseDto);
     }
 

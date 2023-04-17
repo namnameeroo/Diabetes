@@ -28,6 +28,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public UserResponseDto findUserByEmail(String email) {
+
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("Not Registered User Mail"));
         return user.toResponseDto();
@@ -35,6 +36,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public UserResponseDto findUserByAuthId(String authId) {
+
         User user = userRepository.findByAuthId(authId)
                 .orElseThrow(()-> new IllegalArgumentException("찾는 사용자가 존재하지 않습니다."));
         return user.toResponseDto();
@@ -43,6 +45,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public UserResponseDto findUserById(Long userId) {
+
         User user = userRepository.findById(userId)
                 .orElseThrow(()-> new IllegalArgumentException("찾는 사용자가 존재하지 않습니다."));
         return user.toResponseDto();
@@ -50,8 +53,8 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public boolean existsByEmail(String email) {
-        return userRepository.existsByEmail(email);
 
+        return userRepository.existsByEmail(email);
     }
 
     @Transactional(readOnly = true)
@@ -59,15 +62,14 @@ public class UserService {
 
         Page<UserResponseDto> userResponseDtoList = userRepository.findAllWithFoodList(pageable)
                 .map(user -> user.toResponseDto());
-
         return userResponseDtoList;
     }
 
     @Transactional
     public UserResponseDto updateUserInfo(Long userId, UserRequestDto userRequestDto) {
+
         User user = userRepository.findById(userId)
                 .orElseThrow(()-> new IllegalArgumentException("찾는 사용자가 존재하지 않습니다."));
-
         UserResponseDto userResponseDto = user.modify(userRequestDto).toResponseDto();
         return userResponseDto;
     }
@@ -78,15 +80,14 @@ public class UserService {
         User user = oAuth2UserInfo.toEntity();
         log.info("register New User : {}", user);
         User newUser = userRepository.save(user);
-
         return newUser;
     }
 
     @Transactional
     public UserResponseDto addAdminRoleToUser(Long userId) {
+
         User user = userRepository.findById(userId)
                 .orElseThrow(()-> new IllegalArgumentException("찾는 사용자가 존재하지 않습니다."));
-
         UserResponseDto userResponseDto = user.addAdminRole().toResponseDto();
         return userResponseDto;
     }

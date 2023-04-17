@@ -12,20 +12,19 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class UserPrincipal implements UserDetails, OAuth2User {
     private Long id;
     private String authId;
-    //private String password;
     private String email;
     private Collection<? extends GrantedAuthority> authorities;
     private Map<String, Object> attributes;
 
     @Builder
-    public UserPrincipal(Long id, String authId, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserPrincipal(Long id, String authId, String email, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.authId = authId;
-       //this.password = password;
         this.email = email;
         this.authorities = authorities;
     }
@@ -33,14 +32,15 @@ public class UserPrincipal implements UserDetails, OAuth2User {
     /* default login */
     public static UserPrincipal create(User user) {
 
-        List<GrantedAuthority> authorities = Collections.
-                singletonList(new SimpleGrantedAuthority(RoleType.USER.getCode()));
+        List<GrantedAuthority> authorities = user.getRoles()
+                .stream()
+                .map(roleType -> new SimpleGrantedAuthority(roleType.getCode()))
+                .collect(Collectors.toList());
 
         return UserPrincipal.builder()
                 .id(user.getId())
                 .authId(user.getAuthId())
                 .email(user.getEmail())
-                //.password(user.getPassword())
                 .authorities(authorities)
                 .build();
     }

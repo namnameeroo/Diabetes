@@ -1,7 +1,7 @@
 # default
 spring:
   profiles:
-    active: dev
+    active: local
     group:
       prod: prod, auth, prod-db
       dev: auth, prod-db, dev, common
@@ -31,6 +31,8 @@ server:
 authRedirection:
   successUrl: 'http://localhost:3000/login/redirect'
   failureUrl: 'http://localhost:3000/login'
+  logoutUrl:  'http://localhost:3000/login'
+
 ---
 # test 환경
 spring:
@@ -64,16 +66,16 @@ spring:
     activate:
       on-profile: local
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+#     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/diabetes?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: root
     password: 1234
-  sql:
-    init:
-      data-locations: classpath:data-for-mysql.sql # 시작할때 실행시킬 script -> 실행이 안됨, 확인 필요
+#   sql:
+#     init:
+#       data-locations: classpath:data-for-mysql.sql # 시작할때 실행시킬 script -> 실행이 안됨, 확인 필요
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
-    defer-datasource-initialization: true # hibernate가 초기화되기 전 data.sql 실행하는 것을 방지
+#     defer-datasource-initialization: true # hibernate가 초기화되기 전 data.sql 실행하는 것을 방지
     generate-ddl: true
     show-sql: true
     properties:
@@ -148,6 +150,7 @@ cors:
 authRedirection:
   successUrl: 'https://gl-diabetes.shop/login/redirect'
   failureUrl: 'https://gl-diabetes.shop/login'
+  logoutUrl:  'https://gl-diabetes.shop/login'
 
 # TODO 포트 설정 동적으로 할당 가능하게 변경할 필요
 server:
