@@ -69,3 +69,18 @@ export const updateFood = async inputs => {
   // return false;
   return null;
 };
+export const updateFoodByAdmin = async inputs => {
+  const updateFoodRes = await axios.put(
+    Utils.BASE_URL + `/api/v1/admin/foods/` + inputs.id,
+    inputs,
+    { withCredentials: true }
+  );
+
+  console.log("update by admin", JSON.stringify(updateFoodRes.data.result));
+  if (updateFoodRes.data.message == "SUCCESSFULLY UPDATE") {
+    return updateFoodRes.data.result.id;
+  }
+
+  // return false;
+  return null;
+};

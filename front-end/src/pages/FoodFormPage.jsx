@@ -8,7 +8,12 @@ import PageTitle from "components/pageTitle";
 import Footer from "components/footer";
 import ResultToggle from "components/toggle";
 import { getGl } from "components/gl";
-import { postFood, getFoodById, updateFood } from "api/foodForm";
+import {
+  postFood,
+  getFoodById,
+  updateFood,
+  updateFoodByAdmin
+} from "api/foodForm";
 
 import { useNavigate } from "react-router-dom";
 import db from "db.json";
@@ -70,7 +75,8 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
     if (!onToggle()) return; //  toggle false면, API 요청 시도 X
     try {
       const updateRes = await updateFood(inputs);
-      if (updateRes) {
+      const updateResByAdmin = await updateFoodByAdmin(inputs); // TODO admin 은 걍 무조건 try..!
+      if (updateRes || updateResByAdmin) {
         alert("변경 내용을 저장했습니다.") &&
           navigate("/foodForm/info/" + updateRes);
       }
