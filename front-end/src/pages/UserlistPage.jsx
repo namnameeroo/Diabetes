@@ -126,9 +126,7 @@ const UserlistPage = () => {
             withCredentials: true
           })
           .then(res => {
-            const dataset = res.data.result.content.filter(
-              v => v.id > 19 || v.id == null
-            ); // TODO: 배포 이전 가입자들 제거, id null인 계정도 일단 보이도록함..
+            const dataset = res.data.result.content.filter(v => v.id > 18); // TODO: 배포 이전 가입자들 제거, id null인 계정도 일단 보이도록함..
             setUserlist(dataset);
             // setUserlist(res.data.result.content);
             console.log(res.data.result.content);
