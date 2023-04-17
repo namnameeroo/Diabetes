@@ -8,7 +8,12 @@ import PageTitle from "components/pageTitle";
 import Footer from "components/footer";
 import ResultToggle from "components/toggle";
 import { getGl } from "components/gl";
-import { postFood, getFoodById, updateFood } from "api/foodForm";
+import {
+  postFood,
+  getFoodById,
+  updateFood,
+  updateFoodByAdmin
+} from "api/foodForm";
 
 import { useNavigate } from "react-router-dom";
 import db from "db.json";
@@ -67,10 +72,11 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
    * 저장 버튼 누르면, form에 입력되어 있는 데이터를 PUT 전송
    */
   const handleSubmitClickForUpdate = async () => {
+    if (!onToggle()) return; //  toggle false면, API 요청 시도 X
     try {
-      onToggle();
       const updateRes = await updateFood(inputs);
-      if (updateRes) {
+      const updateResByAdmin = await updateFoodByAdmin(inputs); // TODO admin 은 걍 무조건 try..!
+      if (updateRes || updateResByAdmin) {
         alert("변경 내용을 저장했습니다.") &&
           navigate("/foodForm/info/" + updateRes);
       }
@@ -89,15 +95,15 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
    * 저장 버튼 누르면, form에 입력되어 있는 데이터를 POST 전송
    */
   const handleSubmitClickForPost = async () => {
-    onToggle();
+    if (!onToggle()) return; //  toggle false면, API 요청 시도 X
     try {
       const postRes = await postFood(inputs);
       if (postRes) {
         alert("저장했습니다.") && navigate("/foodForm/info/" + postRes);
       }
     } catch (error) {
-      console.error("POST FAIL");
       alert("저장에 실패했습니다.");
+      console.error("POST FAIL");
     }
   };
 
@@ -171,7 +177,7 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
   const [toggleOpen, setToggleOpen] = useState(false);
   const onToggle = () => {
     if (!formValidation()) {
-      return False;
+      return false;
     }
     setToggleOpen(!toggleOpen);
 
@@ -189,6 +195,7 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
 
     setInputs(nextInput);
     console.log(JSON.stringify(inputs));
+    return true;
   };
 
   const onSubmit = e => {

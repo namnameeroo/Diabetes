@@ -127,6 +127,7 @@ const UserlistPage = () => {
           })
           .then(res => {
             setUserlist(res.data.result.content);
+            console.log(res.data.result.content);
           });
       } catch (e) {
         console.error(e);

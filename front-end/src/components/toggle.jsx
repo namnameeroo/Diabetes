@@ -87,7 +87,7 @@ function ResultToggle(props) {
           onClick={props.onToggle}
           open={props.open}
         >
-          <div>{props.children}</div>
+          <span className="btn_text">{props.children}</span>
         </ToggleButton>
       </div>
     </>
