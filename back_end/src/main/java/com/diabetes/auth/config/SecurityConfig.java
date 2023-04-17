@@ -36,17 +36,22 @@ public class SecurityConfig {
         http
                 .cors()
                 .and()
-                .csrf().disable() //ignoringAntMatchers("/h2-console/**") // h2-console 페이지가 csrf 대응이 되어있지 않으므로 예외로 둔다.
-                //.and()
+                .csrf().disable()
                 .headers().frameOptions().disable()
+                .and()
+                .logout()
+                .logoutUrl("/api/v1/auth/logout")
+                .logoutSuccessUrl(redirectProperties.getLogoutUrl()) // 로그아웃 성공시 리다이렉트 주소
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
                 .and()
                 .authorizeHttpRequests((authz) -> authz
                         // TODO 아래 접근에 대해서 관리자만 접근 가능하도록 제한 설정을 해둘 필요성!
-                        .antMatchers("/v3/api-docs", "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
                         .antMatchers("/actuator/health", "/h2-console/**").permitAll()
-                        .antMatchers("/api/v1/admin/**").permitAll()
                         .antMatchers("/", "/css/**", "/images/**").permitAll()
+                        .antMatchers("/v3/api-docs", "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").hasRole(RoleType.ADMIN.toString())
                         .antMatchers("/api/v1/auth/**").permitAll()
+                        .antMatchers("/api/v1/admin/**").hasRole(RoleType.ADMIN.toString())
                         .antMatchers("/api/v1/foods", "/api/v1/foods/**", "/api/v1/users/**").hasRole(RoleType.USER.toString()) // ROLE_{} 형태
                         .anyRequest().authenticated()
                 )
