@@ -268,6 +268,9 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
 
 const FoodFormTest = () => {
   const { foodId } = useParams();
+  const { state } = useLocation(); // TEST: admin userlist 로부터 받은 값
+  console.log(state, "<<< userId");
+
   const [isReadOnly, setIsReadOnly] = useState(false);
   const [fetchedData, setFetchedData] = useState({});
 

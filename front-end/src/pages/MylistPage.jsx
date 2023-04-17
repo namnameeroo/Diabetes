@@ -5,7 +5,7 @@ import styled from "styled-components";
 import axios from "axios";
 import Utils from "utils";
 import "styles/main.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import Top from "components/top";
 import RouteButton from "components/plusButton";
@@ -79,6 +79,11 @@ const Today = () => {
   return [todayYear, todayMonth, todayDay].join("-");
 };
 
+/**
+ *
+ * @param {*} props
+ * @returns
+ */
 const ListElement = props => {
   const dateArr = props.item.createdDate.split("T").map(v => {
     return v.split(".")[0];
@@ -87,13 +92,19 @@ const ListElement = props => {
   const createAt = dateArr[0] === Today() ? dateArr[1] : dateArr[0];
   // 오늘 작성한 건은 시간으로 표시
 
+  const navigate = useNavigate();
   return (
     <>
       <tr
         className="hover-a"
         onClick={() => {
-          window.location = `/foodForm/info/` + props.item.id;
-          // Navigate 로 바꿔야 함
+          // window.location = `/foodForm/info/` + props.item.id;
+          navigate(
+            `/foodForm/info/` + props.item.id,
+            props.withCredentials && {
+              state: props.writerId
+            }
+          );
         }}
       >
         <td className="idx">{props.order}</td>
@@ -107,12 +118,14 @@ const ListElement = props => {
 
 const MylistPage = () => {
   /* eslint-disable */
-  const { userId } = useParams();
+  // ADMIN계정에서 특정 유저로 들어왔을 때 params 사용
+  const { userId: userIdByAdmin } = useParams();
+
   const [foodlist, setFoodlist] = useState([]);
   const [foodIndex, setFoodIndex] = useState(0);
 
   useEffect(() => {
-    if (!userId) {
+    if (!userIdByAdmin) {
       const getMyFoodData = async () => {
         try {
           await axios
@@ -132,7 +145,7 @@ const MylistPage = () => {
           await axios
             .get(
               Utils.BASE_URL +
-                `/api/v1/admin/foods?userId=${userId}&page=0&sort=modifiedDate,asc&sort=provider,asc`,
+                `/api/v1/admin/foods?userId=${userIdByAdmin}&page=0&sort=modifiedDate,asc&sort=provider,asc`,
               { withCredentials: true }
             )
             .then(res => {
@@ -164,12 +177,18 @@ const MylistPage = () => {
             <tbody>
               {foodlist
                 ? foodlist.map((i, k) => (
-                    <ListElement key={k} item={i} order={k + 1} />
+                    <ListElement
+                      key={k}
+                      item={i}
+                      order={k + 1}
+                      writerId={userIdByAdmin ? userIdByAdmin : null}
+                    />
                   ))
                 : "입력 내역이 없습니다."}
             </tbody>
           </Table>
-          {!userId && <RouteButton goToPage={"/foodForm"} />}
+          {!userIdByAdmin && <RouteButton goToPage={"/foodForm"} />}
+          {/* admin으로 list들어갔을 때는 입력 추가 버튼 안보이게 함 */}
         </Wrap>
       </div>
     </>
