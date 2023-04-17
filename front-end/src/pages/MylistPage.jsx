@@ -99,9 +99,13 @@ const ListElement = props => {
         className="hover-a"
         onClick={() => {
           // window.location = `/foodForm/info/` + props.item.id;
+          console.log(
+            "🚀 ~ file: MylistPage.jsx:103 ~ ListElement ~ writerId:",
+            props.writerId
+          );
           navigate(
             `/foodForm/info/` + props.item.id,
-            props.withCredentials && {
+            props.writerId && {
               state: props.writerId
             }
           );
