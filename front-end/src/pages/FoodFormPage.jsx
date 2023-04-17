@@ -1,8 +1,6 @@
 import React from "react";
-/* eslint-disable */
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-
 import Top from "components/top";
 import PageTitle from "components/pageTitle";
 import Footer from "components/footer";
@@ -15,11 +13,10 @@ import {
   updateFoodByAdmin
 } from "api/foodForm";
 
-import { useNavigate } from "react-router-dom";
-import db from "db.json";
+import { useNavigate, useLocation } from "react-router-dom";
 import { FORM_ITEMS } from "const/formItems";
-
 import "styles/main.css";
+/*eslint-disable*/
 
 const SubmitButton = props => {
   return (
@@ -273,7 +270,6 @@ const FoodFormTest = () => {
 
   const [isReadOnly, setIsReadOnly] = useState(false);
   const [fetchedData, setFetchedData] = useState({});
-
   const handleEditable = bool => {
     // setIsReadOnly(!bool);
     setIsReadOnly(false);
