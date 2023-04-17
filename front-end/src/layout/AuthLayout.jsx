@@ -18,20 +18,21 @@ const AuthLayout = ({ children, isAdminPage }) => {
       console.log("user profile : null");
       return routeTo("/login");
     }
-
-    console.log(
-      "🚀 ~ file: AuthLayout.jsx:22 ~ fetchUserProfile ~ userProfile:",
-      userProfile
-    );
     console.log(
       "🚀 ~ file: AuthLayout.jsx:22 ~ fetchUserProfile ~ userProfileResponse:",
       userProfileResponse
     );
     setUserProfile({ ...userProfileResponse });
+
+    console.log(
+      "🚀 ~ file: AuthLayout.jsx:22 ~ fetchUserProfile ~ userProfile:",
+      userProfile,
+      "ADMIN 으로 떠야함"
+    );
   }, []);
 
-  useEffect(() => {
-    fetchUserProfile();
+  useEffect(async () => {
+    await fetchUserProfile();
     if (isAdminPage && userProfile.role != ADMIN) {
       alert("권한이 없습니다.");
       routeTo(-1);
