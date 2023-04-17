@@ -55,19 +55,21 @@ export const getFoodById = async foodId => {
  * @returns id || null
  */
 export const updateFood = async inputs => {
-  const updateFoodRes = await axios.put(
-    Utils.BASE_URL + `/api/v1/foods/` + inputs.id,
-    inputs,
-    { withCredentials: true }
-  );
+  try {
+    const updateFoodRes = await axios.put(
+      Utils.BASE_URL + `/api/v1/foods/` + inputs.id,
+      inputs,
+      { withCredentials: true }
+    );
 
-  console.log(JSON.stringify(updateFoodRes.data.result));
-  if (updateFoodRes.data.message == "SUCCESSFULLY UPDATE") {
-    return updateFoodRes.data.result.id;
+    console.log(JSON.stringify(updateFoodRes.data.result));
+    if (updateFoodRes.data.message == "SUCCESSFULLY UPDATE") {
+      return updateFoodRes.data.result.id;
+    }
+  } catch (error) {
+    // return false;
+    return null;
   }
-
-  // return false;
-  return null;
 };
 export const updateFoodByAdmin = async inputs => {
   const updateFoodRes = await axios.put(
