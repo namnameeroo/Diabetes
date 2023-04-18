@@ -265,8 +265,8 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
 
 const FoodFormTest = () => {
   const { foodId } = useParams();
-  const { state } = useLocation(); // TEST: admin userlist 로부터 받은 값
-  console.log(state, "<<< userId");
+  const { state: userId } = useLocation(); // Admin일 경우에만 userId
+  // console.log(state, "<<< userId");
 
   const [isReadOnly, setIsReadOnly] = useState(false);
   const [fetchedData, setFetchedData] = useState({});
@@ -285,6 +285,9 @@ const FoodFormTest = () => {
         );
 
         if (getFoodResponse) {
+          if (userId) {
+            getFoodResponse["userId"] = userId;
+          }
           setFetchedData(getFoodResponse);
           setIsReadOnly(true);
           console.log("food get api 성공");
