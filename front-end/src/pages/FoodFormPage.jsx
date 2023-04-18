@@ -36,7 +36,6 @@ const SubmitButton = props => {
 const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
   const [inputs, setInputs] = useState({
     name: "", // == foodName, 반환 데이터 키가 name
-    // foodName: "",
     provider: "",
     entireWeight: "",
     calories: "",
@@ -47,7 +46,8 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
     intake: "",
     remains: "",
     gl: "",
-    result: ""
+    result: "",
+    userId: "" // update by admin의 바디
   });
 
   /**
@@ -71,19 +71,33 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
   const handleSubmitClickForUpdate = async () => {
     if (!onToggle()) return; //  toggle false면, API 요청 시도 X
     try {
-      const updateRes = await updateFood(inputs);
-      const updateResByAdmin = await updateFoodByAdmin(inputs); // TODO admin 은 걍 무조건 try..!
-      if (updateRes || updateResByAdmin) {
-        alert("변경 내용을 저장했습니다.") &&
-          navigate("/foodForm/info/" + updateRes);
+      /**
+       * admin의 업데이트에는 body에 userId가 추가됨
+       * user의 업데이트에는 body에 userId = ''
+       */
+      if (inputs.userId.length == 0) {
+        const updateRes = await updateFood(inputs);
+        if (updateRes) {
+          alert("변경 내용을 저장했습니다.") &&
+            navigate("/foodForm/info/" + updateRes);
+        }
+      } else {
+        // Admin
+        const updateResByAdmin = await updateFoodByAdmin(inputs);
+        if (updateResByAdmin) {
+          alert("변경 내용을 저장했습니다.") &&
+            navigate("/foodForm/info/" + updateRes, {
+              state: inputs.userId
+            });
+        }
       }
     } catch (error) {
       alert("변경에 실패했습니다.");
       console.error("UPDATE FAIL");
     }
     /**
-     * 저장 후 액션을 'food/info/:id' 로 이동하도록 하기
-     * navigate("/foodForm/info/" + foodId); 로 이동
+     * 저장 후 'foodForm/info/:id' 로 이동
+     * navigate("/foodForm/info/" + foodId);
      * => 수정하기 버튼 && readonly 인지 확인
      */
   };
