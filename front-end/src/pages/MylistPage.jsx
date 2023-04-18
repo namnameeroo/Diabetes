@@ -103,12 +103,15 @@ const ListElement = props => {
             "🚀 ~ file: MylistPage.jsx:103 ~ ListElement ~ writerId:",
             props.writerId
           );
-          navigate(
-            `/foodForm/info/` + props.item.id,
-            props.writerId && {
+
+          // Admin으로 들어왔을 때, food입력 페이지에서 userId 필요함
+          if (!props.writerId) {
+            navigate(`/foodForm/info/` + props.item.id);
+          } else {
+            navigate(`/foodForm/info/` + props.item.id, {
               state: props.writerId
-            }
-          );
+            });
+          }
         }}
       >
         <td className="idx">{props.order}</td>
