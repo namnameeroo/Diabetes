@@ -27,6 +27,7 @@ public class FoodResDto {
     private Float carbohydrate;
     private Float protein;
     private Float fat;
+    private Float fiber;
     private Float intake;
     private Float gl;
     private GLResult result;
