@@ -33,6 +33,8 @@ public class FoodReqDto {
     @NotNull
     private Float fat;
     @NotNull
+    private Float fiber;
+    @NotNull
     private Float intake;
     @NotNull
     private Float gl;

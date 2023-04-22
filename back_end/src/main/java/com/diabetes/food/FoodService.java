@@ -24,7 +24,7 @@ public class FoodService {
 
     @Transactional(readOnly = true)
     public Page<FoodResDto> getFoodList(Long userId, Pageable pageable) {
-        Page<Food> allFoodListByUserId = foodRepository.findAllByUserId(userId, pageable);
+        Page<Food> allFoodListByUserId = foodRepository.findAllByUserIdAndIsDeleted(userId, Boolean.FALSE, pageable);
         Page<FoodResDto> dtoList = allFoodListByUserId.map(Food::toDto);
 
         return dtoList;
@@ -61,7 +61,6 @@ public class FoodService {
     @Transactional
     public FoodResDto updateFoodInfo(Long foodId, Long userId, FoodReqDto dto) {
         Optional<Food> foodInfoById = foodRepository.findByIdAndUserId(foodId, userId);
-
         FoodResDto foodDto = foodInfoById.orElseThrow(
                         ()-> new NoSuchElementFoundException("NOT FOUND ITEM", HttpStatus.NOT_FOUND)
                 )
