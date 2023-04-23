@@ -61,10 +61,10 @@ public class KakaoOAuth2UserInfo extends OAuth2UserInfo {
     @Override
     public User.GenderType getGender() {
         if (attributesAccount == null || !attributesAccount.containsKey("gender")) {
-            return null;
+            return User.GenderType.EMPTY;
         }
         String gender = attributesAccount.get("gender").toString().toUpperCase();
-        return gender.equals("")?null:Enum.valueOf(User.GenderType.class, gender);
+        return gender.equals("")?User.GenderType.EMPTY:Enum.valueOf(User.GenderType.class, gender);
     }
 
     @Override
