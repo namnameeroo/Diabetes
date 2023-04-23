@@ -11,9 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -120,6 +118,7 @@ public class FoodService {
                 .carbohydrate(dto.getCarbohydrate())
                 .calories(dto.getCalories())
                 .protein(dto.getProtein())
+                .fiber(dto.getFiber())
                 .intake(dto.getIntake())
                 .gl(dto.getGl())
                 .result(dto.getResult())//Enum.valueOf(GLResult.class, dto.getResult()))
