@@ -36,7 +36,8 @@ public class User extends BaseTimeEntity {
     private UserStatus status;
 
     @Enumerated(EnumType.STRING)
-    private GenderType gender;
+    @Builder.Default
+    private GenderType gender = GenderType.EMPTY;
     private String age;
     private LocalDate birthday;
     private String imageUrl;
@@ -47,21 +48,19 @@ public class User extends BaseTimeEntity {
 //    @Column(length = 512)
     private String accessToken;
 
-
     @OneToMany(mappedBy = "user")
     private List<Food> foodList;
 
     // enum은 항상 static
     // 내부 클래스는 static!! 외부 참조 발생 주의!
     public enum GenderType {
-        FEMALE, MALE
+        FEMALE, MALE, EMPTY
     }
 
     public User modify(UserRequestDto userRequestDto) {
         this.name = userRequestDto.getName();
         this.age = userRequestDto.getAge();
         this.gender = userRequestDto.getGender();
-
         return this;
     }
 
