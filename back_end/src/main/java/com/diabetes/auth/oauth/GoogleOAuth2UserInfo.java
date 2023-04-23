@@ -80,7 +80,7 @@ public class GoogleOAuth2UserInfo extends OAuth2UserInfo {
     @Override
     public User.GenderType getGender() {
         if (additionalUserInfo == null) {
-            return null;
+            return User.GenderType.EMPTY;
         }
 
         String gender = Optional.ofNullable(additionalUserInfo.get("genders"))
@@ -95,7 +95,7 @@ public class GoogleOAuth2UserInfo extends OAuth2UserInfo {
                 .toString()
                 .toUpperCase(); // Female, Male
 
-        return gender.equals("")?null:Enum.valueOf(User.GenderType.class, gender);
+        return gender.equals("")?User.GenderType.EMPTY:Enum.valueOf(User.GenderType.class, gender);
     }
 
     @Override
