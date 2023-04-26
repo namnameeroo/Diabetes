@@ -9,6 +9,7 @@ import { getGl } from "components/gl";
 import {
   postFood,
   getFoodWithId,
+  getFoodWithIdByAdmin,
   updateFood,
   updateFoodByAdmin
 } from "api/foodForm";
@@ -75,14 +76,15 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
        * admin의 업데이트에는 body에 userId가 추가됨
        * user의 업데이트에는 body에 userId = ''
        */
-      if (String(inputs.userId).length == 0) {
+      console.log(String(inputs.userId), String(inputs.userId).length);
+      if (!inputs.userId || String(inputs.userId).length === 0) {
         const updateRes = await updateFood(inputs);
         if (updateRes) {
           console.log("UPDATE by user");
           alert("변경 내용을 저장했습니다.") &&
             navigate("/foodForm/info/" + updateRes);
         }
-      } else {
+      } else if (inputs.userId && String(inputs.userId).length != 0) {
         // Admin
         console.log("UPDATE by admin");
         const updateResByAdmin = await updateFoodByAdmin(inputs);
@@ -119,24 +121,6 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
       console.error("POST FAIL");
     }
   };
-
-  /* eslint-disable-next-line*/
-  // const {
-  //   id, (foodId)
-  //   name,
-  //   foodName,
-  //   provider,
-  //   entireWeight,
-  //   calories,
-  //   carbohydrate,
-  //   protein,
-  //   fat,
-  //   fiber,
-  //   intake,
-  //   remains,
-  //   gl,
-  //   result
-  // } = inputs;
 
   const onChangeInput = e => {
     const { name, value } = e.target;

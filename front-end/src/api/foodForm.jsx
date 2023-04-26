@@ -95,7 +95,7 @@ export const updateFood = async inputs => {
   }
 };
 export const updateFoodByAdmin = async inputs => {
-  console.log("userId있는지", inputs);
+  console.log("userId있는지", JSON.stringify(inputs));
   const updateFoodRes = await axios.put(
     Utils.BASE_URL + `/api/v1/admin/foods/` + inputs.id,
     inputs,
