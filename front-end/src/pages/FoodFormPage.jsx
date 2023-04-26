@@ -75,7 +75,7 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
        * admin의 업데이트에는 body에 userId가 추가됨
        * user의 업데이트에는 body에 userId = ''
        */
-      if (inputs.userId.length == 0) {
+      if (String(inputs.userId).length == 0) {
         const updateRes = await updateFood(inputs);
         if (updateRes) {
           console.log("UPDATE by user");
@@ -282,7 +282,7 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
 const FoodFormTest = () => {
   const { foodId } = useParams();
   const { state: userId } = useLocation(); // Admin일 경우에만 userId
-  // console.log(state, "<<< userId");
+  console.log(userId, "<<< userId");
 
   const [isReadOnly, setIsReadOnly] = useState(false);
   const [fetchedData, setFetchedData] = useState({});
@@ -301,8 +301,9 @@ const FoodFormTest = () => {
         );
 
         if (getFoodResponse) {
-          if (userId) {
+          if (userId.length != 0) {
             getFoodResponse["userId"] = userId;
+            console.log(JSON.stringify(getFoodResponse));
           }
           setFetchedData(getFoodResponse);
           setIsReadOnly(true);
