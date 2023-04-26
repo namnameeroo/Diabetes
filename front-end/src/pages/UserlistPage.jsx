@@ -75,7 +75,9 @@ const ListElement = ({ item }) => {
           <td className="user-name">{item.name}</td>
           <td className="user-id wide-col">{item.email}</td>
           <td className="gender narrow-col">
-            {item.gender ? item.gender.substr(0, 1) : "-"}
+            {item.gender == "FEMALE" || item.gender == "MALE"
+              ? item.gender.substr(0, 1)
+              : "-"}
           </td>
           <td className="user-date wide-col">{createDate}</td>
           <td className="list-count narrow-col">{item.foodListCount}</td>
@@ -129,7 +131,7 @@ const UserlistPage = () => {
             const dataset = res.data.result.content.filter(v => v.id > 18); // TODO: 배포 이전 가입자들 제거
             console.info("api 반환값", res.data.result.content);
             // setUserlist(res.data.result.content);
-            setUserlist(dataset);
+            setUserlist(dataset); // 필터링한 데이터로 반영
           });
       } catch (e) {
         console.error(e);
