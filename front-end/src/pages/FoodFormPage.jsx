@@ -78,22 +78,24 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
       if (inputs.userId.length == 0) {
         const updateRes = await updateFood(inputs);
         if (updateRes) {
+          console.log("UPDATE by user");
           alert("변경 내용을 저장했습니다.") &&
             navigate("/foodForm/info/" + updateRes);
         }
       } else {
         // Admin
+        console.log("UPDATE by admin");
         const updateResByAdmin = await updateFoodByAdmin(inputs);
         if (updateResByAdmin) {
           alert("변경 내용을 저장했습니다.") &&
-            navigate("/foodForm/info/" + updateRes, {
+            navigate("/foodForm/info/" + updateResByAdmin, {
               state: inputs.userId
             });
         }
       }
     } catch (error) {
       alert("변경에 실패했습니다.");
-      console.error("UPDATE FAIL");
+      console.error("UPDATE FAIL", error);
     }
     /**
      * 저장 후 'foodForm/info/:id' 로 이동
