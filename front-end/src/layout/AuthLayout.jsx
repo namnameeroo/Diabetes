@@ -21,7 +21,6 @@ const AuthLayout = ({ children, isAdminPage }) => {
   const { routeTo } = useRouter();
   const fetchUserProfile = useCallback(async () => {
     const userProfileResponse = await getCurrentUser();
-
     if (userProfileResponse === null) {
       // 현재 유저 정보 없으면 어디로 라우트할 껀지
       console.log("user profile : null");
@@ -32,11 +31,10 @@ const AuthLayout = ({ children, isAdminPage }) => {
       userProfileResponse
     );
     setUserProfile({ ...userProfileResponse });
-  }, []);
+  }, [userProfile]);
 
   useEffect(() => {
     fetchUserProfile();
-
     console.log(
       "🚀 ~ file: AuthLayout.jsx:22 ~ fetchUserProfile ~ userProfile:",
       JSON.stringify(userProfile),
