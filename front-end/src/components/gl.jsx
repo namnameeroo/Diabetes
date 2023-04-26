@@ -3,7 +3,7 @@ export const getGl = inputs => {
    * {entireWeight, calories, carbohydrate, protein, fat, fiber, intake, remains}
    */
   const proportion = parseFloat(inputs.intake / 100).toFixed(3); // 연산 확인 필요
-  console.log(proportion, ": 섭취 비율");
+  // console.log(proportion, ": 섭취 비율");
   const newInputs = {
     carbohydrate: 0,
     fat: 0,
@@ -18,7 +18,7 @@ export const getGl = inputs => {
   */
 
   Object.entries(inputs).forEach(([key, value]) => {
-    console.info(value);
+    // console.info(value);
     if (
       key == "carbohydrate" ||
       key == "fat" ||
@@ -31,7 +31,7 @@ export const getGl = inputs => {
         : (newInputs[key] = calculator(value, proportion, "*"));
     }
   });
-  console.log(inputs, newInputs);
+  // console.log(inputs, newInputs);
   /* 계산식
     let result =
       3.2 + step1 -
@@ -64,7 +64,7 @@ export const getGl = inputs => {
   }
 
   let judges = gl_result >= 20 ? "HIGH" : gl_result > 10 ? "MIDDLE" : "LOW";
-  console.log(gl_result);
+  // console.log(gl_result);
   return [gl_result, judges];
 };
 
@@ -80,10 +80,10 @@ export const calculator = (num1, num2, type) => {
   num2 = parseFloat(num2);
 
   if (type === "*") {
-    console.log("cal:", parseFloat(num1 * num2).toFixed(10));
+    // console.log("cal:", parseFloat(num1 * num2).toFixed(10));
     return parseFloat(parseFloat(num1 * num2).toFixed(10));
   } else if (type === "+") {
-    console.log("cal:", parseFloat(num1 + num2).toFixed(10));
+    // console.log("cal:", parseFloat(num1 + num2).toFixed(10));
     return parseFloat(parseFloat(num1 + num2).toFixed(10));
   }
 };
