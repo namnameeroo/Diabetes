@@ -28,7 +28,7 @@ export const postFood = async inputs => {
  * @param {*} foodId
  * @returns foodInfo || null
  */
-export const getFoodById = async foodId => {
+export const getFoodWithId = async foodId => {
   const getFoodByIdRes = await axios.get(
     Utils.BASE_URL + `/api/v1/foods/` + foodId,
     {
@@ -42,6 +42,29 @@ export const getFoodById = async foodId => {
     return getFoodByIdRes.data.result;
   } else {
     console.log("getFood fail");
+    return null;
+  }
+};
+
+/**
+ *
+ * @param {*} foodId
+ * @returns foodInfo || null
+ */
+export const getFoodWithIdByAdmin = async foodId => {
+  const getFoodByIdRes = await axios.get(
+    Utils.BASE_URL + `/api/v1/admin/foods/` + foodId,
+    {
+      withCredentials: true
+    }
+  );
+
+  if (getFoodByIdRes.data.message == "SUCCESS") {
+    // 표시할 데이터 반환
+    console.log("getFoodByAdmin success");
+    return getFoodByIdRes.data.result;
+  } else {
+    console.log("getFoodByAdmin fail");
     return null;
   }
 };

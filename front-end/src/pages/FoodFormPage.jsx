@@ -8,7 +8,7 @@ import ResultToggle from "components/toggle";
 import { getGl } from "components/gl";
 import {
   postFood,
-  getFoodById,
+  getFoodWithId,
   updateFood,
   updateFoodByAdmin
 } from "api/foodForm";
@@ -292,34 +292,51 @@ const FoodFormTest = () => {
   };
 
   useEffect(() => {
-    if (foodId) {
-      const getFoodResult = async () => {
-        const getFoodResponse = await getFoodById(foodId);
+    /**
+     * foodId : null     => new Form
+     * foodId : not null => update Form
+     */
+    if (!foodId) {
+      setIsReadOnly(false);
+      return;
+    }
+
+    const getFoodResult = async () => {
+      if (userId && userId.length != 0) {
+        const getFoodResponse = await getFoodWithIdByAdmin(foodId);
         console.log(
           "🚀 ~ file: FoodFormPage.jsx:260 ~ getFoodResult ~ getFoodResponse:",
           getFoodResponse
         );
-
         if (getFoodResponse) {
-          if (userId.length != 0) {
-            getFoodResponse["userId"] = userId;
-            console.log(JSON.stringify(getFoodResponse));
-          }
+          // userId 키가 있으면 ADMIN권한,
+          // 수정 업데이트때 써야하므로 결과데이터에도 넣어줌
+          getFoodResponse["userId"] = userId;
+          console.log(
+            "userId key추가되었는지",
+            JSON.stringify(getFoodResponse)
+          );
+
+          setFetchedData(getFoodResponse);
+          setIsReadOnly(true);
+          console.log("food get api 성공");
+        }
+      } else {
+        const getFoodResponse = await getFoodWithId(foodId);
+        if (getFoodResponse) {
           setFetchedData(getFoodResponse);
           setIsReadOnly(true);
           console.log("food get api 성공");
         } else {
           console.log("food get api 실패");
         }
-      };
+      }
+    };
 
-      // const fetchedDataRes = getFoodResult();
-      // const fetchedDataRes = db.foodlist.result[0]; // TODO 제거
-      // console.log(fetchedDataRes);
-      getFoodResult();
-    } else {
-      setIsReadOnly(false);
-    }
+    // const fetchedDataRes = getFoodResult();
+    // const fetchedDataRes = db.foodlist.result[0]; // TODO 제거
+    // console.log(fetchedDataRes);
+    getFoodResult();
   }, [foodId]);
 
   return (
