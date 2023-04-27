@@ -19,9 +19,9 @@ const CircleButton = styled.button`
   text-align: center;
   align-items: center;
   justify-content: center;
-  position: sticky;
-  left: 73%;
-  bottom: 15%;
+  position: fixed;
+  left: 80%;
+  bottom: 20%;
 
   color: white;
   border-radius: 50%;

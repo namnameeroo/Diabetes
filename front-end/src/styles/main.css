@@ -12,9 +12,6 @@
   --gray-font: rgb(155, 153, 151);
 }
 
-/* #401301
-#a62219 */
-
 @font-face {
   font-family: "MabinogiClassicR";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/MabinogiClassicR.woff2")
@@ -62,6 +59,51 @@ body {
 /* .container {
   background-color: var(--white-color); 
 } */
+
+/* 모바일 기기에 대한 스타일 */
+@media screen and (max-width: 767px) {
+  #main-card {
+    min-width: 250px;
+    min-height: 600px;
+  }
+}
+/* 태블릿, 데스크탑 기기에 대한 스타일 */
+@media screen and (min-width: 768px) {
+  #main-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 500px;
+    border-radius: 28px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 17%);
+
+    overflow: hidden; /* 카드 내부 스크롤 바 숨김 */
+
+    /* 스크롤바 디자인 */
+    scrollbar-width: thin;
+    scrollbar-color: #ddd transparent;
+
+    /* 스크롤바 나타내기 */
+    overflow-y: scroll;
+  }
+
+  #main-card:first-child {
+    /* 카드 내용 */
+    padding: 5px;
+    overflow: hidden; /* 카드 내용이 카드를 벗어나지 않도록 함 */
+  }
+
+  #main-card::-webkit-scrollbar {
+    width: 8px; /* 스크롤바 너비 */
+  }
+
+  #main-card::-webkit-scrollbar-thumb {
+    background-color: #ddd; /* 스크롤바 색상 */
+    border-radius: 5px; /* 스크롤바 모양 */
+  }
+}
 
 ol,
 ul {

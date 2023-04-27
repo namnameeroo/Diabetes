@@ -63,7 +63,7 @@ const Table = styled.table`
 const Wrap = styled.div`
   /* margin-top: 75px; */
   /* padding: 0 10px; */
-  padding-top: 75px;
+  padding-top: 67px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -169,7 +169,7 @@ const MylistPage = () => {
 
   return (
     <>
-      <div>
+      <div id="mylist-wrapper">
         <Top title="입력 내역" search={true} />
         <Wrap>
           <Table className="mylist-table">
