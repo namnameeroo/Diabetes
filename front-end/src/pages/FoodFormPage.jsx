@@ -1,10 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import styled, { css } from "styled-components";
+
 import Top from "components/top";
 import PageTitle from "components/pageTitle";
 import Footer from "components/footer";
-import ResultToggle from "components/toggle";
+import ToggleView from "components/toggle";
 import { getGl } from "components/gl";
 import {
   postFood,
@@ -17,20 +19,43 @@ import {
 import { useNavigate, useLocation } from "react-router-dom";
 import { FORM_ITEMS } from "const/formItems";
 import "styles/main.css";
-/*eslint-disable*/
+
+const ToggleButton = styled.div`
+  &:hover {
+    /* background: #63e6be; */
+  }
+  &:active {
+    /* background: #20c997; */
+    /* display: none; */
+  }
+
+  ${props =>
+    props.open &&
+    css`
+      button {
+        background: #ff6b6b;
+        &:hover {
+          background: #ff8787;
+        }
+        &:active {
+          background: #fa5252;
+        }
+      }
+    `}
+`;
 
 const SubmitButton = props => {
   return (
-    <div className="btn_wrap">
+    <>
       <button
         type="submit"
-        className="btn_submit"
+        className={props.className}
         id={props.id}
         onClick={props.handleSubmitClick}
       >
         <span className="btn_text">{props.children}</span>
       </button>
-    </div>
+    </>
   );
 };
 
@@ -224,7 +249,7 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
                           }
                           value={inputs[item.label] ? inputs[item.label] : ""}
                           placeholder={item.placeholder && item.placeholder}
-                          types={item.types && item.types}
+                          type={item.types && item.types}
                           disabled={!isEditable}
                         ></input>
                       </div>
@@ -236,29 +261,48 @@ const FormContent = ({ fetchedData, isEditable, handleEditable }) => {
           </table>
         </div>
       </form>
+      <div className="btn_wrap">
+        <ToggleView
+          // onToggle={onToggle}
+          open={toggleOpen}
+          result={inputs.result}
+          gl={inputs.gl}
+        ></ToggleView>
 
-      <ResultToggle
-        onToggle={onToggle}
-        open={toggleOpen}
-        result={inputs.result}
-        gl={inputs.gl}
-      >
-        결 과 보 기
-      </ResultToggle>
-
-      {isEditable ? (
-        <SubmitButton
-          handleSubmitClick={
-            fetchedData ? handleSubmitClickForUpdate : handleSubmitClickForPost
-          }
+        <ToggleButton
+          // onClick={onToggle}
+          open={toggleOpen}
         >
-          저 장 하 기
-        </SubmitButton>
-      ) : (
-        <SubmitButton handleSubmitClick={handleEditable} id="edit-button">
-          수 정 하 기
-        </SubmitButton>
-      )}
+          <SubmitButton
+            id="btn_result"
+            handleSubmitClick={onToggle}
+            className="btn_result"
+          >
+            결 과 보 기
+          </SubmitButton>
+        </ToggleButton>
+
+        {isEditable ? (
+          <SubmitButton
+            handleSubmitClick={
+              fetchedData
+                ? handleSubmitClickForUpdate
+                : handleSubmitClickForPost
+            }
+            className="btn_submit"
+          >
+            저 장 하 기
+          </SubmitButton>
+        ) : (
+          <SubmitButton
+            handleSubmitClick={handleEditable}
+            className="btn_submit"
+            id="edit-button"
+          >
+            수 정 하 기
+          </SubmitButton>
+        )}
+      </div>
     </>
   );
 };
@@ -270,6 +314,7 @@ const FoodFormTest = () => {
 
   const [isReadOnly, setIsReadOnly] = useState(false);
   const [fetchedData, setFetchedData] = useState({});
+  /* eslint-disable*/
   const handleEditable = bool => {
     // setIsReadOnly(!bool);
     setIsReadOnly(false);

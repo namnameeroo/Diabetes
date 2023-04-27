@@ -93,6 +93,7 @@ body {
     /* 카드 내용 */
     padding: 5px;
     overflow: hidden; /* 카드 내용이 카드를 벗어나지 않도록 함 */
+    max-height: 810px; /* form 높이 695, header 25*/
   }
 
   #main-card::-webkit-scrollbar {
@@ -176,7 +177,6 @@ button#login-kakao {
 
 .btn_wrap {
   width: 100%;
-  padding: 20px 0;
   box-sizing: border-box;
 }
 
@@ -188,20 +188,33 @@ button#login-kakao {
   border: solid 1px rgba(0, 0, 0, 0.15);
   background-color: var(--point-color);
   box-sizing: border-box;
+  margin-bottom: 5px;
 }
 
 .btn_submit#edit-button {
   background-color: #ff23239c;
 }
 .btn_result {
-  display: block;
-  width: 100%;
+  /* toggle */
   padding: 13px 0 13px;
   border-radius: 6px;
   border: solid 1px rgba(0, 0, 0, 0.15);
   background-color: var(--point-color);
   box-sizing: border-box;
+
+  z-index: 5;
+  cursor: pointer;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  left: 50%;
+  bottom: 0px;
+  outline: none;
+  display: flex;
+  transition: 0.125s all ease-in;
+  margin-bottom: 5px;
 }
+
 .btn_login:first-child {
   margin-bottom: 5px;
 }
