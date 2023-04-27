@@ -108,13 +108,15 @@ const ListEmpty = () => {
   );
 };
 const Wrap = styled.div`
-  margin-top: 75px;
-  padding: 0 10px;
+  /* margin-top: 75px; */
+  padding-top: 67px;
+  padding-left: 10px;
+  padding-right: 10px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   background-color: var(--white-color);
-  height: 460px; /** 임시 */
+  height: 750px; /** 임시 */
 `;
 
 const UserlistPage = () => {
@@ -144,7 +146,7 @@ const UserlistPage = () => {
 
   return (
     <>
-      <div>
+      <div id="userlist-wrapper">
         <Top title="기록 현황" />
         {/* 유저 현황 */}
         <Wrap>

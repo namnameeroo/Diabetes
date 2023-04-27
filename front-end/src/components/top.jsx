@@ -6,7 +6,7 @@ import { HiOutlineSearch } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 
 const Header = styled.header`
-  height: 40px;
+  height: 45px;
   padding: 0.8em 10px;
   color: white;
   background: var(--point-color);
