@@ -49,10 +49,12 @@ public class SecurityConfig {
                         // TODO 아래 접근에 대해서 관리자만 접근 가능하도록 제한 설정을 해둘 필요성!
                         .antMatchers("/actuator/health", "/h2-console/**").permitAll()
                         .antMatchers("/", "/css/**", "/images/**").permitAll()
-                        .antMatchers("/v3/api-docs", "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").hasRole(RoleType.ADMIN.toString())
+                        .antMatchers("/v3/api-docs", "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**")
+                        .hasRole(RoleType.ADMIN.toString())
                         .antMatchers("/api/v1/auth/**").permitAll()
                         .antMatchers("/api/v1/admin/**").hasRole(RoleType.ADMIN.toString())
-                        .antMatchers("/api/v1/foods", "/api/v1/foods/**", "/api/v1/users/**").hasRole(RoleType.USER.toString()) // ROLE_{} 형태
+                        .antMatchers("/api/v1/foods", "/api/v1/foods/**", "/api/v1/users/**")
+                        .hasAnyRole(RoleType.USER.toString(), RoleType.ADMIN.toString()) // ROLE_{} 형태
                         .anyRequest().authenticated()
                 )
                 .oauth2Login()
