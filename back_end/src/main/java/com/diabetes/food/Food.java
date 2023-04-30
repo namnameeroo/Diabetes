@@ -65,7 +65,7 @@ public class Food extends BaseTimeEntity {
         this.carbohydrate = dto.getCarbohydrate()==null ? this.carbohydrate : dto.getCarbohydrate();
         this.protein = dto.getProtein()==null ? this.protein : dto.getProtein();
         this.fat = dto.getFat()==null ? this.fat : dto.getFat();
-        this.fat = dto.getFiber()==null ? this.fiber : dto.getFiber();
+        this.fiber = dto.getFiber()==null ? this.fiber : dto.getFiber();
         this.intake = dto.getIntake()==null ? this.intake : dto.getIntake();
         this.gl = dto.getGl()==null ? this.gl : dto.getGl();
         this.result = dto.getResult();//==null ? this.result : Enum.valueOf(GLResult.class, dto.getResult());
