@@ -92,7 +92,7 @@ body {
   #main-card:first-child {
     /* 카드 내용 */
     padding: 5px;
-    overflow: hidden; /* 카드 내용이 카드를 벗어나지 않도록 함 */
+    /* overflow: hidden; 카드 내용이 카드를 벗어나지 않도록 함 */
     max-height: 810px; /* form 높이 695, header 25*/
   }
 
@@ -147,7 +147,8 @@ ul {
   margin: 40px 0;
 }
 
-.login_wrap {
+.login_wrap,
+.btn_list_wrap {
   width: 100%;
   padding: 0 40px;
   box-sizing: border-box;
