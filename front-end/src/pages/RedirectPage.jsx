@@ -38,24 +38,25 @@ const RedirectPage = () => {
   const navigate = useNavigate();
   return (
     <>
-      <div id="login-container" className="container">
-        <div id="login_inner" className="container_inner">
-          <div className="login_wrap">
-            <div id="social_login_wrap">
-              {menulist.map((menu, k) => {
-                return (
-                  <button
-                    type="submit"
-                    className="btn_menu"
-                    id={menu.name}
-                    key={k}
-                    onClick={() => navigate(menu.path)}
-                  >
-                    <span className="btn_text">{menu.title}</span>
-                  </button>
-                );
-              })}
-            </div>
+      <div id="wrap" className="btn_list_wrap">
+        <div className="container_inner">
+          <div
+            id="home-button-list"
+            style={{ paddingTop: "150px", minHeight: "400px" }}
+          >
+            {menulist.map((menu, k) => {
+              return (
+                <button
+                  type="submit"
+                  className="btn_menu"
+                  id={menu.name}
+                  key={k}
+                  onClick={() => navigate(menu.path)}
+                >
+                  <span className="btn_text">{menu.title}</span>
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
