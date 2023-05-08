@@ -1,3 +1,8 @@
+# 개발 개요
+* React v18
+* create-react-application 으로 생성된 프로젝트로 Webpack, Babel로 빌드되고 있음
+* 배포는 AWS 서버에서 이루어지고 있음
+
 # 프론트 테스트 서버 실행하기
 * 명령어 `npm start`
 * 테스트 서버주소 `localhost:3000`
