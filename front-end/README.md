@@ -9,8 +9,13 @@
 
 ## 부가설명
 * 주요 페이지 주소
+
   /login
+
   /login/redirect
+
   /mylist
+
   /userlist
+
   /foodForm
