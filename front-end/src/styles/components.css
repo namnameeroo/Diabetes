@@ -1,11 +1,9 @@
 .footer {
-  /* display: inline-block; */
   position: relative;
   padding: 63px 0 32px;
   text-align: center;
 }
 .footer_inner {
-  /* text-align: center; */
   box-sizing: border-box;
 }
 .footer .text {

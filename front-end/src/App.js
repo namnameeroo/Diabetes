@@ -6,9 +6,9 @@ import "styles/main.css";
 function App() {
   return (
     <div>
-      <div id="main-card">
+      <main id="main-card">
         <RouterProvider router={routers} />
-      </div>
+      </main>
     </div>
   );
 }
