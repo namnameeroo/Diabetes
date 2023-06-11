@@ -2,6 +2,7 @@
 * React v18
 * create-react-application 으로 생성된 프로젝트로 Webpack, Babel로 빌드되고 있음
 * 배포는 AWS 서버에서 이루어지고 있음
+* 자동 배포 yml파일 : [Diabetes/.github/workflows/frontend-ci-cd.yml]('../.github/workflows/frontend-ci-cd.yml')
 
 # 프론트 테스트 서버 실행하기
 * 명령어 `npm start`
@@ -24,3 +25,4 @@
   /userlist
 
   /foodForm
+
